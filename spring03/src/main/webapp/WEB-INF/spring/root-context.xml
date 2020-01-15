@@ -27,4 +27,10 @@
 	    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 	        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 		</bean>
+		
+		<!-- 패키지 -->
+		<context:component-scan base-package="com.example.spring03.domain" />
+		<context:component-scan base-package="com.example.spring03.persistence" />
+		<context:component-scan base-package="com.example.spring03.service" />
+		
 </beans>
