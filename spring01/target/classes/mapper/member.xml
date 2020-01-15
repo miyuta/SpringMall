@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+ 	<select id="list" resultType="MemberDTO">
+ 		select * from smember order by name
+ 	</select>
+ 	
+ 	<insert id="insert" parameterType="MemberDTO">
+ 		insert into smember (userid, passwd, name, email)
+ 		values ( #{userid}, #{passwd}, #{name}, #{email} )
+ 	</insert>
+ 	
+ 	<select id="view" resultType="MemberDTO">
+ 		select * from smember where userid=#{userid}
+ 	</select>
+ 	
+ 	<select id="checkPw" resultType="int">
+ 		select count(*) from smember where userid = #{userid} and passwd=#{passwd}
+ 	</select>
+ 	
+ 	<update id="update" parameterType="MemberDTO">
+ 		update smember set name=#{name}, passwd=#{passwd}, email=#{email} where userid=#{userid}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="MemberDTO">
+ 		delete from smember where userid=#{userid}
+ 	</delete>
+</mapper>
