@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<ul>
-	<li>사이트 소개</li>
-	<li>이영 약관</li>
-	<li>Site Map</li>	
-</ul>
+<h1 class="title">
+	<a href = "/">Mall Admin</a>
+</h1>	

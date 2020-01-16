@@ -17,4 +17,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public void signUp(MemberVO vo) throws Exception {
 		sqlSession.insert("shomall.signUp", vo);
 	}
+	
+	@Override
+	public MemberVO signIn(MemberVO vo) throws Exception {
+		return sqlSession.selectOne("shomall.signIn", vo);
+	}
 }

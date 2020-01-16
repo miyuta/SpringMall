@@ -1,6 +1,7 @@
 package com.example.spring03.service;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,17 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO dao;
 
 	@Override
-	public void signUp(MemberVO vo) throws Exception {		
+	public void signUp (MemberVO vo) throws Exception {		
 		dao.signUp(vo);
+	}
+	
+	@Override
+	public MemberVO signIn(MemberVO vo) throws Exception {
+		return dao.signIn(vo);
+	}
+	
+	@Override
+	public void signOut(HttpSession session) throws Exception {
+		session.invalidate();
 	}
 }

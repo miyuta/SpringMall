@@ -6,9 +6,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="shomall">
 
 	<!-- 회원 가입 -->
-	<insert id="signUp">
+	<insert id="signUp" parameterType="com.example.spring03.domain.MemberVO">
 		INSERT INTO TBL_MEMBER (userid, userpass, username, userphone)
 		VALUES (#{userid}, #{userpass}, #{username}, #{userphone})
 	</insert>
+	
+	<select id="signIn" resultType="com.example.spring03.domain.MemberVO">
+		SELECT userid, userpass, username, userphone, useraddr1, useraddr2, useraddr3, reg_date, verify
+		FROM TBL_MEMBER WHERE userid = #{userid}
+	</select>
 	
 </mapper>

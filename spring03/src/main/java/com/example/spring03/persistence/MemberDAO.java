@@ -4,4 +4,5 @@ import com.example.spring03.domain.MemberVO;
 
 public interface MemberDAO {
 	public void signUp(MemberVO vo) throws Exception;
+	public MemberVO signIn(MemberVO vo) throws Exception;
 }

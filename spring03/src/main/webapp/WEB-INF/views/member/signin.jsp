@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sign Up</title>
+<title>Sign In</title>
 </head>
 <body>
-<h2>Sign Up</h2>
+<h2>Sign In</h2>
 <section id="container">
 	<div id="container_box">
 		
@@ -23,17 +24,11 @@
 					<input type="password" id="userPass" name="userpass" placeholder="비밀번호를 입력해주세요." required="required" />
 				</div>
 				
-				<div class="input_area">
-					<label for="userName">닉네임</label>
-					<input type="text" id="userName" name="username" placeholder="닉네임을 입력해주세요." required="required" />
-				</div>
+				<button type="submit" id="btnSignUp" name="btnSignUp">로그인</button>
 				
-				<div class="input_area">
-					<label for="userPhone">전화 번호</label>
-					<input type="text" id="userPhone" name="userphone" placeholder="연락처를 입력해주세요." required="required" />
-				</div>
-				
-				<button type="submit" id="btnSignUp" name="btnSignUp">회원 가입</button>
+				<c:if test="${msg == false }">
+					<p style = "color:#f00;">로그인에 실패했습니다.</p>
+				</c:if>
 				
 			</form>
 		</section>
