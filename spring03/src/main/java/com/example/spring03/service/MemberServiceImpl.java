@@ -12,16 +12,16 @@ import com.example.spring03.persistence.MemberDAO;
 public class MemberServiceImpl implements MemberService {
 	
 	@Inject
-	private MemberDAO dao;
+	private MemberDAO memberDao;
 
 	@Override
 	public void signUp (MemberVO vo) throws Exception {		
-		dao.signUp(vo);
+		memberDao.signUp(vo);
 	}
 	
 	@Override
 	public MemberVO signIn(MemberVO vo) throws Exception {
-		return dao.signIn(vo);
+		return memberDao.signIn(vo);
 	}
 	
 	@Override

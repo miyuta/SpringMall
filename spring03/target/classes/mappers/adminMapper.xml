@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "admin">
+	
+	<!-- 카테고리 호출 -->
+	<select id="category" resultType="com.example.spring03.domain.CategoryVO">
+		select level, catename, catecode, catecoderef from goods_category
+		start with catecoderef is null connect by prior catecode = catecoderef
+	</select>
+
+</mapper>

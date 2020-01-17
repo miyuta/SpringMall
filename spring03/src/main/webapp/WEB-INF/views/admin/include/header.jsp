@@ -2,5 +2,5 @@
     pageEncoding="UTF-8"%>
 
 <h1 class="title">
-	<a href = "/">Mall Admin</a>
+	<a href = "${pageContext.request.contextPath}/">Mall Admin</a>
 </h1>	
