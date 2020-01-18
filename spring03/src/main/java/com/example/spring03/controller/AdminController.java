@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring03.domain.CategoryVO;
 import com.example.spring03.domain.GoodsVO;
@@ -54,8 +55,14 @@ public class AdminController {
 			logger.info("get goods list");
 			
 			List<GoodsVO> goodsList = adminService.goodsList();
-			System.out.println(goodsList);
-			System.out.println("리스트");
 			model.addAttribute("goodsList", goodsList);
+		}
+		
+		@RequestMapping(value="/goods/view", method = RequestMethod.GET)
+		public void getGoodsView(@RequestParam("n") int gdsnum, Model model) throws Exception {
+			logger.info("get goods view");
+			
+			GoodsVO goodsView = adminService.goodsView(gdsnum);
+			model.addAttribute("goodsView", goodsView);
 		}
 }

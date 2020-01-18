@@ -31,4 +31,9 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<GoodsVO> goodsList() throws Exception {
 		return sqlSession.selectList("admin.goodsList");
 	}
+	
+	@Override
+	public GoodsVO goodsView(int gdsnum) throws Exception {
+		return sqlSession.selectOne("admin.goodsView", gdsnum);
+	}
 }

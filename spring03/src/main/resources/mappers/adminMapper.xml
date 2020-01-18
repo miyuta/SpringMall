@@ -21,5 +21,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="goodsList" resultType="com.example.spring03.domain.GoodsVO">
 		select gdsnum, gdsname, catecode, gdsprice, gdsstock, gdsdes, gdsimg, gdsdate from tbl_goods order by gdsnum desc
 	</select>
+	
+	<!-- 상품 조회 -->
+	<select id="goodsView" resultType="com.example.spring03.domain.GoodsVO">
+		select gdsnum, gdsname, catecode, gdsprice, gdsstock, gdsdes, gdsimg, gdsdate from tbl_goods where gdsnum = #{gdsnum}
+	</select>
 
 </mapper>

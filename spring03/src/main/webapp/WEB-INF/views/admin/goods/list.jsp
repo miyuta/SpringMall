@@ -56,13 +56,15 @@
 					<tr>
 						<td>${goodslist.gdsnum}</td>
 						<td>
-							<a href = "${pageContext.request.contextPath}/admin/goods/view?n=${goodsList.gdsnum}">${goodslist.gdsname}</a>
+							<a href = "${pageContext.request.contextPath}/admin/goods/view?n=${goodslist.gdsnum}">${goodslist.gdsname}</a>
 						</td>
 						<td>${goodslist.catecode}</td>
 						<td>
 							<fmt:formatNumber value="${goodslist.gdsprice}" pattern = "###,###,###" />
 						</td>
-						<td>${goodslist.gdsstock}</td>
+						<td>
+							<fmt:formatNumber value="${goodslist.gdsstock}" pattern = "###,###,###" />
+						</td>
 						<td>
 							<fmt:formatDate value="${goodslist.gdsdate}" pattern = "yyyy-MM-dd" />
 						</td>
