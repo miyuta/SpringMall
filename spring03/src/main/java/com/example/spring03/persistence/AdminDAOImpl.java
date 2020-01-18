@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.example.spring03.domain.CategoryVO;
+import com.example.spring03.domain.GoodsVO;
 
 
 @Repository
@@ -20,5 +21,14 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<CategoryVO> category() throws Exception {
 		return sqlSession.selectList("admin.category");
 	}
-
+	
+	@Override
+	public void register(GoodsVO gds_regVO) throws Exception {
+		sqlSession.insert("admin.register", gds_regVO);
+	}
+	
+	@Override
+	public List<GoodsVO> goodsList() throws Exception {
+		return sqlSession.selectList("admin.goodsList");
+	}
 }

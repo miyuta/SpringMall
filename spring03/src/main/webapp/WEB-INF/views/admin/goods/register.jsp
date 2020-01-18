@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>Admin Home</title>
+	<title>Admin GoodsRegister</title>
 	
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.4.1.min.js"></script>
 	
@@ -30,20 +30,44 @@
 			<%@ include file="/WEB-INF/views/admin/include/aside.jsp" %>
 		</aside>
 		<div id="container_box">
-			<h2>상품등록</h2>
+			<h2>상품 등록</h2>
 			
 			<form role="form" method="post" autocomplete="off">
+				<div class = "inputArea">
+					<label>1차 분류</label>
+					<select class="category1">
+						<option value="">전체</option>
+					</select>
+					
+					<label>2차 분류</label>
+					<select class="category2" name = "catecode">
+						<option value="">전체</option>
+					</select>
+				</div>
 				
-				<label>1차 분류</label>
-				<select class="category1">
-					<option value="">전체</option>
-				</select>
+				<div class = "inputArea">
+					<label for = "gdsName">상품명</label>
+					<input type = "text" id = "gdsName" name = "gdsname" />
+				</div>
 				
-				<label>2차 분류</label>
-				<select class="category2">
-					<option value="">전체</option>
-				</select>
+				<div class = "inputArea">
+					<label for = "gdsPrice">상품 가격</label>
+					<input type = "text" id = "gdsPrice" name = "gdsprice" />
+				</div>
 				
+				<div class = "inputArea">
+					<label for = "gdsStock">상품 수량</label>
+					<input type = "text" id = "gdsStock" name = "gdsstock" />
+				</div>
+				
+				<div class = "inputArea">
+					<label for = "gdsDes">상품 소개</label>
+					<textarea rows = "5" cols = "50" id = "gdsDes" name = "gdsdes"></textarea>
+				</div>
+				
+				<div class = "inputArea">
+					<button class = "btn btn-primary" type = "submit" id = "btnRegister">등록</button>
+				</div>
 			</form>
 			
 		</div>
@@ -110,7 +134,7 @@
 		$("option:selected", this).each(function(){
 
 			var selectVal = $(this).val();
-			cate2Select.append("<option value=''>전체</option>");
+			cate2Select.append("<option value='" + selectVal +"'>전체</option>");
 
 			for (var i = 0; i < cate2Arr.length; i++) {
 				if (selectVal == cate2Arr[i].catecoderef) {

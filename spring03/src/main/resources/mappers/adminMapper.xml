@@ -10,5 +10,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		select level, catename, catecode, catecoderef from goods_category
 		start with catecoderef is null connect by prior catecode = catecoderef
 	</select>
+	
+	<!-- 상품 등록 -->
+	<insert id="register" parameterType="com.example.spring03.domain.GoodsVO">
+		insert into tbl_goods (gdsnum, gdsname, catecode, gdsprice, gdsstock, gdsdes)
+		values (tbl_goods_seq.nextval, #{gdsname}, #{catecode}, #{gdsprice}, #{gdsstock}, #{gdsdes})
+	</insert>
+	
+	<!-- 상품 리스트 -->
+	<select id="goodsList" resultType="com.example.spring03.domain.GoodsVO">
+		select gdsnum, gdsname, catecode, gdsprice, gdsstock, gdsdes, gdsimg, gdsdate from tbl_goods order by gdsnum desc
+	</select>
 
 </mapper>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.spring03.domain.CategoryVO;
+import com.example.spring03.domain.GoodsVO;
 import com.example.spring03.service.AdminService;
 
 import net.sf.json.JSONArray;
@@ -31,7 +32,7 @@ public class AdminController {
 			logger.info("get Index");
 		}
 		
-		//상품 등록
+		//카테고리 설정
 		@RequestMapping(value="/goods/register", method = RequestMethod.GET)
 		public void getGoodsRegister(Model model) throws Exception {
 			logger.info("get goods register");
@@ -39,5 +40,22 @@ public class AdminController {
 			List<CategoryVO> category = null;
 			category = adminService.category();
 			model.addAttribute("category", JSONArray.fromObject(category));
+		}
+		
+		@RequestMapping(value="/goods/register", method = RequestMethod.POST)
+		public String postGoodsRegister(GoodsVO vo) throws Exception {
+			adminService.register(vo);
+			
+			return "redirect:/admin/index";
+		}
+		
+		@RequestMapping(value="/goods/list", method = RequestMethod.GET)
+		public void getGoodsList(Model model) throws Exception {
+			logger.info("get goods list");
+			
+			List<GoodsVO> goodsList = adminService.goodsList();
+			System.out.println(goodsList);
+			System.out.println("리스트");
+			model.addAttribute("goodsList", goodsList);
 		}
 }
