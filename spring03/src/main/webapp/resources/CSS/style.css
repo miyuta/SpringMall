@@ -23,13 +23,17 @@
 	
 	footer#footer { background:#f9f9f9; padding:20px; }
 	footer#footer ul li { display:inline-block; margin-right:10px; }
-</style>
-
-<style>
+	
 	.inputArea { margin:10px 0; }
 	select { width:100px; }
 	label { display:inline-block; width:100px; padding:15px; }
 	label[for='gdsDes'] { display:block; }
 	input { width:150px; }
 	textarea#gdsDes { width:400px; height:180px; }
+	
+	.select_img img { margin:20px 0; }
+	
+	/* 이미지 크기 */
+	.oriImg { width:500px; height:auto; }
+	.thumbImg {}
 </style>

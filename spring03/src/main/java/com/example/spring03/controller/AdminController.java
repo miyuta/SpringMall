@@ -1,7 +1,9 @@
 package com.example.spring03.controller;
 
+import java.io.File;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -11,11 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.spring03.domain.CategoryVO;
 import com.example.spring03.domain.GoodsVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.service.AdminService;
+import com.example.spring03.utils.UploadFileUtils;
 
 import net.sf.json.JSONArray;
 
@@ -27,6 +31,9 @@ public class AdminController {
 		
 		@Inject
 		private AdminService adminService;
+		
+		@Resource(name="uploadPath")
+		private String uploadPath;
 		
 		//관리자 화면
 		@RequestMapping(value="/index", method = RequestMethod.GET)
@@ -46,7 +53,21 @@ public class AdminController {
 		
 		//상품등록
 		@RequestMapping(value="/goods/register", method = RequestMethod.POST)
-		public String postGoodsRegister(GoodsVO gds_regVO) throws Exception {
+		public String postGoodsRegister(GoodsVO gds_regVO, MultipartFile file) throws Exception {
+			
+			String imgUploadPath = uploadPath + File.separator + "imgUpload";
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+			String filename = null;
+			
+			if (file.getOriginalFilename() !=null && file.getOriginalFilename() != "") {
+				filename = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+			} else {
+				filename = uploadPath + File.separator + "images" + File.separator + "none.png";
+			}
+			
+			gds_regVO.setGdsimg(File.separator + "imgUpload" + ymdPath + File.separator + filename);
+			gds_regVO.setGdsthumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + filename);
+			
 			adminService.goodsRegister(gds_regVO);
 			
 			return "redirect:/admin/index";
@@ -92,6 +113,7 @@ public class AdminController {
 			return "redirect:/admin/index";
 		}
 		
+		//상품 삭제
 		@RequestMapping(value="goods/delete", method = RequestMethod.POST)
 		public String postGoodsDelete (@RequestParam("n") int gdsnum) throws Exception {
 			logger.info("post goods delete");

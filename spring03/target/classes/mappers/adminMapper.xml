@@ -13,8 +13,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 상품 등록 -->
 	<insert id="register" parameterType="com.example.spring03.domain.GoodsVO">
-		insert into tbl_goods (gdsnum, gdsname, catecode, gdsprice, gdsstock, gdsdes)
-		values (tbl_goods_seq.nextval, #{gdsname}, #{catecode}, #{gdsprice}, #{gdsstock}, #{gdsdes})
+		insert into tbl_goods (gdsnum, gdsname, catecode, gdsprice, gdsstock, gdsdes, gdsimg, gdsthumbimg)
+		values (tbl_goods_seq.nextval, #{gdsname}, #{catecode}, #{gdsprice}, #{gdsstock}, #{gdsdes}, #{gdsimg}, #{gdsthumbimg})
 	</insert>
 	
 	<!-- 상품 리스트 -->
@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 상품 조회 + 카테고리 조인 -->
 	<select id="goodsView" resultType="com.example.spring03.domain.GoodsViewVO">
-		select g.gdsnum, g.gdsname, g.catecode, c.catecoderef, c.catename, g.gdsprice, g.gdsstock, g.gdsimg, g.gdsdate from tbl_goods g
+		select g.gdsnum, g.gdsname, g.catecode, c.catecoderef, c.catename, g.gdsprice, g.gdsstock, g.gdsimg, g.gdsdate, g.gdsimg, g.gdsthumbimg from tbl_goods g
 		inner join goods_category c on g.catecode = c.catecode where g.gdsnum = #{gdsnum}
 	</select>
 	

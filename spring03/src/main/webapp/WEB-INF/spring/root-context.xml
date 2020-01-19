@@ -32,5 +32,6 @@
 		<context:component-scan base-package="com.example.spring03.domain" />
 		<context:component-scan base-package="com.example.spring03.persistence" />
 		<context:component-scan base-package="com.example.spring03.service" />
+		<context:component-scan base-package="com.example.spring03.utils" />
 		
 </beans>

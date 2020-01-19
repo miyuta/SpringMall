@@ -83,6 +83,15 @@
 				</div>
 				
 				<div class = "inputArea">
+					<label for = "gdsImg">이미지</label>
+					<p>원본 이미지</p>
+					<img src = "${pageContext.request.contextPath}/${goodsView.gdsimg}" class="oriImg" />
+					
+					<p>썸네일</p>
+					<img src = "${pageContext.request.contextPath}/${goodsView.gdsthumbimg}" class="thumbImg" />
+				</div>
+				
+				<div class = "inputArea">
 					<button class = "btn btn-warning" type = "submit" id = "btnModify">수정</button>
 					<button class = "btn btn-danger" type = "submit" id = "btnDelete">삭제</button>
 					
