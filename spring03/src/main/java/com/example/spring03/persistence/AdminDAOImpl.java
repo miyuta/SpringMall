@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.spring03.domain.CategoryVO;
 import com.example.spring03.domain.GoodsVO;
+import com.example.spring03.domain.GoodsViewVO;
 
 
 @Repository
@@ -23,7 +24,7 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 	
 	@Override
-	public void register(GoodsVO gds_regVO) throws Exception {
+	public void goodsRegister(GoodsVO gds_regVO) throws Exception {
 		sqlSession.insert("admin.register", gds_regVO);
 	}
 	
@@ -33,7 +34,17 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 	
 	@Override
-	public GoodsVO goodsView(int gdsnum) throws Exception {
+	public GoodsViewVO goodsView(int gdsnum) throws Exception {
 		return sqlSession.selectOne("admin.goodsView", gdsnum);
+	}
+	
+	@Override
+	public void goodsModify(GoodsVO gds_modVO) throws Exception {
+		sqlSession.update("admin.goodsModify", gds_modVO);
+	}
+	
+	@Override
+	public void goodsDelete(int gdsnum) throws Exception {
+		sqlSession.delete("admin.goodsDelete", gdsnum);
 	}
 }

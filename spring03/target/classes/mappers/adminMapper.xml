@@ -23,8 +23,23 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 상품 조회 -->
-	<select id="goodsView" resultType="com.example.spring03.domain.GoodsVO">
+<!-- 	<select id="goodsView" resultType="com.example.spring03.domain.GoodsVO">
 		select gdsnum, gdsname, catecode, gdsprice, gdsstock, gdsdes, gdsimg, gdsdate from tbl_goods where gdsnum = #{gdsnum}
+	</select> -->
+	
+	<!-- 상품 조회 + 카테고리 조인 -->
+	<select id="goodsView" resultType="com.example.spring03.domain.GoodsViewVO">
+		select g.gdsnum, g.gdsname, g.catecode, c.catecoderef, c.catename, g.gdsprice, g.gdsstock, g.gdsimg, g.gdsdate from tbl_goods g
+		inner join goods_category c on g.catecode = c.catecode where g.gdsnum = #{gdsnum}
 	</select>
-
+	
+	<update id="goodsModify" parameterType="com.example.spring03.domain.GoodsViewVO">
+		update tbl_goods set gdsname = #{gdsname}, catecode = #{catecode}, gdsprice = #{gdsprice}, gdsstock = #{gdsstock}, gdsdes = #{gdsdes} 
+		where gdsnum = #{gdsnum}
+	</update>
+	
+	<delete id="goodsDelete" parameterType="int">
+		delete tbl_goods where gdsnum = #{gdsnum}
+	</delete>
+	
 </mapper>
