@@ -32,7 +32,7 @@
 		<div id="container_box">
 			<h2>상품 수정</h2>
 			
-			<form role="form" method="post" autocomplete="off">
+			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
 			
 			<input type="hidden" name="gdsnum" value="${goodsModify.gdsnum}" />
 			
@@ -65,7 +65,30 @@
 				
 				<div class = "inputArea">
 					<label for = "gdsDes">상품 소개</label>
-					<textarea rows = "5" cols = "50" id = "gdsDes" name = "gdsdes">${goodsModify.gdsname}</textarea>
+					<textarea rows = "5" cols = "50" id = "gdsDes" name = "gdsdes">${goodsModify.gdsdes}</textarea>
+				</div>
+				
+				<div class="inputArea">
+					<label for="gdsImg">이미지</label>
+					<input type="file" id="gdsImg" name="file" />
+					<div class="mod_select_img">
+						<img src="${pageContext.request.contextPath}/${goodsModify.gdsimg}" />
+						<input type="hidden" name="gdsimg" value="${goodsModify.gdsimg}" />
+						<input type="hidden" name="gdsthumbimg" value="${goodsModify.gdsthumbimg}" />	
+					</div>
+					
+					<script>
+						$("#gdsImg").change(function(){
+							if(this.files && this.files[0]) {
+								var reader = new FileReader;
+								reader.onload = function(data) {
+									$(".mod_select_img img").attr("src", data.target.result).width(500);
+								}
+								reader.readAsDataURL(this.files[0]);
+							}
+						});
+					</script>					
+					<%=request.getRealPath("/") %>					
 				</div>
 				
 				<div class = "inputArea">

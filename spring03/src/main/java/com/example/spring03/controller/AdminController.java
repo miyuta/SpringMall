@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,9 +106,28 @@ public class AdminController {
 		}
 		
 		@RequestMapping(value="goods/modify", method = RequestMethod.POST)
-		public String postGoodsModify (GoodsVO gds_modVO) throws Exception {
+		public String postGoodsModify (GoodsVO gds_modVO, MultipartFile file, HttpServletRequest req) throws Exception {
 			logger.info("post goods modify");
 			
+			//새로운 파일이 등록되어 있는지 확인
+			if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+				//기존 파일을 삭제
+				new File(uploadPath + req.getParameter("gdsimg")).delete();
+				new File(uploadPath + req.getParameter("gdsthumbimg")).delete();
+				
+				//새로 첨부한 파일을 등록
+				String imgUploadPath = uploadPath + File.separator + "imgUpload";
+				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+				String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+				
+				gds_modVO.setGdsimg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+				gds_modVO.setGdsthumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator+ "s_" + fileName);
+			} else { //새로운 파일이 등록되지 않았다면
+				//기존 이미지를 그대로 사용
+				gds_modVO.setGdsimg(req.getParameter("gdsimg"));
+				gds_modVO.setGdsthumbimg(req.getParameter("gdsthumbimg"));
+			}
+
 			adminService.goodsModify(gds_modVO);
 			
 			return "redirect:/admin/index";

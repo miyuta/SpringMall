@@ -33,7 +33,10 @@
 	
 	.select_img img { margin:20px 0; }
 	
-	/* 이미지 크기 */
+	/* 상세 페이지 이미지 크기 */
 	.oriImg { width:500px; height:auto; }
 	.thumbImg {}
+	
+	/* 수정 페이지 이미지 크기 */
+	.mod_select_img img { width:500px; margin:20px 0; '}
 </style>

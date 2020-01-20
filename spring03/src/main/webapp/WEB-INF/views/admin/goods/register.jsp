@@ -80,10 +80,8 @@
 								reader.readAsDataURL(this.files[0]);
 							}
 						});
-					</script>
-					
-					<%=request.getRealPath("/") %>
-					
+					</script>					
+					<%=request.getRealPath("/") %>					
 				</div>
 				
 				<div class = "inputArea">
