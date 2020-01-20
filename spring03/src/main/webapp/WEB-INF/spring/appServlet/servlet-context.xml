@@ -25,16 +25,20 @@
 	
 	<!-- 업로드 패스 설정 --> 
 	<beans:bean class="java.lang.String" id="uploadPath">
-	 <beans:constructor-arg value="F:\JavA\SprinG\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\spring03\resources" />
+		<beans:constructor-arg value="F:\JavA\SprinG\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\spring03\resources" />
 	</beans:bean>
 	
 	<!-- 일반 파일 업로드 경로 -->
 	<resources mapping="/imgUpload/**" location="/resources/imgUpload/" />
 	
 	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-	 <beans:property name="maxUploadSize" value="10485760"/>
+		<beans:property name="maxUploadSize" value="10485760"/>
 	</beans:bean>
 	
+	<!-- ck에디터 파일 업로드 경로 -->
+	<resources mapping="/ckUpload/**" location="/resources/ckUpload/" />
+	
+	<!-- 인터셉터 -->
 	<beans:bean id="AdminInterceptor" class="com.example.spring03.interceptor.AdminInterceptor" />
 	
 

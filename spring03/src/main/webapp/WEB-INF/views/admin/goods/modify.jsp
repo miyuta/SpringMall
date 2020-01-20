@@ -4,6 +4,7 @@
 	<title>Admin GoodsRegister</title>
 	
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.4.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 	
 	<link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap-theme.min.css">
 	<link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">
@@ -66,6 +67,17 @@
 				<div class = "inputArea">
 					<label for = "gdsDes">상품 소개</label>
 					<textarea rows = "5" cols = "50" id = "gdsDes" name = "gdsdes">${goodsModify.gdsdes}</textarea>
+					
+					<script>
+					 var ckeditor_config = {
+					   resize_enaleb : false,
+					   enterMode : CKEDITOR.ENTER_BR,
+					   shiftEnterMode : CKEDITOR.ENTER_P,
+					   filebrowserUploadUrl : "/admin/goods/ckUpload"
+					 };
+					 
+					 CKEDITOR.replace("gdsDes", ckeditor_config);
+					</script>
 				</div>
 				
 				<div class="inputArea">

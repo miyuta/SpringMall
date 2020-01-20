@@ -79,7 +79,8 @@
 				
 				<div class = "inputArea">
 					<label for = "gdsDes">상품 소개</label>
-					<span>${goodsView.gdsdes}</span>
+					<%-- <span>${goodsView.gdsdes}</span> --%>
+					<div class = "gdsDes">${goodsView.gdsdes}</div>
 				</div>
 				
 				<div class = "inputArea">
