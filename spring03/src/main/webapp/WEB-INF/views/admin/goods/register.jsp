@@ -176,5 +176,16 @@
 		});
 	});
 </script>
+<script>
+var regExp = /[^0-9]/gi;
+
+$("#gdsPrice").keyup(function(){ numCheck($(this)); }); /* 현재 실행 중인 선택자 */
+$("#gdsStock").keyup(function(){ numCheck($(this)); });
+
+function numCheck(selector) {
+	var tempVal = selector.val();
+	selector.val(tempVal.replace(regExp, ""));
+}
+</script>
 </body>
 </html>

@@ -13,6 +13,11 @@
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.js"></script>
 
 	<link rel ="stylesheet" href="${pageContext.request.contextPath}/resources/CSS/style.css">
+	
+	<style>
+		/* 상세 페이지 ck 이미지 크기 */
+		.gdsDes img { width:600px; height:auto; }
+	</style>
 </head>
 <body>
 <div id="root">

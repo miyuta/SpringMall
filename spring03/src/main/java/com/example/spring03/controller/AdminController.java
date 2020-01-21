@@ -63,18 +63,27 @@ public class AdminController {
 		@RequestMapping(value="/goods/register", method = RequestMethod.POST)
 		public String postGoodsRegister(GoodsVO gds_regVO, MultipartFile file) throws Exception {
 			
-			String imgUploadPath = uploadPath + File.separator + "imgUpload";
-			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-			String filename = null;
+			String imgUploadPath = uploadPath + File.separator + "imgUpload";	//이미지를 업로드 할 폴더를 설정 /uploadPath/imgUpload
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);	//위의 폴더를 기준으로 연월일 폴더를 생성
+			String filename = null;		// 기본 경로와 별개로 작성되는 경로 + 파일이름
 			
 			if (file.getOriginalFilename() !=null && file.getOriginalFilename() != "") {
+				//파일 인풋 박스에 첨부된 파일이 없다면(=첨부된 파일이 이름이 없다면)
+				
 				filename = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-			} else {
-				filename = uploadPath + File.separator + "images" + File.separator + "none.png";
+				
+				//gdsImg에 원본 파일 경로 + 파일명 저장
+				gds_regVO.setGdsimg(File.separator + "imgUpload" + ymdPath + File.separator + filename);
+				//gdsThumbImg에 썸네일 파일 경로 + 썸네일 파일명 저장
+				gds_regVO.setGdsthumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + filename);
+				
+			} else { //첨부된 파일이 없으면
+				filename = File.separator + "images" + File.separator + "none.png";
+				//미리 준비된 none.png 파일을 대신 출력함
+				
+				gds_regVO.setGdsimg(filename);
+				gds_regVO.setGdsthumbimg(filename);
 			}
-			
-			gds_regVO.setGdsimg(File.separator + "imgUpload" + ymdPath + File.separator + filename);
-			gds_regVO.setGdsthumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + filename);
 			
 			adminService.goodsRegister(gds_regVO);
 			
@@ -86,7 +95,7 @@ public class AdminController {
 		public void getGoodsList(Model model) throws Exception {
 			logger.info("get goods list");
 			
-			List<GoodsVO> goodsList = adminService.goodsList();
+			List<GoodsViewVO> goodsList = adminService.goodsList();
 			model.addAttribute("goodsList", goodsList);
 		}
 		

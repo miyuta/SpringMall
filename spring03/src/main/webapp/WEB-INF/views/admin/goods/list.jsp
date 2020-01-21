@@ -15,7 +15,12 @@
 	<link rel ="stylesheet" href="${pageContext.request.contextPath}/resources/CSS/style.css">
 	
 <style>
-	#container_box table td { width:100px; }
+		/* 리스트 테이블 */
+	#container_box table { width:900px; }
+	#container_box table th { font-size:20px; font-weight:bold; text-align:center; padding:10px; border-bottom:2px solid #666; }
+	#container_box table tr : hover { background:#eee; }
+	#container_box table td { width:100px; padding:10px; text-align:center; }
+	#container_box table img {width:150px; height:auto; }
 </style>
 
 </head>
@@ -54,11 +59,13 @@
 				<tbody>
 				<c:forEach items = "${goodsList}" var = "goodslist">
 					<tr>
-						<td>${goodslist.gdsnum}</td>
+						<td>
+							<img src = "${pageContext.request.contextPath}/${goodslist.gdsthumbimg}" />
+						</td>
 						<td>
 							<a href = "${pageContext.request.contextPath}/admin/goods/view?n=${goodslist.gdsnum}">${goodslist.gdsname}</a>
 						</td>
-						<td>${goodslist.catecode}</td>
+						<td>${goodslist.catename}</td>
 						<td>
 							<fmt:formatNumber value="${goodslist.gdsprice}" pattern = "###,###,###" />
 						</td>
