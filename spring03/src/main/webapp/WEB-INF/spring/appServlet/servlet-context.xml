@@ -36,7 +36,7 @@
 	</beans:bean>
 	
 	<!-- ck에디터 파일 업로드 경로 -->
-	<resources mapping="/ckUpload/**" location="/resources/ckUpload/" />
+	<resources location="/WEB-INF/views/ckeditor/" mapping="/ckeditor/**"></resources>
 	
 	<!-- 인터셉터 -->
 	<beans:bean id="AdminInterceptor" class="com.example.spring03.interceptor.AdminInterceptor" />
