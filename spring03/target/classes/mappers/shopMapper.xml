@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "shop">
+
+	<select id="shopList" resultType="com.example.spring03.domain.GoodsViewVO">
+		select g.gdsnum, g.gdsname, g.catecode, c.catecoderef, c.catename, g.gdsprice, g.gdsstock, g.gdsdes, g.gdsdate, g.gdsimg, g.gdsthumbimg
+		from tbl_goods g inner join goods_category c on g.catecode = c.catecode 
+		where g.catecode = #{catecode}
+	</select>
+	
+	<select id="shopList_ref" resultType="com.example.spring03.domain.GoodsViewVO">
+		select g.gdsnum, g.gdsname, g.catecode, c.catecoderef, c.catename, g.gdsprice, g.gdsstock, g.gdsdes, g.gdsdate, g.gdsimg, g.gdsthumbimg
+		from tbl_goods g inner join goods_category c on g.catecode = c.catecode 
+		where g.catecode = #{catecode} or c.catecoderef = #{catecoderef}
+	</select>
+	
+</mapper>
