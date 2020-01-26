@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.MemberVO;
@@ -43,12 +44,9 @@ public class ShopController {
 		
 		GoodsViewVO shopView = shopService.shopView(gdsnum);
 		model.addAttribute("shopView", shopView);
-		
-		List<ReplyListVO> replyList = shopService.replyList(gdsnum);
-		model.addAttribute("replyList", replyList);
 	}
 	
-	@RequestMapping(value="/view", method = RequestMethod.POST)
+	/* @RequestMapping(value="/view", method = RequestMethod.POST)
 	public String replyInsert(ReplyVO rep_insVO, HttpSession session) throws Exception {
 		logger.info("insert reply");
 		
@@ -58,5 +56,44 @@ public class ShopController {
 		shopService.replyInsert(rep_insVO);
 		
 		return "redirect:/shop/view?n=" + rep_insVO.getGdsnum();
+	} */
+	
+	@ResponseBody
+	@RequestMapping(value="/view/replyList", method = RequestMethod.GET)
+	public List<ReplyListVO> getReplyList(@RequestParam("n") int gdsnum, Model model) throws Exception {
+		logger.info("get reply list");
+		
+		List<ReplyListVO> replyList = shopService.replyList(gdsnum);
+		return  replyList;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/view/replyInsert", method = RequestMethod.POST)
+	public void replyInsert(ReplyVO rep_insVO, HttpSession session) throws Exception {
+		logger.info("insert reply");
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		rep_insVO.setUserid(member.getUserid());
+		
+		shopService.replyInsert(rep_insVO);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="view/replyDelete", method = RequestMethod.POST)
+	public int getreplyList(ReplyVO rep_list, HttpSession session) throws Exception {
+		logger.info("post delete reply");
+		
+		int result = 0;
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");		//로그인한 세션 ID
+		String userid = shopService.replyIdCheck(rep_list.getRepnum());		//데이터 베이스에서 가져온 ID
+		
+		if (member.getUserid().equals(userid)) {
+			rep_list.setUserid(member.getUserid());
+			shopService.replyDelete(rep_list);
+			
+			result = 1;
+		}
+		return result;
 	}
 }

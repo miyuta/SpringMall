@@ -30,8 +30,20 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		insert into tbl_reply (gdsnum, userid, repnum, repcon) values (#{gdsnum}, #{userid}, tbl_reply_seq.nextval, #{repcon})
 	</insert>
 	
+	<!-- 댓글 리스트 -->
 	<select id="replyList" resultType="com.example.spring03.domain.ReplyListVO">
 		select r.gdsnum, r.userid, r.repnum, r.repcon, r.repdate, m.username from tbl_reply r inner join tbl_member m on r.userid = m.userid where gdsnum = #{gdsnum}
 	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelete" parameterType="int">
+		delete from tbl_reply where repnum = #{repnum} and userid = #{userid}
+	</delete>
+	
+	<!-- 댓글 삭제용 유저 체크 -->
+	<select id="replyIdCheck" resultType="String">
+		select userid from tbl_reply where repnum = #{repnum}
+	</select>
+	
 	
 </mapper>

@@ -4,8 +4,38 @@
 
 <html>
 <head>
-<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.4.1.min.js"></script>
 	<title>Shop View</title>
+	
+<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.4.1.min.js"></script>
+<script>
+function replyList() {
+	var gdsnum = ${shopView.gdsnum};
+	$.getJSON("${pageContext.request.contextPath}/shop/view/replyList" + "?n=" + gdsnum, function(data){
+			var str = "";
+
+			$(data).each(function(){
+
+					var repDate = new Date(this.repdate);
+					repDate = repDate.toLocaleDateString('ko-US')
+
+					str += "<li data-gdsNum='" + this.gdsnum + "'>"
+							+ "<div class = 'userInfo'>"
+							+"<span class='userName'>" + this.username + "</span>"
+							+"<span class='date'>" + repDate + "</span>"
+							+"</div>"
+							+"<div class='replyContent'>" + this.repcon + "</div>"
+
+							+"<div class='replyFooter'>"
+							+"<button type='button' class='modify' data-repNum='" + this.repnum + "'>M</button>"
+							+"<button type='button' class='delete' data-repNum='" + this.repnum + "'>D</button>"
+							+"</div>"
+							
+							+"</li>"; 
+				});
+			$("section.replyList ol").html(str);
+		});
+}
+</script>		
 	
 <style>
 
@@ -85,6 +115,8 @@ aside#aside li > ul.low li { width:180px; }
  section.replyList div.userInfo .userName { font-size:24px; font-weight:bold; }
  section.replyList div.userInfo .date { color:#999; display:inline-block; margin-left:10px; }
  section.replyList div.replyContent { padding:10px; margin:20px 0; }
+ 
+ section.replyList div.replyFooter button { font-size:14px; border: 1px solid #999; background:none; margin-right:10px; }
 </style>
 
 </head>
@@ -172,14 +204,37 @@ aside#aside li > ul.low li { width:180px; }
 					<c:if test = "${member !=null }">
 					<section class="replyForm">
 						<form role="form" method="post" autocomplete="off">
-							<input type="hidden" name="gdsnum" value="${shopView.gdsnum}">
+							<input type="hidden" name="gdsnum" id="gdsNum" value="${shopView.gdsnum}">
 							
 							<div class="input_area">
-								<textarea name="repcon" id="repcon"></textarea>
+								<textarea name="repcon" id="repCon"></textarea>
 							</div>
 							
 							<div class="input_area">
-								<button type="submit" id="btnReply">의견 남기기</button>
+								<button type="button" id="btnReply">의견 남기기</button>
+								
+								<script>
+									$("#btnReply").click(function(){
+
+										var formObj = $(".replyForm form[role='form']");
+										var gdsNum = $("#gdsNum").val();
+										var repCon = $("#repCon").val();
+										var data = {
+													gdsnum : gdsNum,
+													repcon : repCon
+												};
+
+										$.ajax({
+												url : "${pageContext.request.contextPath}/shop/view/replyInsert",
+												type : "POST",
+												data : data,
+												success : function() {
+														replyList();
+														$("#repCon").val("");
+													}
+											});
+										});
+								</script>
 							</div>
 							
 						</form>
@@ -188,7 +243,7 @@ aside#aside li > ul.low li { width:180px; }
 					
 					<section class="replyList">
 						<ol>
-							<c:forEach items="${replyList}" var="replylist">
+							<%-- <c:forEach items="${replyList}" var="replylist">
 							<li>
 								<div class="userInfo">
 								<span class="userName">${replylist.username}</span>
@@ -196,8 +251,40 @@ aside#aside li > ul.low li { width:180px; }
 								</div>
 								<div class="replyContent">${replylist.repcon}</div>
 							</li>
-							</c:forEach>
-						</ol>
+							</c:forEach> --%>
+						</ol>			
+						<script>
+							replyList();
+						</script>	
+						
+						<script>
+							$(document).on("click", ".delete", function(){
+
+								var deleteConfirm = confirm("정말로 삭제하시겠습니까?");
+
+								if (deleteConfirm) {
+
+									var data = {repnum : $(this).attr("data-repNum") };
+									console.log(data);
+
+									$.ajax({
+											url : "${pageContext.request.contextPath}/shop/view/replyDelete",
+											type : "POST",
+											data : data,
+											success : function(result){
+												if(result == 1) {
+												replyList();
+												} else {
+													alert("작성자 본인만 할 수 있습니다.")
+													}
+											},
+											error : function() {
+												alert("로그인하셔야합니다.")
+											}
+									});
+								}
+							});
+						</script>
 					</section>
 				</div>
 		</section>

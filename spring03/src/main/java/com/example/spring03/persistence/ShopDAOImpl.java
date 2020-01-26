@@ -48,8 +48,21 @@ public class ShopDAOImpl implements ShopDAO {
 		sqlSession.insert("shop.replyInsert", rep_insVO);
 	}
 	
+	//댓글 리스트
 	@Override
 	public List<ReplyListVO> replyList(int gdsnum) throws Exception {
 		return sqlSession.selectList("shop.replyList", gdsnum);
+	}
+	
+	//댓글 삭제
+	@Override
+	public void replyDelete(ReplyVO rep_delVO) throws Exception {
+		sqlSession.delete("shop.replyDelete", rep_delVO);
+	}
+	
+	//댓글 삭제용 아이디 체크
+	@Override
+	public String replyIdCheck(int gdsnum) throws Exception {
+		return sqlSession.selectOne("shop.replyIdCheck", gdsnum);
 	}
 }
