@@ -54,4 +54,9 @@ public class ShopServiceImpl implements ShopService {
 	public String replyIdCheck(int gdsnum) throws Exception {
 		return shopDao.replyIdCheck(gdsnum);
 	}
+	
+	@Override
+	public void replyModify(ReplyVO rep_upVO) throws Exception {
+		shopDao.replyModify(rep_upVO);
+	}
 }

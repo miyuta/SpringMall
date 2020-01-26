@@ -65,4 +65,8 @@ public class ShopDAOImpl implements ShopDAO {
 	public String replyIdCheck(int gdsnum) throws Exception {
 		return sqlSession.selectOne("shop.replyIdCheck", gdsnum);
 	}
+	@Override
+	public void replyModify(ReplyVO rep_upVO) throws Exception {
+		sqlSession.update("shop.replyModify", rep_upVO);
+	}
 }

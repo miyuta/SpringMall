@@ -14,4 +14,5 @@ public interface ShopService {
 	public List<ReplyListVO> replyList(int gdsnum) throws Exception;
 	public void replyDelete(ReplyVO rep_delVO) throws Exception;
 	public String replyIdCheck(int gdsnum) throws Exception;
+	public void replyModify(ReplyVO rep_upVO) throws Exception;
 }

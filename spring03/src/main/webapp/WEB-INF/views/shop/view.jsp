@@ -18,17 +18,21 @@ function replyList() {
 					var repDate = new Date(this.repdate);
 					repDate = repDate.toLocaleDateString('ko-US')
 
-					str += "<li data-gdsNum='" + this.gdsnum + "'>"
+					str += "<li data-repNum='" + this.repnum + "'>"
 							+ "<div class = 'userInfo'>"
 							+"<span class='userName'>" + this.username + "</span>"
 							+"<span class='date'>" + repDate + "</span>"
 							+"</div>"
 							+"<div class='replyContent'>" + this.repcon + "</div>"
 
+							+"<c:if test='${member != null}'>"
+
 							+"<div class='replyFooter'>"
 							+"<button type='button' class='modify' data-repNum='" + this.repnum + "'>M</button>"
 							+"<button type='button' class='delete' data-repNum='" + this.repnum + "'>D</button>"
 							+"</div>"
+
+							+"</c:if>"
 							
 							+"</li>"; 
 				});
@@ -117,6 +121,15 @@ aside#aside li > ul.low li { width:180px; }
  section.replyList div.replyContent { padding:10px; margin:20px 0; }
  
  section.replyList div.replyFooter button { font-size:14px; border: 1px solid #999; background:none; margin-right:10px; }
+</style>
+
+<style>
+ div.replyModal { position:relative; z-index:1; display:none; }
+ div.modalBackground { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.8); z-index:-1; }
+ div.modalContent { position:fixed; top:20%; left:calc(50% - 250px); width:500px; height:250px; padding:20px 10px; background:#fff; border:2px solid #666; }
+ div.modalContent textarea { font-size:16px; font-family:'맑은 고딕', verdana; padding:10px; width:500px; height:200px; }
+ div.modalContent button { font-size:20px; padding:5px 10px; margin:10px 0; background:#fff; border:1px solid #ccc; }
+ div.modalContent button.modal_cancel { margin-left:20px; }
 </style>
 
 </head>
@@ -258,6 +271,18 @@ aside#aside li > ul.low li { width:180px; }
 						</script>	
 						
 						<script>
+
+							$(document).on("click", ".modify", function(){
+								//$(".replyModal").attr("style", "display:block;");
+								$(".replyModal").fadeIn(200);
+
+								var repNum = $(this).attr("data-repNum");
+								var repCon = $(this).parent().parent().children(".replyContent").text();
+
+								$(".modal_repCon").val(repCon);
+								$(".btnMod_Modify").attr("data-repNum", repNum);
+							});
+							
 							$(document).on("click", ".delete", function(){
 
 								var deleteConfirm = confirm("정말로 삭제하시겠습니까?");
@@ -265,7 +290,6 @@ aside#aside li > ul.low li { width:180px; }
 								if (deleteConfirm) {
 
 									var data = {repnum : $(this).attr("data-repNum") };
-									console.log(data);
 
 									$.ajax({
 											url : "${pageContext.request.contextPath}/shop/view/replyDelete",
@@ -303,5 +327,60 @@ aside#aside li > ul.low li { width:180px; }
 	</footer>
 </div>
 <P>  The time on the server is ${serverTime}. </P>
+
+<div class="replyModal">
+	
+	<div class="modalContent">
+		<div>
+			<textarea class="modal_repCon" name="modal_repCon"></textarea>
+		</div>
+		
+		<div>
+			<button type="button" class="btnMod_Modify">수정</button>
+			<button type="button" class="btnMod_Cancle">취소</button>
+		</div>
+		
+	</div>
+	
+	<div class="modalBackground"></div>
+</div>
+<script>
+	$(".btnMod_Modify").click(function(){
+		var modifyConfirm = confirm("정말로 수정하시겠습니까?");
+
+		if (modifyConfirm) {
+				var data = {
+							repnum : $(this).attr("data-repNum"),
+							repcon : $(".modal_repCon").val()
+						};		//ReplyVO 형태로 데이터 생성
+				console.log(data);
+
+				$.ajax({
+					url : "${pageContext.request.contextPath}/shop/view/replyModify",
+					type : "POST",
+					data : data,
+					success : function(result) {
+
+							//result 값에 따라 동작
+						if (result == 1) {
+								replyList();		//리스트 새로고침
+								$(".replyModal").fadeOut(200);
+						} else {
+								alert("작성자 본인만 할 수 있습니다.");
+						} 
+					},
+					error : function() {
+							//로그인 하지 않아서 에러가 발생한 경우
+							alert("로그인 하셔야 합니다.")
+						}
+				});
+			}
+	});
+
+	$(".btnMod_Cancle").click(function(){
+		//$(".replyModal").attr("style", "display:none;");
+		$(".replyModal").fadeOut(200);
+	});
+</script>
 </body>
 </html>

@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 댓글 삭제 -->
-	<delete id="replyDelete" parameterType="int">
+	<delete id="replyDelete" parameterType="com.example.spring03.domain.ReplyVO">
 		delete from tbl_reply where repnum = #{repnum} and userid = #{userid}
 	</delete>
 	
@@ -45,5 +45,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		select userid from tbl_reply where repnum = #{repnum}
 	</select>
 	
+	<!-- 댓글 수정 -->
+	<update id="replyModify" parameterType="com.example.spring03.domain.ReplyVO">
+		update tbl_reply set repcon = #{repcon} where repnum = #{repnum} and userid = #{userid}
+	</update>
 	
 </mapper>

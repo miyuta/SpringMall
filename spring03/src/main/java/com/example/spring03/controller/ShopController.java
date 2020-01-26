@@ -80,17 +80,36 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value="view/replyDelete", method = RequestMethod.POST)
-	public int getreplyList(ReplyVO rep_list, HttpSession session) throws Exception {
+	public int getreplyList(ReplyVO rep_listVO, HttpSession session) throws Exception {
 		logger.info("post delete reply");
 		
 		int result = 0;
 		
 		MemberVO member = (MemberVO)session.getAttribute("member");		//로그인한 세션 ID
-		String userid = shopService.replyIdCheck(rep_list.getRepnum());		//데이터 베이스에서 가져온 ID
+		String userid = shopService.replyIdCheck(rep_listVO.getRepnum());		//데이터 베이스에서 가져온 ID
 		
 		if (member.getUserid().equals(userid)) {
-			rep_list.setUserid(member.getUserid());
-			shopService.replyDelete(rep_list);
+			rep_listVO.setUserid(member.getUserid());
+			shopService.replyDelete(rep_listVO);
+			
+			result = 1;
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="view/replyModify", method = RequestMethod.POST)
+	public int replyModify(ReplyVO rep_upVO, HttpSession session) throws Exception {
+		logger.info("post update reply");
+		
+		int result = 0;
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String userid = shopService.replyIdCheck(rep_upVO.getRepnum());
+		
+		if(member.getUserid().equals(userid)) {
+			rep_upVO.setUserid(member.getUserid());
+			shopService.replyModify(rep_upVO);
 			
 			result = 1;
 		}
