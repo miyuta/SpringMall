@@ -2,6 +2,8 @@ package com.example.spring03.service;
 
 import java.util.List;
 
+import com.example.spring03.domain.CartListVO;
+import com.example.spring03.domain.CartVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.ReplyListVO;
 import com.example.spring03.domain.ReplyVO;
@@ -15,4 +17,6 @@ public interface ShopService {
 	public void replyDelete(ReplyVO rep_delVO) throws Exception;
 	public String replyIdCheck(int gdsnum) throws Exception;
 	public void replyModify(ReplyVO rep_upVO) throws Exception;
+	public void cartInsert(CartVO cart_insVO) throws Exception;
+	public List<CartListVO> cartList(String userid) throws Exception;
 }

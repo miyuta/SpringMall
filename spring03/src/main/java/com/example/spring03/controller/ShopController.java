@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.spring03.domain.CartListVO;
+import com.example.spring03.domain.CartVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.MemberVO;
 import com.example.spring03.domain.ReplyListVO;
@@ -79,7 +81,7 @@ public class ShopController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="view/replyDelete", method = RequestMethod.POST)
+	@RequestMapping(value="/view/replyDelete", method = RequestMethod.POST)
 	public int getreplyList(ReplyVO rep_listVO, HttpSession session) throws Exception {
 		logger.info("post delete reply");
 		
@@ -98,7 +100,7 @@ public class ShopController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="view/replyModify", method = RequestMethod.POST)
+	@RequestMapping(value="/view/replyModify", method = RequestMethod.POST)
 	public int replyModify(ReplyVO rep_upVO, HttpSession session) throws Exception {
 		logger.info("post update reply");
 		
@@ -114,5 +116,34 @@ public class ShopController {
 			result = 1;
 		}
 		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/view/cartAdd", method = RequestMethod.POST)
+	public int addCart(CartVO cart_insVO, HttpSession session) throws Exception {
+		logger.info("post add cart");
+		
+		int result = 0;
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		if (member != null) {
+			cart_insVO.setUserid(member.getUserid());
+			shopService.cartInsert(cart_insVO);
+			result = 1;
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="/cartList", method = RequestMethod.GET)
+	public void cartList(HttpSession session, Model model) throws Exception {
+		logger.info("get cart list");
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String userid = member.getUserid();
+		
+		List<CartListVO> cartList = shopService.cartList(userid);
+		
+		model.addAttribute("cartList", cartList);
 	}
 }

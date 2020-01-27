@@ -22,6 +22,9 @@
 		${ member.username } 님 환영합니다.
 	</li>
 	<li>
+		<a href="${pageContext.request.contextPath}/shop/cartList">카트 리스트</a>
+	</li>
+	<li>
 		<a href="${pageContext.request.contextPath}/member/signout">로그아웃</a>
 	</li>
 </c:if>

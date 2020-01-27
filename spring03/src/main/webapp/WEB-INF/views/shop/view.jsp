@@ -201,7 +201,37 @@ aside#aside li > ul.low li { width:180px; }
 						</script>
 					</p>
 					<p class="addToCart">
-						<button type="button">카트에 담기</button>
+						<button type="button" class="btnAddCart">카트에 담기</button>
+						
+						<script>
+							$(".btnAddCart").click(function() {
+									var gdsNum = $("#gdsNum").val();
+									var cartStock = $(".numBox").val();
+
+									var data = {
+										gdsnum : gdsNum,
+										cartstock : cartStock
+										};
+									
+									$.ajax ({
+										url : "${pageContext.request.contextPath}/shop/view/cartAdd",
+										type : "POST",
+										data : data,
+										success : function(result) {
+											if (result == 1) {
+												alert("카트에 담기 성공");
+												$(".numBox").val("1");
+											} else {
+												alert("회원만 사용 할 수 있습니다.")
+												$(".numBox").val("1");
+											}
+										},
+										error : function() {
+												alert("카트에 담기 실패")
+										}
+									});
+								});
+						</script>
 					</p>
 				</div>
 				

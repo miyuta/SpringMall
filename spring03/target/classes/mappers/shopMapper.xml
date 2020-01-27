@@ -50,4 +50,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		update tbl_reply set repcon = #{repcon} where repnum = #{repnum} and userid = #{userid}
 	</update>
 	
+	<!-- 카트 담기 -->
+	<insert id="cartInsert" parameterType="com.example.spring03.domain.CartVO">
+		insert into tbl_cart (cartnum, userid, gdsnum, cartstock) values (tbl_cart_seq.nextval, #{userid}, #{gdsnum}, ${cartstock})
+	</insert>
+	
+	<!-- 카트 리스트 -->
+	<select id="cartList" resultType="com.example.spring03.domain.CartListVO">
+		select row_number() over(order by c.cartnum desc) as num, c.cartnum, c.userid, c.gdsnum, c.cartstock, c.adddate, g.gdsname, g.gdsprice, g.gdsthumbimg
+		from tbl_cart c inner join tbl_goods g on c.gdsnum = g.gdsnum where c.userid = #{userid}
+	</select>
+	
 </mapper>

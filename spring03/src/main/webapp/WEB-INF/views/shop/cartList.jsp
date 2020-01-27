@@ -55,13 +55,23 @@ aside#aside li > ul.low li { width:180px; }
  footer#footer div#footer_box { padding:0 20px; }
  
 </style>
-<style>
+<!-- <style>
  section#content ul li { display:inline-block; margin:10px; }
  section#content div.goodsThumb img { width:200px; height:200px; }
  section#content div.goodsName { padding:10px 0; text-align:center; }
  section#content div.goodsName a { color:#000; }
+</style> -->
+<style>
+ section#content ul li { margin:10px 0; }
+ section#content ul li img { width:250px; height:250px; }
+ section#content ul li::after { content:""; display:block; clear:both; }
+ section#content div.thumb { float:left; width:250px; }
+ section#content div.gdsInfo { float:right; width:calc(100% - 270px); }
+ section#content div.gdsInfo { font-size:20px; line-height:2; }
+ section#content div.gdsInfo span { display:inline-block; width:100px; font-weight:bold; margin-right:10px; }
+ section#content div.gdsInfo .delete { text-align:right; }
+ section#content div.gdsInfo .delete button { font-size:22px; padding:5px 10px; border:1px solid #eee; background:#eee;}
 </style>
-
 </head>
 <body>
 <div id="root">
@@ -78,28 +88,37 @@ aside#aside li > ul.low li { width:180px; }
 	</nav>
 	
 	<section id="container">
-		<div id=container_box>
-			<aside id="aside">
-				<%@ include file="/WEB-INF/views/include/aside.jsp" %>
-			</aside>
-		
-			<section id="content">
-		
-				<ul>
-					<c:forEach items = "${shopList}" var = "shoplist">
-						<li>
-							<div class="goodsThumb">
-								<img src="${pageContext.request.contextPath}/${shoplist.gdsthumbimg}" />
-							</div>
-							<div class="goodsName">
-								<a href="${pageContext.request.contextPath}/shop/view?n=${shoplist.gdsnum}">${shoplist.gdsname}</a>
-							</div>
-						</li>
-					</c:forEach>
-				</ul>
-				
-			</section>
-		</div>
+	<div id=container_box>
+		<aside id="aside">
+			<%@ include file="/WEB-INF/views/include/aside.jsp" %>
+		</aside>
+	
+		<section id="content">
+			<ul>
+				<c:forEach items = "${cartList}" var="cartlist">
+				<li>
+					<div class="thumb">
+						<img src="${pageContext.request.contextPath}/${cartlist.gdsthumbimg}" />
+					</div>
+					<div	 class="gdsInfo">
+						<p>
+							<span>상품명 : </span>${cartlist.gdsname}<br />
+							<span>개당 가격 :</span><fmt:formatNumber pattern="###,###,###" value="${cartlist.gdsprice}" /> 원<br />
+							<span>구입 수량 :</span>${cartlist.cartstock} 개<br />
+							<span>최종 가격 :</span><fmt:formatNumber pattern="###,###,###" value="${cartlist.gdsprice * cartlist.cartstock}" /> 원
+						</p>
+						
+						<div class="delete">
+							<button type="button" class="btnDelete">삭제</button>
+						</div>
+					</div>
+					
+				</li>
+				</c:forEach>
+			</ul>
+			
+		</section>
+	</div>
 	</section>
 	
 	<footer id="footer">
