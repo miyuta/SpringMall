@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.example.spring03.domain.CartListVO;
 import com.example.spring03.domain.CartVO;
 import com.example.spring03.domain.GoodsViewVO;
+import com.example.spring03.domain.OrderDetailsVO;
+import com.example.spring03.domain.OrderVO;
 import com.example.spring03.domain.ReplyListVO;
 import com.example.spring03.domain.ReplyVO;
 import com.example.spring03.persistence.ShopDAO;
@@ -73,7 +75,27 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override 
-	public void cartDelete(CartVO cart_delVO) throws Exception{
+	public void cartDelete(CartVO cart_delVO) throws Exception {
 		shopDao.cartDelete(cart_delVO);
+	}
+	
+	@Override
+	public void orderInsert(OrderVO ord_insVO) throws Exception {
+		shopDao.orderInsert(ord_insVO);
+	}
+	
+	@Override
+	public void orderDetails(OrderDetailsVO ord_detVO) throws Exception {
+		shopDao.orderDetails(ord_detVO);
+	}
+	
+	@Override
+	public void orderAftDel(String userid) throws Exception {
+		shopDao.orderAftDel(userid);
+	}
+	
+	@Override
+	public List<OrderVO> orderList(String userid) throws Exception {
+		return shopDao.orderList(userid);
 	}
 }

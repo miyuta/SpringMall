@@ -66,4 +66,26 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		delete from tbl_cart where cartnum = #{cartnum} and userid = #{userid}
 	</delete>
 	
+	<!-- 주문 정보 -->
+	<insert id="orderInsert" parameterType="com.example.spring03.domain.OrderVO">
+		insert into tbl_order (orderid, userid, orderrec, useraddr1, useraddr2, useraddr3, orderph, amount)
+		values (#{orderid}, #{userid}, #{orderrec}, #{useraddr1}, #{useraddr2}, #{useraddr3}, #{orderph}, #{amount})
+	</insert>
+	
+	<!-- 주문 상세 정보 -->
+	<insert id="orderDetails" parameterType="com.example.spring03.domain.OrderDetailsVO">
+		insert into tbl_order_details (orderdetailsnum, orderid, gdsnum, cartstock)
+			select tbl_order_details_seq.nextval, #{orderid}, gdsnum, cartstock from tbl_cart
+	</insert>
+	
+	<!-- 주문 후 카트 비우기 -->
+	<delete id="orderAftDel" parameterType="com.example.spring03.domain.OrderVO">
+		delete tbl_cart where userid=#{userid}
+	</delete>
+	
+	<!-- 특정 유저의 주문 목록 -->
+	<select id="orderList" resultType="com.example.spring03.domain.OrderVO">
+		select orderid, userid, orderrec, useraddr1, useraddr2, useraddr3, orderph, amount, orderdate from tbl_order where userid = #{userid}
+	</select>
+	
 </mapper>

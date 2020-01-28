@@ -1,5 +1,7 @@
 package com.example.spring03.controller;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +20,8 @@ import com.example.spring03.domain.CartListVO;
 import com.example.spring03.domain.CartVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.MemberVO;
+import com.example.spring03.domain.OrderDetailsVO;
+import com.example.spring03.domain.OrderVO;
 import com.example.spring03.domain.ReplyListVO;
 import com.example.spring03.domain.ReplyVO;
 import com.example.spring03.service.ShopService;
@@ -169,5 +173,52 @@ public class ShopController {
 			result = 1;
 		}
 		return result;
+	}
+	
+	//주문
+	@RequestMapping(value="/cartList", method = RequestMethod.POST)
+	public String order(HttpSession session, OrderVO ord_insVO, OrderDetailsVO ord_detVO) throws Exception {
+		logger.info("post order");
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String userid = member.getUserid();
+		
+		Calendar cal= Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String subNum = "";
+		
+		for (int i = 1; i <= 6; i++) {
+			subNum += (int)(Math.random() * 10 );
+		}
+		
+		String orderId = ymd + "_" + subNum;
+		
+		ord_insVO.setOrderid(orderId);
+		ord_insVO.setUserid(userid);
+		
+		shopService.orderInsert(ord_insVO);
+		
+		ord_detVO.setOrderid(orderId);
+		shopService.orderDetails(ord_detVO);
+		
+		shopService.orderAftDel(userid);
+		
+		return "redirect:/shop/orderList";
+	}
+	
+	@RequestMapping(value="/orderList", method = RequestMethod.GET)
+	public void getOrderList(HttpSession session, OrderVO ord_listVO, Model model) throws Exception {
+		logger.info("get order list");
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String userId = member.getUserid();
+		
+		ord_listVO.setUserid(userId);
+		
+		List<OrderVO> orderList = shopService.orderList(userId);
+		
+		model.addAttribute("orderList", orderList);
 	}
 }

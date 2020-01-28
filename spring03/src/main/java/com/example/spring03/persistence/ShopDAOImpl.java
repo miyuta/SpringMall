@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.example.spring03.domain.CartListVO;
 import com.example.spring03.domain.CartVO;
 import com.example.spring03.domain.GoodsViewVO;
+import com.example.spring03.domain.OrderDetailsVO;
+import com.example.spring03.domain.OrderVO;
 import com.example.spring03.domain.ReplyListVO;
 import com.example.spring03.domain.ReplyVO;
 
@@ -87,5 +89,25 @@ public class ShopDAOImpl implements ShopDAO {
 	@Override
 	public void cartDelete(CartVO cart_delVO) throws Exception{
 		sqlSession.delete("shop.cartDelete", cart_delVO);
+	}
+	
+	@Override
+	public void orderInsert(OrderVO ord_insVO) throws Exception {
+		sqlSession.insert("shop.orderInsert", ord_insVO);
+	}
+	
+	@Override
+	public void orderDetails(OrderDetailsVO ord_detVO) throws Exception {
+		sqlSession.insert("shop.orderDetails", ord_detVO);
+	}
+	
+	@Override
+	public void orderAftDel(String userid) throws Exception {
+		sqlSession.delete("shop.orderAftDel", userid);
+	}
+	
+	@Override
+	public List<OrderVO> orderList(String userid) throws Exception {
+		return sqlSession.selectList("shop.orderList", userid);
 	}
 }
