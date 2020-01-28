@@ -71,4 +71,9 @@ public class ShopServiceImpl implements ShopService {
 	public List<CartListVO> cartList(String userid) throws Exception {
 		return shopDao.cartList(userid);
 	}
+	
+	@Override 
+	public void cartDelete(CartVO cart_delVO) throws Exception{
+		shopDao.cartDelete(cart_delVO);
+	}
 }

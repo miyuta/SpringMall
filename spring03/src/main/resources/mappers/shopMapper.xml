@@ -61,4 +61,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		from tbl_cart c inner join tbl_goods g on c.gdsnum = g.gdsnum where c.userid = #{userid}
 	</select>
 	
+	<!-- 카트 삭제 -->
+	<delete id="cartDelete" parameterType="com.example.spring03.domain.CartVO">
+		delete from tbl_cart where cartnum = #{cartnum} and userid = #{userid}
+	</delete>
+	
 </mapper>

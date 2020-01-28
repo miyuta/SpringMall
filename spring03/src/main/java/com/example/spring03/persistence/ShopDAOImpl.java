@@ -83,4 +83,9 @@ public class ShopDAOImpl implements ShopDAO {
 	public List<CartListVO> cartList(String userid) throws Exception{
 		return sqlSession.selectList("shop.cartList", userid);
 	}
+	
+	@Override
+	public void cartDelete(CartVO cart_delVO) throws Exception{
+		sqlSession.delete("shop.cartDelete", cart_delVO);
+	}
 }

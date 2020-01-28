@@ -146,4 +146,28 @@ public class ShopController {
 		
 		model.addAttribute("cartList", cartList);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/cartDelete", method = RequestMethod.POST)
+	public int cartDelete(HttpSession session, @RequestParam(value="chBox[]") List<String> chArr, CartVO cart_delVO) throws Exception {
+		logger.info("post cart delete");
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String userid = member.getUserid();
+		
+		int result = 0;
+		int cartNum = 0;
+		
+		if(member != null) {
+			cart_delVO.setUserid(userid);
+			
+			for(String i : chArr) {
+				cartNum = Integer.parseInt(i);
+				cart_delVO.setCartnum(cartNum);
+				shopService.cartDelete(cart_delVO);
+			}
+			result = 1;
+		}
+		return result;
+	}
 }

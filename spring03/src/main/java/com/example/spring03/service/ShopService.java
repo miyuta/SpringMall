@@ -19,4 +19,5 @@ public interface ShopService {
 	public void replyModify(ReplyVO rep_upVO) throws Exception;
 	public void cartInsert(CartVO cart_insVO) throws Exception;
 	public List<CartListVO> cartList(String userid) throws Exception;
+	public void cartDelete(CartVO cart_delVO) throws Exception;
 }
