@@ -25,9 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.spring03.domain.CategoryVO;
 import com.example.spring03.domain.GoodsVO;
 import com.example.spring03.domain.GoodsViewVO;
+import com.example.spring03.domain.OrderListVO;
+import com.example.spring03.domain.OrderVO;
 import com.example.spring03.service.AdminService;
 import com.example.spring03.utils.UploadFileUtils;
-import com.google.gson.JsonObject;
 
 import net.sf.json.JSONArray;
 
@@ -203,12 +204,41 @@ public class AdminController {
 		 } catch (IOException e) { e.printStackTrace();
 		 } finally {
 		  try {
-		   if(out != null) { out.close(); }
-		   if(printWriter != null) { printWriter.close(); }
+		   if (out != null) { out.close(); }
+		   if (printWriter != null) { printWriter.close(); }
 		  } catch(IOException e) { e.printStackTrace(); }
 		 }
 		 
 		 return; 
 		}
 		
+		//주문 목록
+		@RequestMapping(value="/shop/orderList", method = RequestMethod.GET)
+		public void getOrderList(Model model) throws Exception {
+			logger.info("get order list");
+			
+			List<OrderVO> orderList = adminService.orderList();
+			
+			model.addAttribute("orderList", orderList);
+		}
+		
+		//주문 상세 목록
+		@RequestMapping(value="/shop/orderView", method = RequestMethod.GET)
+		public void getOrderView(@RequestParam("n") String orderid, OrderVO ord_viewVO, Model model) throws Exception {
+			logger.info("get order view");
+			
+			ord_viewVO.setOrderid(orderid);
+			List<OrderListVO> orderView = adminService.orderView(ord_viewVO);
+			
+			model.addAttribute("orderView", orderView);
+		}
+		
+		@RequestMapping(value="/shop/orderView", method = RequestMethod.POST)
+		public String delivery(OrderVO ord_upVO) throws Exception {
+			logger.info("post order delivery");
+			
+			adminService.delivery(ord_upVO);
+			
+			return "redirect:/admin/shop/orderView?n=" + ord_upVO.getOrderid();
+		}
 }

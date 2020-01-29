@@ -49,4 +49,25 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		delete tbl_goods where gdsnum = #{gdsnum}
 	</delete>
 	
+	<!-- 모든 유저의 주문 목록 -->
+	<select id="orderList" resultType="com.example.spring03.domain.OrderVO">
+		select orderid, userid, orderrec, useraddr1, useraddr2, useraddr3, orderph, amount, orderdate, delivery from tbl_order
+	</select>
+	
+	<!-- 특정 주문 목록 -->
+	<select id="orderView" resultType="com.example.spring03.domain.OrderListVO">
+		select o.orderid, o.userid, o.orderrec, o.useraddr1, o.useraddr2, o.useraddr3, o.orderph, o.amount, o.orderdate, o.delivery,
+				d.orderdetailsnum, d.gdsnum, d.cartstock,
+				g.gdsname, g.gdsthumbimg, g.gdsprice
+			from tbl_order o
+			inner join tbl_order_details d on o.orderid = d.orderid
+			inner join tbl_goods g on d.gdsnum = g.gdsnum
+			where o.orderid = #{orderid}
+	</select>
+	
+	<!-- 배송 상태 -->
+	<update id="delivery" parameterType="com.example.spring03.domain.OrderVO">
+		update tbl_order set delivery = #{delivery} where orderid = #{orderid}
+	</update>
+	
 </mapper>

@@ -12,6 +12,7 @@ import com.example.spring03.domain.CartListVO;
 import com.example.spring03.domain.CartVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.OrderDetailsVO;
+import com.example.spring03.domain.OrderListVO;
 import com.example.spring03.domain.OrderVO;
 import com.example.spring03.domain.ReplyListVO;
 import com.example.spring03.domain.ReplyVO;
@@ -109,5 +110,10 @@ public class ShopDAOImpl implements ShopDAO {
 	@Override
 	public List<OrderVO> orderList(String userid) throws Exception {
 		return sqlSession.selectList("shop.orderList", userid);
+	}
+	
+	@Override
+	public List<OrderListVO> orderView(OrderVO ord_viewVO) throws Exception {
+		return sqlSession.selectList("shop.orderView", ord_viewVO);
 	}
 }

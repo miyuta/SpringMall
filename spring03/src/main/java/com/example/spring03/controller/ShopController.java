@@ -21,6 +21,7 @@ import com.example.spring03.domain.CartVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.MemberVO;
 import com.example.spring03.domain.OrderDetailsVO;
+import com.example.spring03.domain.OrderListVO;
 import com.example.spring03.domain.OrderVO;
 import com.example.spring03.domain.ReplyListVO;
 import com.example.spring03.domain.ReplyVO;
@@ -220,5 +221,20 @@ public class ShopController {
 		List<OrderVO> orderList = shopService.orderList(userId);
 		
 		model.addAttribute("orderList", orderList);
+	}
+	
+	@RequestMapping(value="orderView", method = RequestMethod.GET)
+	public void getOrderView(HttpSession session, @RequestParam("n") String orderid, OrderVO ord_viewVO, Model model) throws Exception {
+		logger.info("get order view");
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String userid = member.getUserid();
+		
+		ord_viewVO.setUserid(userid);
+		ord_viewVO.setOrderid(orderid);
+		
+		List<OrderListVO> orderView = shopService.orderView(ord_viewVO);
+		
+		model.addAttribute("orderView", orderView);
 	}
 }

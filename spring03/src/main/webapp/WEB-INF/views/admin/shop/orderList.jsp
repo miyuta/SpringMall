@@ -92,10 +92,11 @@ aside#aside li > ul.low li { width:180px; }
 					<c:forEach items = "${orderList}" var = "orderlist">
 						<li>
 							<div>
-								<p><span>주문번호</span><a href="${pageContext.request.contextPath}/shop/orderView?n=${orderlist.orderid}">${orderlist.orderid}</a></p>
+								<p><span>주문번호</span><a href="${pageContext.request.contextPath}/admin/shop/orderView?n=${orderlist.orderid}">${orderlist.orderid}</a></p>
 								<p><span>수령인</span>${orderlist.orderrec}</p>
 								<p><span>주소</span>(${orderlist.useraddr1}) ${orderlist.useraddr2} ${orderlist.useraddr3}</p>
-								<p><span>가격</span><fmt:formatNumber pattern="###,###,###" value="${orderlist.amount}" /> 원</p>
+								<p><span>가격</span><fmt:formatNumber pattern="###,###,###" value="${orderlist.amount}" /></p>
+								<p><span>상태</span>${orderlist.delivery}</p>
 							</div>
 						</li>
 					</c:forEach>

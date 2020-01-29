@@ -61,7 +61,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		from tbl_cart c inner join tbl_goods g on c.gdsnum = g.gdsnum where c.userid = #{userid}
 	</select>
 	
-	<!-- 카트 삭제 -->
+	<!-- 카트 리스트 삭제 -->
 	<delete id="cartDelete" parameterType="com.example.spring03.domain.CartVO">
 		delete from tbl_cart where cartnum = #{cartnum} and userid = #{userid}
 	</delete>
@@ -86,6 +86,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 특정 유저의 주문 목록 -->
 	<select id="orderList" resultType="com.example.spring03.domain.OrderVO">
 		select orderid, userid, orderrec, useraddr1, useraddr2, useraddr3, orderph, amount, orderdate from tbl_order where userid = #{userid}
+	</select>
+	
+	<!-- 특정 주문 목록 -->
+	<select id="orderView" resultType="com.example.spring03.domain.OrderListVO">
+		select o.orderid, o.userid, o.orderrec, o.useraddr1, o.useraddr2, o.useraddr3, o.orderph, o.amount, o.orderdate,
+					d.orderdetailsnum, d.gdsnum, d.cartstock,
+					g.gdsname, g.gdsthumbimg, g.gdsprice from tbl_order o 
+		inner join tbl_order_details d on o.orderid = d.orderid
+		inner join tbl_goods g on d.gdsnum = g.gdsnum
+		where o.userid = #{userid} and o.orderid = #{orderid}
 	</select>
 	
 </mapper>

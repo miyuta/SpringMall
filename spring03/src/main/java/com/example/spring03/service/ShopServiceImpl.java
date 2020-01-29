@@ -10,6 +10,7 @@ import com.example.spring03.domain.CartListVO;
 import com.example.spring03.domain.CartVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.OrderDetailsVO;
+import com.example.spring03.domain.OrderListVO;
 import com.example.spring03.domain.OrderVO;
 import com.example.spring03.domain.ReplyListVO;
 import com.example.spring03.domain.ReplyVO;
@@ -97,5 +98,10 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public List<OrderVO> orderList(String userid) throws Exception {
 		return shopDao.orderList(userid);
+	}
+	
+	@Override
+	public List<OrderListVO> orderView(OrderVO ord_viewVO) throws Exception {
+		return shopDao.orderView(ord_viewVO);
 	}
 }

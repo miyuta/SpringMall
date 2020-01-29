@@ -6,6 +6,7 @@ import com.example.spring03.domain.CartListVO;
 import com.example.spring03.domain.CartVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.OrderDetailsVO;
+import com.example.spring03.domain.OrderListVO;
 import com.example.spring03.domain.OrderVO;
 import com.example.spring03.domain.ReplyListVO;
 import com.example.spring03.domain.ReplyVO;
@@ -26,4 +27,5 @@ public interface ShopDAO {
 	public void orderDetails(OrderDetailsVO ord_detVO) throws Exception;
 	public void orderAftDel(String userid) throws Exception;
 	public List<OrderVO> orderList(String userid) throws Exception;
+	public List<OrderListVO> orderView(OrderVO ord_viewVO) throws Exception;
 }

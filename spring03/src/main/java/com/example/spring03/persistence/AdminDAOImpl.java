@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.example.spring03.domain.CategoryVO;
 import com.example.spring03.domain.GoodsVO;
 import com.example.spring03.domain.GoodsViewVO;
+import com.example.spring03.domain.OrderListVO;
+import com.example.spring03.domain.OrderVO;
 
 
 @Repository
@@ -46,5 +48,20 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void goodsDelete(int gdsnum) throws Exception {
 		sqlSession.delete("admin.goodsDelete", gdsnum);
+	}
+	
+	@Override
+	public List<OrderVO> orderList() throws Exception {
+		return sqlSession.selectList("admin.orderList");
+	}
+	
+	@Override
+	public List<OrderListVO> orderView(OrderVO ord_viewVO) throws Exception {
+		return sqlSession.selectList("admin.orderView", ord_viewVO);
+	}
+	
+	@Override
+	public void delivery(OrderVO ord_upVO) throws Exception {
+		sqlSession.update("admin.delivery", ord_upVO);
 	}
 }

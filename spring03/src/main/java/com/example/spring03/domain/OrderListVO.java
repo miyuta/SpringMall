@@ -2,7 +2,7 @@ package com.example.spring03.domain;
 
 import java.util.Date;
 
-public class OrderVO {
+public class OrderListVO {
 	private String orderid;
 	private String userid;
 	private String orderrec;
@@ -12,6 +12,15 @@ public class OrderVO {
 	private String orderph;
 	private int amount;
 	private Date orderdate;
+	
+	private int ordersetailsnum;
+	private int gdsnum;
+	private int cartstock;
+	
+	private String gdsname;
+	private String gdsthumbimg;
+	private int gdsprice;
+	
 	private String delivery;
 	
 	
@@ -74,5 +83,41 @@ public class OrderVO {
 	}
 	public void setOrderdate(Date orderdate) {
 		this.orderdate = orderdate;
+	}
+	public int getOrdersetailsnum() {
+		return ordersetailsnum;
+	}
+	public void setOrdersetailsnum(int ordersetailsnum) {
+		this.ordersetailsnum = ordersetailsnum;
+	}
+	public int getGdsnum() {
+		return gdsnum;
+	}
+	public void setGdsnum(int gdsnum) {
+		this.gdsnum = gdsnum;
+	}
+	public int getCartstock() {
+		return cartstock;
+	}
+	public void setCartstock(int cartstock) {
+		this.cartstock = cartstock;
+	}
+	public String getGdsname() {
+		return gdsname;
+	}
+	public void setGdsname(String gdsname) {
+		this.gdsname = gdsname;
+	}
+	public String getGdsthumbimg() {
+		return gdsthumbimg;
+	}
+	public void setGdsthumbimg(String gdsthumbimg) {
+		this.gdsthumbimg = gdsthumbimg;
+	}
+	public int getGdsprice() {
+		return gdsprice;
+	}
+	public void setGdsprice(int gdsprice) {
+		this.gdsprice = gdsprice;
 	}
 }
