@@ -7,7 +7,12 @@
 <head>
 	<title>Shop List</title>
 	
-<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.4.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.4.1.min.js"></script>
+	<link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap-theme.min.css">
+	<link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.js"></script>
+
+	<link rel ="stylesheet" href="${pageContext.request.contextPath}/resources/CSS/style.css">
 <style>
 
  body { margin:0; padding:0; font-family:'맑은 고딕', verdana; }
@@ -92,20 +97,20 @@ footer#footer ul li { display:inline-block; margin-right:10px; }
 <div id="root">
 	<header id="header">
 		<div id="header_box">
-			<%@ include file="/WEB-INF/views/include/header.jsp"  %>
+			<%@ include file="/WEB-INF/views/admin/include/header.jsp"  %>
 		</div>
 	</header>
 	
 	<nav id="nav">
 		<div id="nav_box">
-			<%@ include file="/WEB-INF/views/include/nav.jsp" %>
+			<%@ include file="/WEB-INF/views/admin/include/nav.jsp" %>
 		</div>
 	</nav>
 	
 	<section id="container">
 		<div id="container_box">
 			<aside id="aside">
-				<%@ include file="/WEB-INF/views/include/aside.jsp" %>
+				<%@ include file="/WEB-INF/views/admin/include/aside.jsp" %>
 			</aside>
 			
 			<section id="content">
@@ -117,7 +122,7 @@ footer#footer ul li { display:inline-block; margin-right:10px; }
 							<p><span>주문자</span>${orderview.userid}</p>
 							<p><span>수령인</span>${orderview.orderrec}</p>
 							<p><span>주소</span>(${orderview.useraddr1}) ${orderview.useraddr2} ${orderview.useraddr3}</p>
-							<p><span>가격</span><fmt:formatNumber pattern="###,###,###" value="${orderview.gdsprice}" /> 원</p>
+							<p><span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${orderview.amount}" /> 원</p>
 							<p><span>상태</span>${orderview.delivery}</p>
 							<div class="deliveryChange">
 								<form role="form" method="post" class="deliveryForm">
@@ -136,7 +141,7 @@ footer#footer ul li { display:inline-block; margin-right:10px; }
 
 									$(".btnDelivered").click(function(){
 											$(".delivery").val("배송 완료");
-											run();
+											 run();
 										});
 
 									function run() {
@@ -161,7 +166,7 @@ footer#footer ul li { display:inline-block; margin-right:10px; }
 								<span>상품명</span>${orderview.gdsname}<br />
 								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${orderview.gdsprice}" /> 원<br />
 								<span>구입 수량</span>${orderview.cartstock} 개<br />
-								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${orderview.amount}" /> 원<br />
+								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${orderview.gdsprice * orderview.cartstock}" /> 원<br />
 							</p>
 						</div>
 					</li>

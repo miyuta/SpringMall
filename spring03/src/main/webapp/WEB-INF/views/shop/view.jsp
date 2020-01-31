@@ -170,6 +170,8 @@ aside#aside li > ul.low li { width:180px; }
 					<p class="gdsStock">
 						<span>재고</span><fmt:formatNumber pattern="###,###,###" value="${shopView.gdsstock}"></fmt:formatNumber>EA
 					</p>
+					
+					<c:if test="${shopView.gdsstock != 0}">
 					<p class="cartStock">
 						<span>구입 수량</span>
 						<button type="button" class="btnPlus">+</button>
@@ -233,6 +235,12 @@ aside#aside li > ul.low li { width:180px; }
 								});
 						</script>
 					</p>
+					
+					</c:if>
+					
+					<c:if test="${shopView.gdsstock == 0}">
+						<p>상품 수량이 부족합니다.</p>
+					</c:if>
 				</div>
 				
 				<div class="gdsDes">${shopView.gdsdes}</div>

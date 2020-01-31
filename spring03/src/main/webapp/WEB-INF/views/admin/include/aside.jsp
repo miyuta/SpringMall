@@ -3,9 +3,9 @@
 
 <ul>
 	<li><a href="${pageContext.request.contextPath}/admin/goods/register">상품 등록</a></li>
-	<li><a href="${pageContext.request.contextPath}/admin/goods/list">상품 목록</a></li>
-	
+	<li><a href="${pageContext.request.contextPath}/admin/goods/list">상품 목록</a></li>	
 	<li><a href="${pageContext.request.contextPath}/admin/shop/orderList">주문 목록</a>
+	<li><a href="${pageContext.request.contextPath}/admin/shop/allReply">상품 소감</a></li>
 	
 	<li><a href="">상품 평가</a></li>
 	<li><a href="">유저 목록</a></li>	

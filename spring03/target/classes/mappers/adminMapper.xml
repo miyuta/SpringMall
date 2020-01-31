@@ -54,6 +54,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		select orderid, userid, orderrec, useraddr1, useraddr2, useraddr3, orderph, amount, orderdate, delivery from tbl_order
 	</select>
 	
+	<!-- 주문 취소 시 상품 수량 조절 -->
+	<update id="orderCancel" parameterType="com.example.spring03.domain.GoodsVO">
+		update tbl_goods set gdsstock = gdsstock + #{gdsstock} where gdsnum = #{gdsnum}
+	</update>
+	
+	<!-- 주문 취소 -->
+	<delete id="orderDelete" parameterType="com.example.spring03.domain.OrderVO">
+		delete from tbl_order where orderid = #{orderid}
+	</delete>
+	
 	<!-- 특정 주문 목록 -->
 	<select id="orderView" resultType="com.example.spring03.domain.OrderListVO">
 		select o.orderid, o.userid, o.orderrec, o.useraddr1, o.useraddr2, o.useraddr3, o.orderph, o.amount, o.orderdate, o.delivery,
@@ -70,4 +80,20 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		update tbl_order set delivery = #{delivery} where orderid = #{orderid}
 	</update>
 	
+	<!-- 상품 수량 조절 보조 -->
+	<select id="changeStock_sub" resultType="com.example.spring03.domain.OrderDetailsVO">
+		select orderid, gdsnum, cartstock from tbl_order_details where orderid = #{orderid}
+	</select>
+	
+	<!-- 모든 댓글 -->
+	<select id="allReply" resultType="com.example.spring03.domain.ReplyListVO">
+		select r.gdsnum, r.userid, r.repnum, r.repcon, r.repdate, m.username from tbl_reply r
+		inner join tbl_member m on r.userid = m.userid
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelete" parameterType="int">
+		delete tbl_reply where repnum = #{repnum}
+	</delete>
+		
 </mapper>

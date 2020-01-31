@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Shop List</title>
+	<title>Shop All Reply</title>
 	
 	<link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap-theme.min.css">
 	<link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">
@@ -70,6 +70,15 @@ aside#aside li > ul.low li { width:180px; }
  section#content ul li { border:5px solid #eee; padding:10px 20px; margin-bottom:20px; }
  section#content .orderList span { font-size:20px; font-weight:bold; display:inline-block; width:90px; margin-right:10px; }
 </style>
+<style>
+#content ul li { margin-bottom:20px; border:10px solid #eee; }
+.replyInfo { background:#eee; padding:10px; font-size:18px; }
+.replyInfo span { font-size:20px; font-weight:bold; margin-right:20px; }
+.replyContent { padding:10px; }
+
+.replyControll {text-align:right; padding:10px; }
+.replyControll button { border:2px solid #999; background:#fff; }
+</style>
 
 </head>
 <body>
@@ -94,22 +103,32 @@ aside#aside li > ul.low li { width:180px; }
 		
 			<section id="content">
 		
-				<ul class="orderList">
-					<c:forEach items = "${orderList}" var = "orderlist">
+				<ul>
+					<c:forEach items = "${allReply}" var = "allreply">
 						<li>
-							<div>
-								<p><span>주문번호</span><a href="${pageContext.request.contextPath}/admin/shop/orderView?n=${orderlist.orderid}">${orderlist.orderid}</a></p>
-								<p><span>수령인</span>${orderlist.orderrec}</p>
-								<p><span>주소</span>(${orderlist.useraddr1}) ${orderlist.useraddr2} ${orderlist.useraddr3}</p>
-								<p><span>가격</span><fmt:formatNumber pattern="###,###,###" value="${orderlist.amount}" /></p>
-								<p><span>상태</span>${orderlist.delivery}</p>
-								<div class="orderCancel">
-									<form role="form" method="post" class="cancelForm">								
-										<input type="hidden" name="orderid" value="${orderlist.orderid}" />									
-										<input type="submit" class="btnCancel" value="주문 취소">
-									</form>
+							<div class="replyInfo">
+								<p>
+									<span>작성자</span>${allreply.username} (${allreply.userid})
+								</p>
+								
+								<p>
+									<span>작성된 상품</span><a href="${pageContext.request.contextPath}/shop/view?n=${allreply.gdsnum}">바로가기</a>
+								</p>
 							</div>
+							
+							<div class="replyContent">
+								${allreply.repcon}
 							</div>
+							
+							<div class="replyControll">
+								<form role="form" method="post">
+									
+									<input type="hidden" name="repnum" value="${allreply.repnum}" />
+									<button type="submit" class="btnDelete${allreply.repnum}">삭제</button>
+									
+								</form>
+							</div>
+							
 						</li>
 					</c:forEach>
 				</ul>

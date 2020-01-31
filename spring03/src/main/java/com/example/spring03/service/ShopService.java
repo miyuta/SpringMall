@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.spring03.domain.CartListVO;
 import com.example.spring03.domain.CartVO;
+import com.example.spring03.domain.GoodsVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.OrderDetailsVO;
 import com.example.spring03.domain.OrderListVO;
@@ -23,6 +24,7 @@ public interface ShopService {
 	public void cartInsert(CartVO cart_insVO) throws Exception;
 	public List<CartListVO> cartList(String userid) throws Exception;
 	public void cartDelete(CartVO cart_delVO) throws Exception;
+	public void changeStock(GoodsVO gds_chnVO) throws Exception;
 	public void orderInsert(OrderVO ord_insVO) throws Exception;
 	public void orderDetails(OrderDetailsVO ord_detVO) throws Exception;
 	public void orderAftDel(String userid) throws Exception;

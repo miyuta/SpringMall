@@ -12,6 +12,7 @@ import com.example.spring03.domain.GoodsVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.OrderListVO;
 import com.example.spring03.domain.OrderVO;
+import com.example.spring03.domain.ReplyListVO;
 
 
 @Repository
@@ -56,6 +57,16 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 	
 	@Override
+	public void orderCancel(GoodsVO ord_canVO) throws Exception {
+		sqlSession.update("admin.orderCancel", ord_canVO);
+	}
+	
+	@Override
+	public void orderDelete(String orderid) throws Exception {
+		sqlSession.delete("admin.orderDelete", orderid);
+	}
+	
+	@Override
 	public List<OrderListVO> orderView(OrderVO ord_viewVO) throws Exception {
 		return sqlSession.selectList("admin.orderView", ord_viewVO);
 	}
@@ -63,5 +74,15 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void delivery(OrderVO ord_upVO) throws Exception {
 		sqlSession.update("admin.delivery", ord_upVO);
+	}
+	
+	@Override
+	public List<ReplyListVO> allReply() throws Exception {
+		return sqlSession.selectList("admin.allReply");
+	}
+	
+	@Override
+	public void replyDelete(int repnum) throws Exception {
+		sqlSession.delete("admin.replyDelete", repnum);
 	}
 }

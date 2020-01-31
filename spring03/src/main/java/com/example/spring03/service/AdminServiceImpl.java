@@ -11,6 +11,7 @@ import com.example.spring03.domain.GoodsVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.OrderListVO;
 import com.example.spring03.domain.OrderVO;
+import com.example.spring03.domain.ReplyListVO;
 import com.example.spring03.persistence.AdminDAO;
 
 @Service
@@ -55,11 +56,31 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
+	public void orderCancel(GoodsVO ord_canVO) throws Exception {
+		adminDao.orderCancel(ord_canVO);
+	}
+	
+	@Override
+	public void orderDelete(String orderid) throws Exception {
+		adminDao.orderDelete(orderid);
+	}
+	
+	@Override
 	public List<OrderListVO> orderView(OrderVO ord_viewVO) throws Exception {
 		return adminDao.orderView(ord_viewVO);
 	}
 	@Override
 	public void delivery(OrderVO ord_upVO) throws Exception {
 		adminDao.delivery(ord_upVO);
+	}
+	
+	@Override
+	public List<ReplyListVO> allReply() throws Exception {
+		return adminDao.allReply();
+	}
+	
+	@Override
+	public void replyDelete(int repnum) throws Exception {
+		adminDao.replyDelete(repnum);
 	}
 }

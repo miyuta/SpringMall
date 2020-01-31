@@ -27,6 +27,7 @@ import com.example.spring03.domain.GoodsVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.OrderListVO;
 import com.example.spring03.domain.OrderVO;
+import com.example.spring03.domain.ReplyListVO;
 import com.example.spring03.service.AdminService;
 import com.example.spring03.utils.UploadFileUtils;
 
@@ -222,6 +223,23 @@ public class AdminController {
 			model.addAttribute("orderList", orderList);
 		}
 		
+		@RequestMapping(value="shop/orderList", method = RequestMethod.POST)
+		public String postOrderCancel(@RequestParam(value="orderid") String orderid, OrderVO ord_canVO) throws Exception {
+			logger.info("post order cancel");
+			
+			List<OrderListVO> orderView = adminService.orderView(ord_canVO);
+			GoodsVO goods = new GoodsVO();
+			
+			for (OrderListVO i : orderView) {
+				goods.setGdsnum(i.getGdsnum());
+				goods.setGdsstock(i.getCartstock());
+				adminService.orderCancel(goods);
+			}
+			
+			adminService.orderDelete(orderid);
+			return "redirect:/admin/shop/orderList";
+		}
+		
 		//주문 상세 목록
 		@RequestMapping(value="/shop/orderView", method = RequestMethod.GET)
 		public void getOrderView(@RequestParam("n") String orderid, OrderVO ord_viewVO, Model model) throws Exception {
@@ -233,6 +251,7 @@ public class AdminController {
 			model.addAttribute("orderView", orderView);
 		}
 		
+		//주문 상태
 		@RequestMapping(value="/shop/orderView", method = RequestMethod.POST)
 		public String delivery(OrderVO ord_upVO) throws Exception {
 			logger.info("post order delivery");
@@ -240,5 +259,25 @@ public class AdminController {
 			adminService.delivery(ord_upVO);
 			
 			return "redirect:/admin/shop/orderView?n=" + ord_upVO.getOrderid();
+		}
+		
+		//모든 댓글 리스트
+		@RequestMapping(value="/shop/allReply", method = RequestMethod.GET)
+		public void getAllReply(Model model) throws Exception {
+			logger.info("get all reply");
+			
+			List<ReplyListVO> allReply = adminService.allReply();
+			
+			model.addAttribute("allReply", allReply);
+		}
+		
+		//댓글 지우기
+		@RequestMapping(value="/shop/allReply", method = RequestMethod.POST)
+		public String postReplyDelete(@RequestParam int repnum) throws Exception {
+			logger.info("post reply delete");
+			
+			adminService.replyDelete(repnum);
+			
+			return "redirect:/admin/shop/allReply";
 		}
 }

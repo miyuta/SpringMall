@@ -14,7 +14,7 @@ public class OrderVO {
 	private Date orderdate;
 	private String delivery;
 	
-	
+
 	public String getDelivery() {
 		return delivery;
 	}

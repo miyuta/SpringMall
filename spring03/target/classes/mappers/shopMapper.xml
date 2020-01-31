@@ -66,6 +66,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		delete from tbl_cart where cartnum = #{cartnum} and userid = #{userid}
 	</delete>
 	
+	<!-- 주문 시 상품 수량 조절 -->
+	<update id="changeStock" parameterType="com.example.spring03.domain.OrderVO">
+		update tbl_goods set gdsstock = gdsstock - #{gdsstock} where gdsnum = #{gdsnum}
+	</update>
+	
 	<!-- 주문 정보 -->
 	<insert id="orderInsert" parameterType="com.example.spring03.domain.OrderVO">
 		insert into tbl_order (orderid, userid, orderrec, useraddr1, useraddr2, useraddr3, orderph, amount)

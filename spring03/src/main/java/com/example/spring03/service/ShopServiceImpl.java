@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.spring03.domain.CartListVO;
 import com.example.spring03.domain.CartVO;
+import com.example.spring03.domain.GoodsVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.OrderDetailsVO;
 import com.example.spring03.domain.OrderListVO;
@@ -78,6 +79,11 @@ public class ShopServiceImpl implements ShopService {
 	@Override 
 	public void cartDelete(CartVO cart_delVO) throws Exception {
 		shopDao.cartDelete(cart_delVO);
+	}
+	
+	@Override
+	public void changeStock(GoodsVO gds_chnVO) throws Exception {
+		shopDao.changeStock(gds_chnVO);
 	}
 	
 	@Override

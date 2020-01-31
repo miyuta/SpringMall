@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.spring03.domain.CartListVO;
 import com.example.spring03.domain.CartVO;
+import com.example.spring03.domain.GoodsVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.MemberVO;
 import com.example.spring03.domain.OrderDetailsVO;
@@ -205,6 +206,15 @@ public class ShopController {
 		shopService.orderDetails(ord_detVO);
 		
 		shopService.orderAftDel(userid);
+		
+		List<OrderListVO> orderView = shopService.orderView(ord_insVO);
+		GoodsVO goods = new GoodsVO();
+		
+		for (OrderListVO i : orderView) {
+			goods.setGdsnum(i.getGdsnum());
+			goods.setGdsstock(i.getCartstock());
+			shopService.changeStock(goods);
+		}
 		
 		return "redirect:/shop/orderList";
 	}

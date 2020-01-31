@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.spring03.domain.CartListVO;
 import com.example.spring03.domain.CartVO;
+import com.example.spring03.domain.GoodsVO;
 import com.example.spring03.domain.GoodsViewVO;
 import com.example.spring03.domain.OrderDetailsVO;
 import com.example.spring03.domain.OrderListVO;
@@ -90,6 +91,11 @@ public class ShopDAOImpl implements ShopDAO {
 	@Override
 	public void cartDelete(CartVO cart_delVO) throws Exception{
 		sqlSession.delete("shop.cartDelete", cart_delVO);
+	}
+	
+	@Override
+	public void changeStock(GoodsVO gds_chnVO) throws Exception {
+		sqlSession.update("shop.changeStock", gds_chnVO);
 	}
 	
 	@Override
