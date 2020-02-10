@@ -1,0 +1,47 @@
+package com.example.spring04.modelDAO;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+import com.example.spring04.modelVO.BoardVO;
+
+@Repository
+public class BoardDAOImpl implements BoardDAO {
+	
+	@Inject
+	private SqlSession sqlSession;
+	
+	@Override
+	public void boardWrite(BoardVO wrtVO) throws Exception {
+		sqlSession.insert("board.boardWrite", wrtVO);
+	}
+	
+	@Override
+	public List<BoardVO> boardList() throws Exception {
+		return sqlSession.selectList("board.boardList");
+	}
+	
+	@Override
+	public BoardVO boardView(int seq) throws Exception {
+		return sqlSession.selectOne("board.boardView", seq);
+	}
+	
+	@Override
+	public int passChk(BoardVO passChk) throws Exception {
+		return sqlSession.selectOne("board.passChk", passChk);
+	}
+	
+	@Override
+	public void boardUpdate(BoardVO updVO) throws Exception {
+		sqlSession.update("board.boardUpdate", updVO);
+	}
+	
+	@Override
+	public void boardDelete(int seq) throws Exception {
+		sqlSession.delete("board.boardDelete", seq);
+	}
+}

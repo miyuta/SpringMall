@@ -2,6 +2,31 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="boardMapper">
-   
+<mapper namespace="board">
+	
+<insert id="boardWrite">
+	insert into spboard (seq, title, writer, passwd, content) 
+	values (spboard_seq.nextval, #{title}, #{writer}, #{passwd}, #{content}) 
+</insert>
+
+<select id="boardList" resultType="com.example.spring04.modelVO.BoardVO">
+	select seq, title, writer, regdate, cnt from spboard order by seq desc
+</select>
+
+<select id="boardView" resultType="com.example.spring04.modelVO.BoardVO">
+	select seq, title, writer, passwd, content, regdate, cnt from spboard where seq = #{seq}
+</select>
+
+<select id="passChk" resultType="int">
+	select count(*) from spboard where seq = #{seq} and passwd=#{passwd}
+</select>
+
+<update id="boardUpdate">
+	update spboard set title = #{title}, writer = #{writer}, passwd = #{passwd}, content = #{content} where seq = #{seq}
+</update>
+
+<delete id="boardDelete">
+	delete from spboard where seq=#{seq}
+</delete>
+	
 </mapper>
