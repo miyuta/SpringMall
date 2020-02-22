@@ -11,11 +11,34 @@
 <script>
 	$(document).ready(function(){
 		var formObj = $("form[role='form1']");
+
 		$("#btnUpdate").on("click", function(){
-			event.prevenrtDefault();
+			var passwd = $("#passwd").val();
+			if(passwd == ""){
+				alert("비밀번호를 입력해주세요.");
+				$("#passwd").focus();
+				event.preventDefault();
+				return;
+			}
 			formObj.attr("action", "${pageContext.request.contextPath}/board/view");
 			formObj.attr("method", "post");
 			formObj.submit();
+		});
+
+		$("#btnDelete").on("click", function(){
+			if (confirm("삭제하시겠습니까?")) {
+				formObj.attr("action", "${pageContext.request.contextPath}/board/delete");
+				formObj.attr("method", "post");
+				formObj.submit();
+			} else {
+				formObj.attr("action", "${pageContext.request.contextPath}/board/view");
+				formObj.attr("method", "post");
+			}
+		});
+
+		$("#btnBack").on("click", function(){
+			event.preventDefault();
+			location.href="${pageContext.request.contextPath}/board/list";
 		});
 	});
 </script>
@@ -27,9 +50,9 @@
 	</header>
 	<hr />
 	
-	<nav>
-		홈 - 글작성
-	</nav>
+	<div>
+		<%@ include file="/WEB-INF/views/include/aside.jsp"%>
+	</div>
 	<hr />
 	
 	<section id="container">
@@ -47,7 +70,7 @@
 						<td><label for="writer">작성자</label></td>
 						<td>${boardView.writer}</td>
 						<td><label for="passwd">비밀번호</label></td>
-						<td><input type="password" name="passwd"></td>
+						<td><input type="password" name="passwd" id="passwd"></td>
 					</tr>
 					<tr>
 						<td colspan="4"><label for="content">내용</label></td>

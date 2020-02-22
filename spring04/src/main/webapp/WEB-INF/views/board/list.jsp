@@ -15,29 +15,26 @@
 	</header>
 	<hr />
 	
-	<nav>
-		홈 - 글작성
-	</nav>
+	<div>
+		<%@ include file="/WEB-INF/views/include/aside.jsp"%>
+	</div>
 	<hr />
 	
 	<section id="container">
-		<form role="form" method="post" action="${pageContext.request.contextPath}/board/write">
-			<table>
-			<c:forEach items="${boardList}" var="boardlist">
-				<tr>
-					<th>번호</th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th>
-				</tr>
-				<tr>
-					<td>${boardlist.seq}</td>
-					<td><a href="${pageContext.request.contextPath}/board/view?n=${boardlist.seq}&error=0">${boardlist.title}</a></td>
-					<td>${boardlist.writer}</td>
-					<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${boardlist.regdate}"/></td>
-					<td>${boardlist.cnt}</td>
-				</tr>
-			</c:forEach>
-			</table>
-			<button type="submit">뒤로</button>
-		</form>
+		<table>
+		<c:forEach items="${boardList}" var="boardlist">
+			<tr>
+				<th>번호</th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th>
+			</tr>
+			<tr>
+				<td>${boardlist.seq}</td>
+				<td><a href="${pageContext.request.contextPath}/board/view?n=${boardlist.seq}&error=0">${boardlist.title}</a></td>
+				<td>${boardlist.writer}</td>
+				<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${boardlist.regdate}"/></td>
+				<td>${boardlist.cnt}</td>
+			</tr>
+		</c:forEach>
+		</table>
 	</section>
 </div>
 </body>

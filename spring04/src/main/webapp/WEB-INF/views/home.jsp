@@ -8,7 +8,9 @@
 <h1>
 	Hello world!  
 </h1>
-
+<div>
+	<%@ include file="/WEB-INF/views/include/aside.jsp" %>
+</div>
 <P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>

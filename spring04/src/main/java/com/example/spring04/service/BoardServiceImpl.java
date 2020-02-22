@@ -21,8 +21,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<BoardVO> boardList() throws Exception {
-		return boardDao.boardList();
+	public List<BoardVO> boardListPage(int startRow, int endRow) throws Exception {
+		return boardDao.boardListPage(startRow, endRow);
+	}
+	
+	@Override
+	public int listCount() throws Exception {
+		return boardDao.listCount();
 	}
 	
 	@Override

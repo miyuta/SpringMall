@@ -1,5 +1,6 @@
 package com.example.spring04.modelDAO;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,8 +22,18 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	@Override
-	public List<BoardVO> boardList() throws Exception {
-		return sqlSession.selectList("board.boardList");
+	public List<BoardVO> boardListPage(int startRow, int endRow) throws Exception {
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		
+		return sqlSession.selectList("board.boardListPaging", map);
+	}
+	
+	@Override
+	public int listCount() throws Exception {
+		return sqlSession.selectOne("board.boardListCnt");
 	}
 	
 	@Override

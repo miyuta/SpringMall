@@ -9,8 +9,19 @@
 	values (spboard_seq.nextval, #{title}, #{writer}, #{passwd}, #{content}) 
 </insert>
 
-<select id="boardList" resultType="com.example.spring04.modelVO.BoardVO">
+<!-- <select id="boardList" resultType="com.example.spring04.modelVO.BoardVO">
 	select seq, title, writer, regdate, cnt from spboard order by seq desc
+</select> -->
+
+<select id="boardListPaging" resultType="com.example.spring04.modelVO.BoardVO" parameterType="hashMap">
+	select seq, title, writer, regdate, cnt from (select seq, title, writer, regdate, cnt, row_number() over(order by seq desc) as rnum from spboard)
+		where rnum between #{startRow} and #{endRow} order by seq desc
+</select>
+
+<select id="boardListCnt" resultType="int">
+	<![CDATA[
+		select count(seq) from spboard where seq > 0
+	]]>
 </select>
 
 <select id="boardView" resultType="com.example.spring04.modelVO.BoardVO">
