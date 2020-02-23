@@ -34,4 +34,34 @@
 	delete from bmember where userid = #{userid}
 </delete>
 
+<select id="memberSearch" resultType="com.example.spring04.modelVO.MemberVO">
+	select userid, username, useremail, reg_date, useraccess
+	from bmember
+	<include refid="search"></include>
+	order by reg_date desc
+</select>
+
+<select id="memberAllCount" resultType="int">
+	select count(*) from bmember
+</select>
+
+<select id="memberSelConut" resultType="int">
+	select count(*) from bmember
+	<include refid="search"></include>
+</select>
+
+<sql id="search">
+	<choose>
+		<when test="option == 'all' ">
+			where userid like '%'||#{keyword}||'%'
+			or username like '%'||#{keyword}||'%'
+			or useremail like '%'||#{keyword}||'%'
+			or useraccess like '%'||#{keyword}||'%'
+		</when>
+		<otherwise>
+			where ${option} like '%'||#{keyword}||'%'
+		</otherwise>
+	</choose>
+</sql>
+
 </mapper>

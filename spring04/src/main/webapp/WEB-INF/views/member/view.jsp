@@ -16,7 +16,7 @@
 		
 		$("#btnModify").on("click", function(){
 			formObj.attr("action", "${pageContext.request.contextPath}/member/modify");
-			formObj.attr("method", "POST");
+			formObj.attr("method", "GET");
 			formObj.submit();
 		});
 		

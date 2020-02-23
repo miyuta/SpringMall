@@ -40,11 +40,31 @@ public class MemberController {
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public void memberList(Model model) throws Exception {
-		logger.info("get member register");
+		logger.info("get member list");
 		
 		List<MemberVO> memberList = memberService.memberList();
 		
 		model.addAttribute("memberList", memberList);
+	}
+	
+	@RequestMapping(value="/list", method = RequestMethod.POST)
+	public void memberSearch(@RequestParam("option") String option, @RequestParam("keyword") String keyword, Model model) throws Exception {
+		logger.info("post member search");
+		
+		if (option.equals("list")) {
+			List<MemberVO> memberList = memberService.memberList();
+			model.addAttribute("memberList", memberList);
+		} else {
+			List<MemberVO> memberSearch = memberService.memberSearch(option, keyword);
+			int AllCnt = memberService.memberAllCtn();
+			int SelCnt = memberService.memberSelCtn(option, keyword);
+			
+			model.addAttribute("memberList", memberSearch);
+			model.addAttribute("option", option);
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("AllCnt", AllCnt);
+			model.addAttribute("SelCnt", SelCnt);
+		}
 	}
 	
 	@RequestMapping(value="/view", method = RequestMethod.GET)
@@ -63,7 +83,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET)
-	public void memberModify(@RequestParam("n") int rnum, @RequestParam("error") int error, Model model) throws Exception {
+	public void memberModify(@RequestParam("rnum") int rnum, @RequestParam("error") int error, Model model) throws Exception {
 		logger.info("get member modify");
 		
 		MemberVO memberModify = memberService.memberView(rnum);
@@ -91,7 +111,7 @@ public class MemberController {
 			int error = 1;
 			
 			model.addAttribute("error", error);
-			model.addAttribute("n", memMod.getRnum());
+			model.addAttribute("rnum", memMod.getRnum());
 			
 			return "redirect:/member/modify";
 		}

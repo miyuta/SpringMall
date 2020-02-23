@@ -23,7 +23,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
-	public List<MemberVO> memberList() throws Exception {
+	public List<MemberVO> memberList() throws Exception {	
 		return sqlSession.selectList("member.memberList");
 	}
 	
@@ -53,5 +53,29 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void memberDelete(String userid) throws Exception {
 		sqlSession.delete("member.memberDelete", userid);
+	}
+	
+	@Override
+	public List<MemberVO> memberSearch(String option, String keyword) {
+		Map<String, String> map =new HashMap<>();
+		map.put("option", option);
+		map.put("keyword", keyword);
+		
+		return sqlSession.selectList("member.memberSearch", map);
+	}
+	
+	@Override
+	public int memberAllCnt() throws Exception {
+		return sqlSession.selectOne("member.memberAllCount");
+	}
+	
+	@Override
+	public int memberSelCnt(String option, String keyword) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("option", option);
+		map.put("keyword", keyword);
+		
+		int SelCtn = sqlSession.selectOne("member.memberSelConut", map);
+		return SelCtn;
 	}
 }

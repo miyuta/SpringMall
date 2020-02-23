@@ -39,8 +39,20 @@
 	<hr />
 	
 	<section id="container">
-		<form role="form1" method = "post">
-			<input type="password" name="passwd" id="passwd">
+		<form role="form1" method = "post" action="${pageContext.request.contextPath}/member/list">
+			<label for="passwd">비밀번호 : </label><input type="password" name="passwd" id="passwd">
+			<select name="option">
+				<option value="list" <c:out value="${option == 'list' ? 'selected' : ''}" />>리스트</option>
+				<option value="all" <c:out value="${option == 'all' ? 'selected' : ''}" />>아이디 + 이메일 + 권한</option>
+				<option value="userid" <c:out value="${option == 'userid' ? 'selected' : ''}" />>아이디</option>
+				<option value="username" <c:out value="${option == 'username' ? 'selected' : ''}" />>이름</option>
+				<option value="useremail" <c:out value="${option == 'useremail' ? 'selected' : ''}" />>이메일</option>
+				<option value="useraccess" <c:out value="${option == 'useraccess' ? 'selected' : ''}" />>권한</option>
+			</select>
+			<input type="text" name="keyword" value="${keyword}">
+			<input type=submit value="조회">
+			</form>
+			
 			<table>
 			<tr>
 				<th>번호</th><th>아이디</th><th>이름</th><th>이메일</th><th>등록일</th><th>권한</th>
@@ -63,7 +75,6 @@
 				</tr>
 			</c:forEach>
 			</table>
-		</form>
 	</section>
 </div>
 </body>

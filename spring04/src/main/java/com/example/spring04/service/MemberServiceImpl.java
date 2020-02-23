@@ -54,4 +54,24 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return message;
 	}
+	
+	@Override
+	public List<MemberVO> memberSearch(String option, String keyword) throws Exception {
+		return memberDao.memberSearch(option, keyword);
+	}
+	
+	@Override
+	public int memberAllCtn() throws Exception {
+		return memberDao.memberAllCnt();
+	}
+	
+	@Override
+	public int memberSelCtn(String option, String keyword) throws Exception {
+		
+		int SelCtn = 0;
+		if (option != "userid") {
+			SelCtn = memberDao.memberSelCnt(option, keyword);
+		} else  SelCtn = 1;
+		return SelCtn;
+	}
 }

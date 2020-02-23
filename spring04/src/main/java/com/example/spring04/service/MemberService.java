@@ -12,4 +12,7 @@ public interface MemberService {
 	public boolean passChk(String userid, String passwd) throws Exception;
 	public void memberDelete(String string) throws Exception;
 	public String message(int error) throws Exception;
+	public List<MemberVO> memberSearch(String option, String keyword) throws Exception;
+	public int memberAllCtn() throws Exception;
+	public int memberSelCtn(String option, String keyword) throws Exception;
 }

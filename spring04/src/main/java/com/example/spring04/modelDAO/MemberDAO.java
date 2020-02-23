@@ -11,4 +11,7 @@ public interface MemberDAO {
 	public void memberModify(MemberVO memMod) throws Exception;
 	public boolean passChk(String userid, String passwd) throws Exception;
 	public void memberDelete(String userid) throws Exception;
+	public List<MemberVO> memberSearch(String option, String keyword) throws Exception;
+	public int memberAllCnt() throws Exception;
+	public int memberSelCnt(String option, String keyword) throws Exception;
 }
