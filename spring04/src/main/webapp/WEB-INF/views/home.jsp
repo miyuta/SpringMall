@@ -5,9 +5,14 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
+	<h1>
+		Hello world!
+	</h1>
+	<div>
+		<c:if test="${message == 0}">
+			<h3>${userid}님 환영합니다.</h3>
+		</c:if>
+	</div>
 <div>
 	<%@ include file="/WEB-INF/views/include/aside.jsp" %>
 </div>
