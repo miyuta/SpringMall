@@ -21,6 +21,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public List<BoardVO> boardList() throws Exception {
+		return boardDao.boardList();
+	}
+	
+	@Override
 	public List<BoardVO> boardListPage(int startRow, int endRow) throws Exception {
 		return boardDao.boardListPage(startRow, endRow);
 	}
@@ -48,5 +53,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void boardDelete(int seq) throws Exception {
 		boardDao.boardDelete(seq);
+	}
+	
+	@Override
+	public List<BoardVO> boardSearch(String option, String keyword) throws Exception {
+		return boardDao.boardSearch(option, keyword);
 	}
 }

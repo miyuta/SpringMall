@@ -5,7 +5,7 @@
 	<div>
 		<a href="${pageContext.request.contextPath}/">홈</a>
 <c:choose>
-	<c:when test="${sessionScope.userid == null}">
+	<c:when test="${member == null}">
 		<a href="${pageContext.request.contextPath}/login/login">로그인</a>
 	</c:when>
 	<c:otherwise>

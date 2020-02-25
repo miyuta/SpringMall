@@ -5,10 +5,12 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.spring04.modelVO.MemberVO;
 import com.example.spring04.service.LoginService;
@@ -22,25 +24,30 @@ public class LoginController {
 	@Inject
 	private LoginService loginService;
 	
+	@Autowired
+	BCryptPasswordEncoder passEncoder;
+	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public void memberLogin() throws Exception {
 		logger.info("get login");
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String memberLogin(MemberVO memLogin, Model model, HttpSession session) throws Exception {
+	public String memberLogin(MemberVO memLogin, RedirectAttributes rttr, HttpSession session) throws Exception {
+		logger.info("post login");
 		
-		boolean login = loginService.memberLogin(memLogin, session);
+		MemberVO login = loginService.memberLogin(memLogin);
 		
-		
-		if (login == true) {
-			model.addAttribute("message", "success");
-			model.addAttribute("userid", memLogin.getUserid());
-			return "redirect:/";
+		boolean passMatch = passEncoder.matches(memLogin.getPasswd(), login.getPasswd());
+
+		if (login != null && passMatch) {
+			session.setAttribute("member", login);
 		} else {
-			model.addAttribute("message", "failed");
-			return "redirect:/login/login";
+			session.setAttribute("member", null);
+			rttr.addFlashAttribute("message", "false");
+			return "redirect:/login/login/";
 		}
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="logout", method = RequestMethod.GET)

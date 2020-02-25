@@ -9,9 +9,14 @@
 		Hello world!
 	</h1>
 	<div>
-		<c:if test="${message == 0}">
-			<h3>${userid}님 환영합니다.</h3>
-		</c:if>
+		<c:choose>
+			<c:when test="${member != null}">
+				<h3>${member.username}님 환영합니다.</h3>
+			</c:when>
+			<c:otherwise>
+				<h3>로그인하지 않았습니다.</h3>
+			</c:otherwise>
+		</c:choose>
 	</div>
 <div>
 	<%@ include file="/WEB-INF/views/include/aside.jsp" %>

@@ -6,6 +6,8 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,9 @@ public class MemberController {
 	@Inject
 	private MemberService memberService;
 	
+	@Autowired
+	BCryptPasswordEncoder passEncoder;
+	
 	@RequestMapping(value="/register", method = RequestMethod.GET)
 	public void memberRegister() throws Exception {
 		logger.info("get member register");
@@ -32,6 +37,10 @@ public class MemberController {
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	public String memberRegister(MemberVO memReg) throws Exception {
 		logger.info("post member register");
+		
+		String cptPass = memReg.getPasswd();
+		String pass = passEncoder.encode(cptPass);
+		memReg.setPasswd(pass);
 		
 		memberService.memberRegister(memReg);
 		

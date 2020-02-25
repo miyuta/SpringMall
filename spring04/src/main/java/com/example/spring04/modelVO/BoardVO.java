@@ -9,7 +9,9 @@ public class BoardVO {
 	private String passwd;
 	private String content;
 	private Date regdate;
+	private Date modate;
 	private int cnt;
+//	private String username;
 	
 	public int getSeq() {
 		return seq;
@@ -47,10 +49,22 @@ public class BoardVO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
+	public Date getModate() {
+		return modate;
+	}
+	public void setModate(Date modate) {
+		this.modate = modate;
+	}
 	public int getCnt() {
 		return cnt;
 	}
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
+//	public String getUsername() {
+//		return username;
+//	}
+//	public void setUsername(String username) {
+//		this.username = username;
+//	}
 }

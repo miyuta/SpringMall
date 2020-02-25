@@ -14,13 +14,10 @@ public class LoginServiceImpl implements LoginService {
 	@Inject
 	private LoginDAO loginDao;
 	
+	
 	@Override
-	public boolean memberLogin(MemberVO memLogin, HttpSession session) throws Exception {
-		boolean login =  loginDao.memberLogin(memLogin);
-		if (login) {
-			session.setAttribute("userid", memLogin.getUserid());
-		}
-		return login;
+	public MemberVO memberLogin(MemberVO memLogin) throws Exception {
+		return loginDao.memberLogin(memLogin);
 	}
 	
 	@Override

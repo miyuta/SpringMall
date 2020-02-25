@@ -3,6 +3,7 @@ package com.example.spring04.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring04.modelVO.BoardVO;
+import com.example.spring04.modelVO.MemberVO;
 import com.example.spring04.service.BoardService;
 
 @Controller
@@ -30,16 +32,21 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/write", method = RequestMethod.POST)
-	public String postBoardWrite(BoardVO wrtVO) throws Exception {
+	public String postBoardWrite(BoardVO wrtVO, HttpSession session) throws Exception {
 		logger.info("post board write");
 		
+		MemberVO sessionVO = (MemberVO) session.getAttribute("member");
+		String writer = sessionVO.getUserid();
+		System.out.println(writer);
+		
+		wrtVO.setWriter(writer);
 		boardService.boardWrite(wrtVO);
 		
-		return "redirect:/board/list";
+		return "redirect:/board/listPage";
 	}
 	
 	@RequestMapping(value="/listPage", method = RequestMethod.GET)
-	public void getBoardList(@RequestParam("num") int num, Model model) throws Exception {
+	public void getBoardList(@RequestParam(defaultValue="1") int num, Model model) throws Exception {
 		logger.info("get board listPage");
 		
 		//게시물 총 갯수
@@ -96,6 +103,20 @@ public class BoardController {
 		
 		//현재 페이지
 		model.addAttribute("atPage", atPage);
+	}
+	
+	@RequestMapping(value="/list", method = RequestMethod.POST)
+	public void boardSearch(@RequestParam("option") String option, @RequestParam("keyword") String keyword, Model model) throws Exception {
+		
+		if (option.equals("list")) {
+			List<BoardVO> boardList = boardService.boardList();
+			model.addAttribute("boardList", boardList);
+		} else {
+			List<BoardVO> boardSearch = boardService.boardSearch(option, keyword);
+			model.addAttribute("boardList", boardSearch);
+			model.addAttribute("option", option);
+			model.addAttribute("keyword", keyword);
+		}
 	}
 	
 	@RequestMapping(value="/view", method = RequestMethod.GET)

@@ -9,9 +9,9 @@
 	values (spboard_seq.nextval, #{title}, #{writer}, #{passwd}, #{content}) 
 </insert>
 
-<!-- <select id="boardList" resultType="com.example.spring04.modelVO.BoardVO">
+<select id="boardList" resultType="com.example.spring04.modelVO.BoardVO">
 	select seq, title, writer, regdate, cnt from spboard order by seq desc
-</select> -->
+</select>
 
 <select id="boardListPaging" resultType="com.example.spring04.modelVO.BoardVO" parameterType="hashMap">
 	select seq, title, writer, regdate, cnt from (select seq, title, writer, regdate, cnt, row_number() over(order by seq desc) as rnum from spboard)
@@ -33,11 +33,34 @@
 </select>
 
 <update id="boardUpdate">
-	update spboard set title = #{title}, writer = #{writer}, passwd = #{passwd}, content = #{content} where seq = #{seq}
+	update spboard set title = #{title}, writer = #{writer}, passwd = #{passwd}, content = #{content}, modate = sysdate where seq = #{seq}
 </update>
 
 <delete id="boardDelete">
 	delete from spboard where seq=#{seq}
 </delete>
-	
+
+<select id="boardSearch" resultType="com.example.spring04.modelVO.BoardVO">
+	select seq, title, writer, content, regdate, cnt from spboard
+	<include refid="search"></include>
+	order by seq desc
+</select>
+
+<select id="countSel" resultType="int">
+	select count(*) from spboard
+	<include refid="search"></include>
+</select>
+
+<sql id="search">
+	<choose>
+		<when test="option == 'all' ">
+			where title like '%'||#{keyword}||'%'
+			or writer like '%'||#{keyword}||'%'
+			or content like '%'||#{keyword}||'%'
+		</when>
+		<otherwise>
+			where ${option} like '%'||#{keyword}||'%'
+		</otherwise>
+	</choose>
+</sql>
 </mapper>

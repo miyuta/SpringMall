@@ -5,9 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.4.1.min.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시판 리스트</title>
 </head>
+<script>
+	$(function(){
+		$("#btnWrite").click(function(){
+			location.href="${pageContext.request.contextPath}/board/write";
+		});
+	});
+</script>
 <body>
 <div id=root>
 	<header>
@@ -21,6 +29,20 @@
 	<hr />
 	
 	<section id="container">
+	<form name="form1" method="post" action="${pageContext.request.contextPath}/board/list">
+		<select name="option">
+			<option value="list" <c:out value="${optoin == 'list' ? 'selected' : ''}"/>>리스트</option>
+			<option value="all" <c:out value="${optoin == 'all' ? 'selected' : ''}"/>>제목 + 작성자 + 내용</option>
+			<option value="title" <c:out value="${optoin == 'title' ? 'selected' : ''}"/>>제목</option>
+			<option value="writer" <c:out value="${optoin == 'writer' ? 'selected' : ''}"/>>작성자</option>
+			<option value="content" <c:out value="${optoin == 'content' ? 'selected' : ''}"/>>내용</option>
+		</select>
+		<input type="text" name="keyword" value="${keyword}">
+		<input type="submit" value="조회">
+		<c:if test="${member != null}">
+			<button type="button" id="btnWrite">글쓰기</button>
+		</c:if>
+	</form>
 			<table>
 			<c:forEach items="${boardList}" var="boardlist">
 				<tr>

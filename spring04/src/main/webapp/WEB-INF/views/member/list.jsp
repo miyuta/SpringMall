@@ -62,7 +62,7 @@
 				<tr align="center">
 					<td>${memlist.rnum}</td>
 					<td>${memlist.userid}</td>
-					<td><a href="${pageContext.request.contextPath}/member/view?n=${memlist.rnum}&error=0" onclick="return linkView(${memlist.passwd})">${memlist.username}</a></td>
+					<td><a href="${pageContext.request.contextPath}/member/view?n=${memlist.rnum}&error=0" onclick="linkView(${memlist.passwd})">${memlist.username}</a></td>
 					<td>${memlist.useremail}</td>
 					<td><fmt:formatDate pattern="yy/MM/dd HH:mm:ss" value="${memlist.reg_date}"/></td>
 					<td>

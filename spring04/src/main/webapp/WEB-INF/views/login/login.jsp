@@ -8,6 +8,27 @@
 <meta charset="UTF-8">
 <title>LogIn</title>
 </head>
+<script>
+	$(function(){
+		$("#btnLogin").click(function(){
+			var userid = $("#userid").val();
+			var passwd= $("#passwd").val();
+
+			if (userid == "") {
+				alert("아이디를 입력해주세요.");
+				$("#userid").focus();
+				return;
+			}
+			if (passwd == "") {
+				alert("비밀번호를 입력해주세요.")
+				$("#passwd").focus();
+				return;
+			}
+			document.form1.action="${pageContext.request.contextPath}/login/login";
+			document.form1.submit();
+		});
+	});
+</script>
 <body>
 <div id=root>
 	<header>
@@ -20,32 +41,28 @@
 	</div>
 	<hr />
 	
+	<c:if test="${message  == false}">
+		<div style="color:red;">아이디 또는 비밀번호가 일치하지 않습니다.</div>
+	</c:if>
+	
 	<section id="container">
-		<form role="form1" method="post">
+		<form name="form1" method="post">
 			<table border="1">
 				<tbody>
 					<tr>
 						<td>
-							<label for="userid">아이디</label><input type="text" name="userid" placeholder="아이디를 입력해주세요.">
+							<label for="userid">아이디</label><input type="text" name="userid" id="userid" placeholder="아이디를 입력해주세요.">
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="passwd">비밀번호</label><input type="password" name="passwd" placeholder="비밀번호를 입력해주세요.">
+							<label for="passwd">비밀번호</label><input type="password" name="passwd" id="passwd" placeholder="비밀번호를 입력해주세요.">
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<button type="submit" id="btnLogin">로그인</button>
-							<button type="submit" id="btnBack">뒤로</button>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<c:set var="message" value="${message}" />
-							<c:if test="${message == 'failed'}">
-								<div>아이디 또는 비밀번호가 일치하지 않습니다.</div>
-							</c:if>
+							<input type="button" id="btnLogin" value="로그인">
+							<input type="button" id="btnBack" value="뒤로">
 						</td>
 					</tr>
 				</tbody>

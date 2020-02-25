@@ -14,8 +14,7 @@ public class LoginDAOImpl implements LoginDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public boolean memberLogin(MemberVO memLogin) throws Exception {
-		String login = sqlSession.selectOne("login.memberLogin", memLogin);
-		return (login == null) ? false : true;
+	public MemberVO memberLogin(MemberVO memLogin) throws Exception {
+		return sqlSession.selectOne("login.memCptLogin", memLogin);
 	}
 }
