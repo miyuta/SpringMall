@@ -59,17 +59,17 @@
 			</table>
 			
 			<c:if test="${prev}">
-				<span>[ <a href="${pageContext.request.contextPath}/board/listPage?num=${startPageNum - 1}">이전</a> ]</span>
+				<span>[ <a href="${pageContext.request.contextPath}/board/listPage?num=${map.startPageNum - 1}">이전</a> ]</span>
 			</c:if>
 			
-			<c:forEach begin="${startPageNum}" end="${endPageNum}" var="num">
+			<c:forEach begin="${map.startPageNum}" end="${map.endPageNum}" var="num">
 				<span>
 				
-					<c:if test="${atPage != num}">
+					<c:if test="${map.atPage != num}">
 						<a href="${pageContext.request.contextPath}/board/listPage?num=${num}">${num}</a>
 					</c:if>
 					
-					<c:if test="${atPage == num}">
+					<c:if test="${map.atPage == num}">
 						<b>${num}</b>
 					</c:if>
 				
@@ -77,7 +77,7 @@
 			</c:forEach>
 			
 			<c:if test="${next}">
-				<span>[ <a href="${pageContext.request.contextPath}/board/listPage?num=${endPageNum + 1}">다음</a> ]</span>
+				<span>[ <a href="${pageContext.request.contextPath}/board/listPage?num=${map.endPageNum + 1}">다음</a> ]</span>
 			</c:if>
 			
 <%-- 			<div>
