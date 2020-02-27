@@ -36,6 +36,10 @@ public class PageServiceImpl implements PageService {
 	if (endPageNum > endPageNum_tmp) {
 		endPageNum = endPageNum_tmp;
 	}
+	//이전 다음 버튼 처리
+	int prev = startPageNum == 1 ? 1 : 0;
+	int next = endPageNum * pageNumRange >= totalRowCount ? 1 : 0;
+	
 	Map<String, Integer> map = new HashMap<>();
 	map.put("pageNum", pageNum);
 	map.put("startRow", startRow);
@@ -44,6 +48,8 @@ public class PageServiceImpl implements PageService {
 	map.put("startPageNum", startPageNum);
 	map.put("pageNumRange", pageNumRange);
 	map.put("atPage", atPage);
+	map.put("prev", prev);
+	map.put("next", next);
 	
 	return map;
 	}

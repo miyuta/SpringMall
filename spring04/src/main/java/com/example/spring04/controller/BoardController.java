@@ -52,26 +52,24 @@ public class BoardController {
 	
 	@RequestMapping(value="/listPage", method = RequestMethod.GET)
 	public void getBoardList(@RequestParam(defaultValue="1") int num, Model model) throws Exception {
-		logger.info("get board listPage");
+		logger.info("get board listpage");
 		
 		//게시물 총 갯수
 		int totalRowCount = boardService.listCount();
 		//페이지 처리
 		Map<String, Integer> map = pageService.pagingMaker(totalRowCount, num);
-		//이전 다음 버튼 처리
-		boolean prev = map.get("startPageNum") == 1 ? false : true;
-		boolean next = map.get("endPageNum") * map.get("pageNumRange") >= totalRowCount ? false : true;
-		
 		//페이지 번호에 맞는 글 목록
 		List<BoardVO> boardList = null;
 		boardList = boardService.boardListPage(map.get("startRow"), map.get("endRow"));
-		
 		model.addAttribute("boardList", boardList);
-		model.addAttribute("prev", prev);
-		model.addAttribute("next", next);
 		model.addAttribute("map", map);
 		
 		
+		//이전 다음 버튼 처리
+//		boolean prev = map.get("startPageNum") == 1 ? false : true;
+//		boolean next = map.get("endPageNum") * map.get("pageNumRange") >= totalRowCount ? false : true;
+//		model.addAttribute("prev", prev);
+//		model.addAttribute("next", next);
 //		int startPageNum = map.get("startPageNum");
 //		int endPageNum = map.get("endPageNum");
 //		int pageNumRange = map.get("pageNumRange");
@@ -87,17 +85,32 @@ public class BoardController {
 //		model.addAttribute("atPage", num);
 	}
 	
-	@RequestMapping(value="/list", method = RequestMethod.POST)
-	public void boardSearch(@RequestParam("option") String option, @RequestParam("keyword") String keyword, Model model) throws Exception {
+	@RequestMapping(value="/listPage", method = RequestMethod.POST)
+	public void postBoardSearch(@RequestParam("option") String option, @RequestParam("keyword") String keyword, @RequestParam(value="num", defaultValue="1") int atPage, Model model) throws Exception {
+		logger.info("post board listpage");
 		
+		System.out.println(atPage);
+		
+		//페이지 번호에 맞는 글 목록
+		List<BoardVO> boardList = null;
 		if (option.equals("list")) {
-			List<BoardVO> boardList = boardService.boardList();
+			//게시물 총 갯수
+			int totalRowCount = boardService.listCount();
+			//페이지 처리
+			Map<String, Integer> map = pageService.pagingMaker(totalRowCount, atPage);
+			boardList = boardService.boardListPage(map.get("startRow"), map.get("endRow"));
 			model.addAttribute("boardList", boardList);
+			model.addAttribute("map", map);
 		} else {
-			List<BoardVO> boardSearch = boardService.boardSearch(option, keyword);
+			//게시물 총 갯수
+			int totalRowCount = boardService.boardSelCount(option, keyword);
+			//페이지 처리
+			Map<String, Integer> map = pageService.pagingMaker(totalRowCount, atPage);
+			List<BoardVO> boardSearch = boardService.boardListSchPage(option, keyword, map.get("startRow"), map.get("endRow"));
 			model.addAttribute("boardList", boardSearch);
 			model.addAttribute("option", option);
 			model.addAttribute("keyword", keyword);
+			model.addAttribute("map", map);
 		}
 	}
 	

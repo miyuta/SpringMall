@@ -63,12 +63,16 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	@Override
-	public List<BoardVO> boardSearch(String option, String keyword) throws Exception {
-		
+	public List<BoardVO> boardListSchPage(BoardVO SchPage) throws Exception {
+		return sqlSession.selectList("board.boardListSchPage", SchPage);
+	}
+	
+	@Override
+	public int boardSelCount(String option, String keyword) throws Exception {
 		Map<String, String> map = new HashMap<>();
 		map.put("option", option);
 		map.put("keyword", keyword);
 		
-		return sqlSession.selectList("board.boardSearch", map);
+		return sqlSession.selectOne("board.boardSelCount", map);
 	}
 }

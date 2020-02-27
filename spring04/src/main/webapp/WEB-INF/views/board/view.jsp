@@ -36,9 +36,14 @@
 			}
 		});
 
+		$("#btnLogin").on("click", function(){
+			event.preventDefault();
+			location.href="${pageContext.request.contextPath}/login/login";
+		});
+
 		$("#btnBack").on("click", function(){
 			event.preventDefault();
-			location.href="${pageContext.request.contextPath}/board/list";
+			location.href="${pageContext.request.contextPath}/board/listPage";
 		});
 	});
 </script>
@@ -80,8 +85,15 @@
 					</tr>
 					<tr>
 						<td colspan="4">
-							<button type="submit" id="btnUpdate">수정</button>
-							<button type="submit" id="btnDelete">삭제</button>
+						<c:choose>
+							<c:when test="${member.userid == boardView.writer}">
+								<button type="submit" id="btnUpdate">수정</button>
+								<button type="submit" id="btnDelete">삭제</button>
+							</c:when>
+							<c:otherwise>
+								<input type="button" id="btnLogin" value="로그인이 필요합니다.">
+							</c:otherwise>
+						</c:choose>
 							<button type="submit" id="btnBack">뒤로</button>
 							<div>${messege}</div>
 						</td>

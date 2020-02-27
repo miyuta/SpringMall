@@ -13,5 +13,6 @@ public interface BoardDAO {
 	public int passChk(BoardVO passChk) throws Exception;
 	public void boardUpdate(BoardVO updVO) throws Exception;
 	public void boardDelete(int seq) throws Exception;
-	public List<BoardVO> boardSearch(String option, String keyword) throws Exception;
+	public List<BoardVO> boardListSchPage(BoardVO SchPage) throws Exception;
+	public int boardSelCount(String option, String keyword) throws Exception;
 }

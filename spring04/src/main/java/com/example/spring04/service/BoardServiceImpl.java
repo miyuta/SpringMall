@@ -56,7 +56,18 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<BoardVO> boardSearch(String option, String keyword) throws Exception {
-		return boardDao.boardSearch(option, keyword);
+	public List<BoardVO> boardListSchPage(String option, String keyword, int startRow, int endRow) throws Exception {
+		BoardVO SchPage = new BoardVO();
+		SchPage.setOption(option);
+		SchPage.setKeyword(keyword);
+		SchPage.setStartRow(startRow);
+		SchPage.setEndRow(endRow);
+		
+		return boardDao.boardListSchPage(SchPage);
+	}
+	
+	@Override
+	public int boardSelCount(String option, String keyword) throws Exception {
+		return boardDao.boardSelCount(option, keyword);
 	}
 }

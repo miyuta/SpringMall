@@ -27,6 +27,11 @@
 			document.form1.action="${pageContext.request.contextPath}/login/login";
 			document.form1.submit();
 		});
+
+		$("#btnBack").click(function(){
+			event.preventDefault();
+			location.href="${pageContext.request.contextPath}/"
+		});
 	});
 </script>
 <body>

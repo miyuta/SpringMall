@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div>
 	<div>
+<c:if test="${member != null}">
+	${member.userid}님이 로그인 중입니다.
+</c:if>
+	</div>
+	<div>
 		<a href="${pageContext.request.contextPath}/">홈</a>
 <c:choose>
 	<c:when test="${member == null}">

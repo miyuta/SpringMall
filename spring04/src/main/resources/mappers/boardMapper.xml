@@ -18,6 +18,11 @@
 		where rnum between #{startRow} and #{endRow} order by seq desc
 </select>
 
+<select id="boardListSchPage" resultType="com.example.spring04.modelVO.BoardVO">
+	select seq, title, writer, content, regdate, cnt from (select seq, title, writer, content, regdate, cnt, row_number() over(order by seq desc) as rnum from spboard <include refid="search"></include>)
+		where rnum between #{startRow} and #{endRow} order by seq desc
+</select>
+
 <select id="boardListCnt" resultType="int">
 	<![CDATA[
 		select count(seq) from spboard where seq > 0
@@ -46,7 +51,7 @@
 	order by seq desc
 </select>
 
-<select id="countSel" resultType="int">
+<select id="boardSelCount" resultType="int">
 	select count(*) from spboard
 	<include refid="search"></include>
 </select>
@@ -63,4 +68,5 @@
 		</otherwise>
 	</choose>
 </sql>
+
 </mapper>
