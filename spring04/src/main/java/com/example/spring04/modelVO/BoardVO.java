@@ -15,6 +15,7 @@ public class BoardVO {
 	private String keyword;
 	private int startRow;
 	private int endRow;
+	private int recnt;
 	
 	public int getSeq() {
 		return seq;
@@ -87,5 +88,11 @@ public class BoardVO {
 	}
 	public void setEndRow(int endRow) {
 		this.endRow = endRow;
+	}
+	public int getRecnt() {
+		return recnt;
+	}
+	public void setRecnt(int recnt) {
+		this.recnt = recnt;
 	}
 }

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring04.modelVO.BoardVO;
 import com.example.spring04.modelVO.MemberVO;
+import com.example.spring04.modelVO.ReplyVO;
 import com.example.spring04.service.BoardService;
 import com.example.spring04.service.PageService;
+import com.example.spring04.service.ReplyService;
 
 @Controller
 @RequestMapping(value="board/*")
@@ -31,6 +33,9 @@ public class BoardController {
 	@Inject
 	PageService pageService;
 	
+	@Inject
+	ReplyService replyService;
+	
 	@RequestMapping(value="/write", method = RequestMethod.GET)
 	public void getBoardWrite() throws Exception {
 		logger.info("get board write");
@@ -42,7 +47,6 @@ public class BoardController {
 		
 		MemberVO sessionVO = (MemberVO) session.getAttribute("member");
 		String writer = sessionVO.getUserid();
-		System.out.println(writer);
 		
 		wrtVO.setWriter(writer);
 		boardService.boardWrite(wrtVO);
@@ -89,8 +93,6 @@ public class BoardController {
 	public void postBoardSearch(@RequestParam("option") String option, @RequestParam("keyword") String keyword, @RequestParam(value="num", defaultValue="1") int atPage, Model model) throws Exception {
 		logger.info("post board listpage");
 		
-		System.out.println(atPage);
-		
 		//페이지 번호에 맞는 글 목록
 		List<BoardVO> boardList = null;
 		if (option.equals("list")) {
@@ -115,14 +117,16 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/view", method = RequestMethod.GET)
-	public void getBoardView(@RequestParam("n") int seq, @RequestParam("error") int error, Model model) throws Exception {
-		logger.info("get baord view");
+	public void getBoardView(@RequestParam("n") int seq, @RequestParam(value="error", defaultValue="0") int error, Model model) throws Exception {
+		logger.info("get board view");
 		
 		if (error == 1) {
 			model.addAttribute("messege", "비밀번호를 확인해주세요.");
 		}
 		BoardVO boardView = boardService.boardView(seq);
+		List<ReplyVO> replyList = replyService.replyList(seq);
 		model.addAttribute("boardView", boardView);
+		model.addAttribute("replyList", replyList);
 	}
 	
 	@RequestMapping(value="/view", method = RequestMethod.POST)

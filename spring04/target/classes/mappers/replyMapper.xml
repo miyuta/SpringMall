@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reply">
+
+<insert id="replyInsert">
+	insert into breply (repno, bno, rewriter, recontent) values (reply_bno.nextval, #{bno}, #{rewriter}, #{recontent})
+</insert>
+
+<select id="replyList" resultType="com.example.spring04.modelVO.ReplyVO">
+	select repno, bno, rewriter, recontent, regdate, uptodate from breply where bno = #{bno} order by repno desc
+</select>
+
+</mapper>

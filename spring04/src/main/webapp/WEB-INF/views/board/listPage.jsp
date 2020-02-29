@@ -10,8 +10,10 @@
 <title>게시판 리스트</title>
 </head>
 <script>
-	$(function(){
-		$("#btnWrite").click(function(){
+	$(document).ready(function(){
+		var formObj = $("form[name='form1']");
+		
+		$("#btnWrite").	on("click", function(){
 			location.href="${pageContext.request.contextPath}/board/write";
 		});
 	});
@@ -39,6 +41,7 @@
 		</select>
 		<input id="keyword" type="text" name="keyword" value="${keyword}">
 		<input type="submit" value="조회">
+
 		<c:if test="${member != null}">
 			<button type="button" id="btnWrite">글쓰기</button>
 		</c:if>
@@ -67,7 +70,7 @@
 				
 					<c:if test="${map.atPage != num}">
 						<%-- <a href="${pageContext.request.contextPath}/board/listPage?num=${num}">${num}</a> --%>
-						<input type="submit" name="num" value="${num}">
+						<input type="submit" id="atPage" name="num" value="${num}">
 					</c:if>
 					
 					<c:if test="${map.atPage == num}">
@@ -88,7 +91,7 @@
 					</span>
 				</c:forEach>
 			</div> --%>
-		</form>	
+				</form>	
 	</section>
 </div>
 </body>

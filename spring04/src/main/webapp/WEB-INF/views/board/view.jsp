@@ -11,6 +11,7 @@
 <script>
 	$(document).ready(function(){
 		var formObj = $("form[role='form1']");
+		var reFormObj = $("form[role='form2']");
 
 		$("#btnUpdate").on("click", function(){
 			var passwd = $("#passwd").val();
@@ -45,6 +46,12 @@
 			event.preventDefault();
 			location.href="${pageContext.request.contextPath}/board/listPage";
 		});
+
+		$("#repSubmit").on("click", function(){
+			reFormObj.attr("action", "${pageContext.request.contextPath}/reply/write");
+			reFormObj.attr("method", "post");
+			reFormObj.submit();
+		});
 	});
 </script>
 </head>
@@ -61,6 +68,7 @@
 	<hr />
 	
 	<section id="container">
+	
 		<form role="form1" method="post">
 		<input type="hidden" name="seq" value="${boardView.seq}">
 			<table border="1">
@@ -101,6 +109,33 @@
 				</tbody>
 			</table>
 		</form>
+	
+		<div>
+			<ol>
+				<c:forEach items="${replyList}" var="repList">
+					<li>
+						<p>
+							작성자 : ${repList.rewriter}<br />
+							작성 날짜 : <fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${repList.regdate}"/>
+						</p>
+						
+						<p>${repList.recontent}</p>
+					</li>
+				</c:forEach>
+			</ol>
+			
+			<section id="replyForm">
+				<form role="form2" method="post">
+					<input type="hidden" name="n" value="${boardView.seq}">
+					
+					<p><label for="rewriter">작성자</label><input type="text" id="rewriter" name="rewriter"></p>
+					<p><label for="recontent">댓글</label><textarea id="recontent" name="recontent"></textarea></p>
+					<p>
+						<button type="button" id="repSubmit">작성</button>
+					</p>
+				</form>
+			</section>
+		</div>
 	</section>
 </div>
 </body>
