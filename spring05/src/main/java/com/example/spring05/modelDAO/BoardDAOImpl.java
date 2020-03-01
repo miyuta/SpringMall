@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.example.spring05.ModelVO.BoardVO;
+import com.example.spring05.modelVO.BoardVO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -29,10 +29,15 @@ public class BoardDAOImpl implements BoardDAO {
 	public BoardVO boardView(int seq) throws Exception {
 		return sqlSession.selectOne("board.boardView", seq);
 	}
+	
+	@Override
+	public int passChk(BoardVO passChk) throws Exception {
+		return sqlSession.selectOne("board.passChk", passChk);
+	}
 
 	@Override
 	public void boardModify(BoardVO modVO) throws Exception {
-		sqlSession.update("board.boardModify", modVO);
+		sqlSession.update("board.boardUpdate", modVO);
 	}
 
 	@Override

@@ -17,14 +17,14 @@
 <hr />
 
 	<nav>
-		Home - Write - Login
+		<%@ include file="/WEB-INF/views/include/aside.jsp"%>
 	</nav>
 
 <hr />
 
 	<section id="container">
 	
-		<form role="wrtForm">
+		<form role="wrtForm" method="post" action="${pageContext.request.contextPath}/board/write">
 			<p>
 				<label for="title">Title</label><input type="text" id="title" name="title">
 			</p>

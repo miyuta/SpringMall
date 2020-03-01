@@ -29,6 +29,11 @@ public class BoardServiceImpl implements BoardService {
 	public BoardVO boardView(int seq) throws Exception {
 		return boardDao.boardView(seq);
 	}
+	
+	@Override
+	public int passChk(BoardVO passChk) throws Exception {
+		return boardDao.passChk(passChk);
+	}
 
 	@Override
 	public void boardModify(BoardVO modVO) throws Exception {
@@ -39,4 +44,5 @@ public class BoardServiceImpl implements BoardService {
 	public void boardDelete(int seq) throws Exception {
 		boardDao.boardDelete(seq);
 	}
+
 }
