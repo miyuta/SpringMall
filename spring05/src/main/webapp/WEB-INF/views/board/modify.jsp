@@ -19,19 +19,23 @@
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
+		
+
+		$("#btnBack").on("click", function(){
+			location.href="${pageContext.request.contextPath}/board/view?seq=" + ${boardModify.seq};
+		});
 	});
 
-	function fn_valiChk() {
+	function fn_valiChk(){
 		var regForm = $("form[role='modForm'] .check").length;
-		for (var i = 0; i < regForm; i++) {
+ 		for (var i = 0; i < regForm; i++) {
 			if ($(".check").eq(i).val() == "" || $(".check").eq(i).val() == null) {
 				alert($(".check").eq(i).attr("title"));
 				$(".check").eq(i).focus();
 				return true;
-				}
 			}
-		
-	}
+ 		}
+ 	}
 </script>
 <body>
 
@@ -51,20 +55,20 @@
 
 	<section id="container">
 		<div>${message}</div>	
-		<form role="'modForm" method="post" action="${pageContext.request.contextPath}/board/modify">
+		<form role="modForm" method="post">
 		<input type="hidden" name="seq" value="${boardModify.seq}">
 			<p>
-				<label for="title">Title</label><input type="text" id="title" name="title" class="title" title="Put in the title" value="${boardModify.title}">
+				<label for="title">Title</label><input type="text" id="title" name="title" value="${boardModify.title}" class="check" title="Put in the title">
 			</p>
 			<p>
-				<label for="title">Writer</label><input type="text" id="writer" name="writer" class="writer" title="Put in the writer" value="${boardModify.writer}">
-				<label for="passwd">Password</label><input type="password" id="passwd" class="passwd" title="Put in the password" name="passwd">
+				<label for="writer">Writer</label><input type="text" id="writer" name="writer" value="${boardModify.writer}" class="check" title="Put in the writer">
+				<label for="passwd">Password</label><input type="password" id="passwd" class="check" title="Put in the password" name="passwd">
 			</p>
 			<p>
-				<label for="title">Content</label><textarea id="content" class="content" name="content" title="Put in the content">${boardModify.content}</textarea>
+				<label for="content">Content</label><textarea id="content" name="content" class="check" title="Put in the content">${boardModify.content}</textarea>
 			</p>
 			<p>
-				<button type="button" id="btnModify">Submit</button>
+				<button type="button" id="btnModify">Modify</button>
 				<button type="button" id="btnBack">Back</button>
 			</p>
 		</form>

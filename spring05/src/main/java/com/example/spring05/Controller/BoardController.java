@@ -8,11 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring05.modelVO.BoardVO;
+import com.example.spring05.modelVO.Criteria;
+import com.example.spring05.modelVO.PageMaker;
+import com.example.spring05.modelVO.SearchVO;
 import com.example.spring05.service.BoardService;
 
 @Controller
@@ -24,13 +28,41 @@ public class BoardController {
 		@Inject
 		BoardService boardService;
 		
-		@RequestMapping(value="/listPage", method = RequestMethod.GET)
+		@RequestMapping(value="/list", method = RequestMethod.GET)
 		public void boardList(@RequestParam(defaultValue="1") int num, @RequestParam(defaultValue="0") int error, Model model) throws Exception {
 			logger.info("get board list");
 			
 			List<BoardVO> boardList = boardService.boardList();
 			model.addAttribute("boardList", boardList);
 		}
+		
+		@RequestMapping(value="/listPage", method = RequestMethod.GET)
+		public void boardListPage(@ModelAttribute ("cri") Criteria criteria, @RequestParam(defaultValue="1") int num, @RequestParam(defaultValue="0") int error, Model model) throws Exception {
+			logger.info("get board listPage");
+			
+			List<BoardVO> boardListPage = boardService.boardListPage(criteria);
+			model.addAttribute("boardListPage", boardListPage);
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCriteria(criteria);
+			pageMaker.setTotalCount(boardService.countAll());
+			model.addAttribute("pageMaker", pageMaker);		
+		}
+		
+		@RequestMapping(value="listSearch", method = RequestMethod.GET)
+		public void listSearch(@ModelAttribute("scri") SearchVO schVO, Model model) throws Exception {
+			logger.info("get board search");
+			
+			
+			List<BoardVO> boardListSch = boardService.boardListSch(schVO);
+			model.addAttribute("boardListSch", boardListSch);
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCriteria(schVO);
+			pageMaker.setTotalCount(boardService.countSch(schVO));
+			model.addAttribute("pageMaker", pageMaker);
+		}
+		
 		
 		@RequestMapping(value="/write", method = RequestMethod.GET)
 		public void baordWirte() throws Exception {
@@ -47,7 +79,7 @@ public class BoardController {
 		}
 		
 		@RequestMapping(value="/view", method = RequestMethod.GET)
-		public void boardView(@RequestParam("seq") int seq, @RequestParam(value="error", defaultValue="0") int error, Model model) throws Exception {
+		public void boardView(@RequestParam("seq") int seq, @RequestParam(value="error", defaultValue="0") int error, Model model, @ModelAttribute("scri") SearchVO scri) throws Exception {
 			logger.info("get board view");
 			
 			if (error == 1) {
@@ -55,6 +87,7 @@ public class BoardController {
 			}
 			BoardVO boardView = boardService.boardView(seq);
 			model.addAttribute("boardView", boardView);
+			model.addAttribute("scri", scri);
 		}
 		
 		@RequestMapping(value="/view", method = RequestMethod.POST)

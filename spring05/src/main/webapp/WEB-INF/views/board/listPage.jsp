@@ -12,7 +12,7 @@
 
 	<div id="root">
 		<header>
-			<h1>Board List</h1>
+			<h1>Board List Search</h1>
 		</header>
 	</div>
 
@@ -26,9 +26,8 @@
 
 	<section id="container">
 	
-		<form role="pChkForm" method="post" action="${pageContext.request.contextPath}/board/write">
 			<table>
-			<c:forEach items="${boardList}" var="boardList">
+			<c:forEach items="${boardListPage}" var="boardListPage">
 				<tr>
 					<th>BNo</th>
 					<th>Title</th>
@@ -37,15 +36,31 @@
 					<th>ViewCount</th>
 				</tr>
 				<tr>
-					<td>${boardList.seq}</td>
-					<td><a href="${pageContext.request.contextPath}/board/view?seq=${boardList.seq}">${boardList.title}</a></td>
-					<td>${boardList.writer}</td>
-					<td><fmt:formatDate pattern="yyyy/MM/dd" value="${boardList.regdate}" /></td>
-					<td>${boardList.cnt}</td>
+					<td>${boardListPage.seq}</td>
+					<td><a href="${pageContext.request.contextPath}/board/view?seq=${boardListPage.seq}">${boardListPage.title}</a></td>
+					<td>${boardListPage.writer}</td>
+					<td><fmt:formatDate pattern="yyyy/MM/dd" value="${boardListPage.regdate}" /></td>
+					<td>${boardListPage.cnt}</td>
 				</tr>
 			</c:forEach>
 			</table>
-		</form>
+			
+			<div>
+				<c:if test="${pageMaker.prev}">
+					<a href="${pageContext.request.contextPath}/board/listPage${PageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a>
+				</c:if>
+				
+				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="atPage">
+					<a href="${pageContext.request.contextPath}/board/listPage${pageMaker.makeQuery(atPage)}">${atPage}</a>
+				</c:forEach>
+				<%-- <c:if test="${pageMaker.criteria.atPage == atPage}">
+					<b></b>
+				</c:if> --%>
+				
+				<c:if test="${pageMaker.next}">
+					<a href="${pageContext.request.contextPath}/board/listPage${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a>
+				</c:if>
+			</div>
 	
 	</section>
 

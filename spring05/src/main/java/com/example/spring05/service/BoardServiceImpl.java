@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.spring05.modelDAO.BoardDAO;
 import com.example.spring05.modelVO.BoardVO;
+import com.example.spring05.modelVO.Criteria;
+import com.example.spring05.modelVO.SearchVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -18,6 +20,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> boardList() throws Exception {
 		return boardDao.boardList();
+	}
+	
+	@Override
+	public List<BoardVO> boardListPage(Criteria criteria) throws Exception {
+		return boardDao.boardListPage(criteria);
+	}
+	
+	@Override
+	public int countAll() throws Exception {
+		return boardDao.countAll();
 	}
 
 	@Override
@@ -44,5 +56,14 @@ public class BoardServiceImpl implements BoardService {
 	public void boardDelete(int seq) throws Exception {
 		boardDao.boardDelete(seq);
 	}
-
+	
+	@Override
+	public List<BoardVO> boardListSch(SearchVO schVO) throws Exception {
+		return boardDao.boardListSch(schVO);
+	}
+	
+	@Override
+	public int countSch(SearchVO schCntVO) throws Exception {
+		return boardDao.countSch(schCntVO);
+	}
 }

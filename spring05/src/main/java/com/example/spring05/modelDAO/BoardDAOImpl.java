@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.example.spring05.modelVO.BoardVO;
+import com.example.spring05.modelVO.Criteria;
+import com.example.spring05.modelVO.SearchVO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -18,6 +20,16 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<BoardVO> boardList() throws Exception {
 		return sqlSession.selectList("board.boardList");
+	}
+	
+	@Override
+	public List<BoardVO> boardListPage(Criteria criteria) throws Exception {
+		return sqlSession.selectList("board.boardListPage", criteria);
+	}
+	
+	@Override
+	public int countAll() throws Exception {
+		return sqlSession.selectOne("board.countAll");
 	}
 
 	@Override
@@ -43,5 +55,15 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void boardDelete(int seq) throws Exception {
 		sqlSession.delete("board.boardDelete", seq);
+	}
+	
+	@Override
+	public List<BoardVO> boardListSch(SearchVO schVO) throws Exception {
+		return sqlSession.selectList("board.boardListSch", schVO);
+	}
+	
+	@Override
+	public int countSch(SearchVO schCntVO) throws Exception {
+		return sqlSession.selectOne("board.countSch", schCntVO);
 	}
 }

@@ -33,7 +33,9 @@
 		});
 
 		$("#btnBack").on("click", function(){
-			location.href="${pageContext.request.contextPath}/board/listPage";
+			self.location="${pageContext.request.contextPath}/board/listSearch?"
+				+"atPage=${scri.atPage}&perPagePost=${scri.perPagePost}"
+				+"&seartType=${scri.searchType}&keyword=${scri.keyword}";
 		});
 	});
 </script>
@@ -57,6 +59,11 @@
 		<div>${message}</div>	
 		<form role="viewForm" method="post">
 		<input type="hidden" name="seq" value="${boardView.seq}">
+		<input type="hidden" id="atPage" name="atPage" value="${scri.atPage}" readonly="readonly">
+		<input type="hidden" id="perPagePost" name="perPagePost" value="${scri.perPagePost}" readonly="readonly">
+		<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}" readonly="readonly">
+		<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}" readonly="readonly">
+		
 			<p>
 				<label for="title">Title</label> ${boardView.title}
 			</p>

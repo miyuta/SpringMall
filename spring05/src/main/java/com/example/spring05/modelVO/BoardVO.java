@@ -3,6 +3,7 @@ package com.example.spring05.modelVO;
 import java.util.Date;
 
 public class BoardVO {
+	private int rnum;
 	private int seq;
 	private String title;
 	private String writer;
@@ -13,6 +14,12 @@ public class BoardVO {
 	private String passwd;
 	
 	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public int getSeq() {
 		return seq;
 	}
