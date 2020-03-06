@@ -1,78 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.4.1.min.js"></script>
 <meta charset="UTF-8">
 <title>Board</title>
 </head>
 <script>
 	$(document).ready(function(){
-		var formObj = $("form[role='modForm']");
+		var modFormObj = $("form[role='modForm']");
 
 		$("#btnModify").on("click", function(){
 			if (fn_valiChk()) {
 				return false;
 			}
-			formObj.attr("action", "${pageContext.request.contextPath}/board/modify");
-			formObj.attr("method", "post");
-			formObj.submit();
-		});
-		
-
-		$("#btnBack").on("click", function(){
-			location.href="${pageContext.request.contextPath}/board/view?seq=" + ${boardModify.seq};
+			modFormObj.attr("action", "${pageContext.request.contextPath}/board/modify");
+			modFormObj.attr("method", "post");
+			modFormObj.submit();
 		});
 	});
 
-	function fn_valiChk(){
-		var regForm = $("form[role='modForm'] .check").length;
- 		for (var i = 0; i < regForm; i++) {
-			if ($(".check").eq(i).val() == "" || $(".check").eq(i).val() == null) {
-				alert($(".check").eq(i).attr("title"));
-				$(".check").eq(i).focus();
+	function fn_valiChk() {
+		var regForm = $("form[role='modForm'] .form-control").length;
+
+		for (var i = 0; i < regForm; i++ ) {
+			if ($(".form-control").eq(i).val() == "" || $(".form-control").eq(i).val() == null) {
+				alert($(".form-control").eq(i).attr("title"));
+				$(".form-control").eq(i).focus();
 				return true;
 			}
- 		}
- 	}
+		}
+	}
 </script>
 <body>
-
-	<div id="root">
-		<header>
-			<h1>Board Modify</h1>
-		</header>
-	</div>
-
-<hr />
-
-	<nav>
-		<%@ include file="/WEB-INF/views/include/aside.jsp"%>
-	</nav>
-
-<hr />
-
-	<section id="container">
-		<div>${message}</div>	
-		<form role="modForm" method="post">
-		<input type="hidden" name="seq" value="${boardModify.seq}">
-			<p>
-				<label for="title">Title</label><input type="text" id="title" name="title" value="${boardModify.title}" class="check" title="Put in the title">
-			</p>
-			<p>
-				<label for="writer">Writer</label><input type="text" id="writer" name="writer" value="${boardModify.writer}" class="check" title="Put in the writer">
-				<label for="passwd">Password</label><input type="password" id="passwd" class="check" title="Put in the password" name="passwd">
-			</p>
-			<p>
-				<label for="content">Content</label><textarea id="content" name="content" class="check" title="Put in the content">${boardModify.content}</textarea>
-			</p>
-			<p>
-				<button type="button" id="btnModify">Modify</button>
-				<button type="button" id="btnBack">Back</button>
-			</p>
-		</form>
+<div id="root">
+	<header>
+		<h1>Board Write</h1>
+	</header>
+	<hr />
 	
+	<div>
+		<%@include file="/WEB-INF/views/include/aside.jsp" %>
+	</div>
+	<hr />
+	
+	<section id="container">
+		
+		<form class="form-row" role="modForm">
+		<input type="hidden" name="bno" value="${boardModify.bno}">
+			<div class="form-group col-md-12">
+				<label for="title">Title</label>
+				<input type="text" class="form-control" id="title" name="title" value="${boardModify.title}" placeholder="PutIn the Title" title="PutIn the Title.">
+			</div>
+			<div class="form-group col-md-6">
+				<label for="writer">Writer</label>
+				<input type="text" class="form-control" id="writer" name="writer" value="${boardModify.writer}" placeholder="PutIn the Writer" title="PutIn the Writer.">
+			</div>
+			<div class="form-group col-md-6">
+				<label for="passwd">Password</label>
+				<input type="password" class="form-control" id="passwd" name="passwd" placeholder="PutIn the Password."  title="PutIn the Password.">
+			</div>
+			<div class="form-group col-md-12">
+				<label for="content">Content</label>
+				<textarea cols="55" rows="8" class="form-control" id="content" name="content" placeholder="PutIn the Content" title="PutIn the Content.">${boardModify.content}</textarea>
+			</div>			
+		</form>
+		<button type="button" id="btnModify" class="btn btn-primary">Modify</button>
+		<button type="button" id="btnBack" class="btn btn-success">Back</button>
+		
 	</section>
+</div>
 </body>
 </html>

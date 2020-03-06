@@ -1,12 +1,16 @@
 package com.example.spring05.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring05.modelVO.BoardVO;
 import com.example.spring05.service.BoardService;
@@ -36,7 +40,64 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public void boardList() throws Exception {
+	public void boardList(Model model) throws Exception {
 		logger.info("get board list");
+		
+		List<BoardVO> boardList = boardService.boardList();
+		model.addAttribute("boardList", boardList);
+	}
+	
+	@RequestMapping(value="view", method = RequestMethod.GET)
+	public void boardView(@RequestParam("bno") int bno, @RequestParam(value="error", defaultValue="0") int error, Model model) throws Exception {
+		logger.info("get board view");
+		
+		if (error != 0) {
+			model.addAttribute("message", "Check the Password.");
+		}
+		BoardVO boardView = boardService.boardView(bno);
+		model.addAttribute("boardView", boardView);
+	}
+	
+	@RequestMapping(value="view", method = RequestMethod.POST)
+	public String boardView(BoardVO modVO, Model model) throws Exception {
+		logger.info("post board modify");
+		
+		int passChk = boardService.passChk(modVO);
+		model.addAttribute("bno", modVO.getBno());
+		
+		if (passChk != 1) {
+			model.addAttribute("error", 1);
+			return "redirect:/board/view";
+		} else {
+			return "redirect:/board/modify";
+		}
+	}
+	
+	@RequestMapping(value="modify", method = RequestMethod.GET)
+	public void boardModify(@RequestParam(value="error", defaultValue="0") int error, @RequestParam("bno") int bno, Model model) throws Exception {
+		logger.info("get board modify");
+		
+		if (error != 0) {
+			model.addAttribute("message", "Check the Password.");
+		}
+		BoardVO boardModify = boardService.boardView(bno);
+		model.addAttribute("boardModify", boardModify);
+	}
+	
+	@RequestMapping(value="modify", method = RequestMethod.POST)
+	public String boardModify(BoardVO modVO, Model model) throws Exception {
+		logger.info("post board modify");
+		
+		int passChk = boardService.passChk(modVO);
+		model.addAttribute("bno", modVO.getBno());
+		
+		if (passChk != 1) {
+			model.addAttribute("error", 1);
+			return "redirect:/board/modify";
+		} else {
+			System.out.println(111);
+			boardService.boardModify(modVO);
+			return "redirect:/board/view";
+		}
 	}
 }

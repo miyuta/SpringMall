@@ -1,12 +1,14 @@
 package com.example.spring05.modelVO;
 
+import java.util.Date;
+
 public class BoardVO {
 	private int bno;
 	private String title;
 	private String writer;
 	private String content;
-	private String regdate;
-	private String uptodate;
+	private Date regdate;
+	private Date uptodate;
 	private int cnt;
 	private String passwd;
 	
@@ -35,16 +37,16 @@ public class BoardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getRegdate() {
+	public Date getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(String regdate) {
+	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	public String getUptodate() {
+	public Date getUptodate() {
 		return uptodate;
 	}
-	public void setUptodate(String uptodate) {
+	public void setUptodate(Date uptodate) {
 		this.uptodate = uptodate;
 	}
 	public int getCnt() {
@@ -60,11 +62,9 @@ public class BoardVO {
 		this.passwd = passwd;
 	}
 	
-	
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", writer=" + writer + ", content=" + content + ", regdate="
 				+ regdate + ", uptodate=" + uptodate + ", cnt=" + cnt + ", passwd=" + passwd + "]";
 	}
-	
 }

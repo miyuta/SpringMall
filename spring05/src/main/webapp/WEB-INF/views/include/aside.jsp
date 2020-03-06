@@ -8,19 +8,19 @@
 </c:if>
 	</div>
 	<div>
-		<a href="${pageContext.request.contextPath}/">홈</a>
+		<a href="${pageContext.request.contextPath}/">HOME</a>
 <c:choose>
 	<c:when test="${member == null}">
-		<a href="${pageContext.request.contextPath}/login/login">로그인</a>
+		<a href="${pageContext.request.contextPath}/login/login">LOGIN</a>
 	</c:when>
 	<c:otherwise>
-		<a href="${pageContext.request.contextPath}/login/logout">로그아웃</a>
+		<a href="${pageContext.request.contextPath}/login/logout">LOGOUT</a>
 	</c:otherwise>
 </c:choose>
-		<a href="${pageContext.request.contextPath}/member/register">회원 등록</a>
-		<a href="${pageContext.request.contextPath}/member/list">회원 리스트</a>
-		<a href="${pageContext.request.contextPath}/board/list">목록</a>
-		<a href="${pageContext.request.contextPath}/board/listPage?num=1">글 목록(페이징)</a>
-		<a href="${pageContext.request.contextPath}/board/write">글 작성</a>
+		<a href="${pageContext.request.contextPath}/member/register">REGISTER</a>
+		<a href="${pageContext.request.contextPath}/member/list">MEMBERLIST</a>
+		<a href="${pageContext.request.contextPath}/board/list">LIST</a>
+		<a href="${pageContext.request.contextPath}/board/listPage?num=1">LIST(Pagination)</a>
+		<a href="${pageContext.request.contextPath}/board/write">WRITE</a>
 	</div>
 </div>

@@ -16,7 +16,7 @@
 <body>
 <div id="root">
 	<header>
-		<h1>게시판 리스트</h1>
+		<h1>Board Listト</h1>
 	</header>
 	<hr />
 	
@@ -28,17 +28,17 @@
 	<section id="container">
 		<table class="table table-striped table table-boadered table table-hover">
 			<tr>
-				<th>번호</th>
-				<th>작성자</th>
-				<th>제목</th>
-				<th>등록일</th>
-				<th>조회수</th>
+				<th>BNO</th>
+				<th>Writer</th>
+				<th>Title</th>
+				<th>RegDate</th>
+				<th>Count</th>
 			</tr>
 			<c:forEach items="${boardList}" var="boardList">
 			<tr>
 				<td>${boardList.bno}</td>
-				<td>${boardList.title}</td>
-				<td>${boardList.wirter}</td>
+				<td><a href="${pageContext.request.contextPath}/board/view?bno=${boardList.bno}">${boardList.title}</a></td>
+				<td>${boardList.writer}</td>
 				<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${boardList.regdate}" /></td>
 				<td>${boardList.cnt}</td>
 			</tr>

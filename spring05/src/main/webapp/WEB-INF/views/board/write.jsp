@@ -7,10 +7,37 @@
 <meta charset="UTF-8">
 <title>Board</title>
 </head>
+<script>
+	$(document).ready(function(){
+		var wrtFormObj = $("form[role='wrtForm']");
+		
+		$("#btnWrite").on("click", function(){
+			if (fn_valiChk()) {
+				return false;
+			}
+			wrtFormObj.attr("action", "${pageContext.request.contextPath}/board/write");
+			wrtFormObj.attr("method", "post");
+			wrtFormObj.submit();
+		});
+	});
+
+
+	function fn_valiChk() {
+		var regForm = $("form[role='wrtForm'] .form-control").length;
+
+		for(var i = 0; i < regForm; i++) {
+			if ($(".form-control").eq(i).val() == "" || $(".form-control").eq(i).val() == null) {
+				alert($(".form-control").eq(i).attr("title"));
+				$(".form-control").eq(i).focus();
+				return true;
+			}
+		}	
+	}
+</script>
 <body>
 <div id="root">
 	<header>
-		<h1>게시판 쓰기</h1>
+		<h1>Board Write</h1>
 	</header>
 	<hr />
 	
@@ -21,27 +48,26 @@
 	
 	<section id="container">
 		
-		<form class="form-row" role="wrtForm" method="post" action="${pageContext.request.contextPath}/board/write">
+		<form class="form-row" role="wrtForm">
 			<div class="form-group col-md-12">
-				<label for="title">제목</label>
-				<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요.">
+				<label for="title">Title</label>
+				<input type="text" class="form-control" id="title" name="title" placeholder="PutIn the Title" title="PutIn the Title.">
 			</div>
 			<div class="form-group col-md-6">
-				<label for="writer">작성자</label>
-				<input type="text" class="form-control" id="writer" name="writer" placeholder="작성자를 입력해주세요.">
+				<label for="writer">Writer</label>
+				<input type="text" class="form-control" id="writer" name="writer" placeholder="PutIn the Writer." title="PutIn the Writer.">
 			</div>
 			<div class="form-group col-md-6">
-				<label for="passwd">비밀번호</label>
-				<input type="password" class="form-control" id="passwd" name="passwd" placeholder="비밀번호를 입력해주세요.">
+				<label for="passwd">Password</label>
+				<input type="password" class="form-control" id="passwd" name="passwd" placeholder="PutIn the Password." title="PutIn the Password.">
 			</div>
 			<div class="form-group col-md-12">
-				<label for="content">내용</label>
-				<textarea cols="55" rows="8" class="form-control" id="content" name="content" placeholder="내용을 입력해주세요."></textarea>
-			</div>
-			<button type="submit" id="btnWrite" class="btn btn-primary">작성</button>
+				<label for="content">Content</label>
+				<textarea cols="55" rows="8" class="form-control" id="content" name="content" placeholder="PutIn the Content." title="PutIn the Content."></textarea>
+			</div>		
 		</form>
-		
-		<button type="button" id="btnBack" class="btn btn-success">뒤로</button>
+		<button type="button" id="btnWrite" class="btn btn-primary">Write</button>
+		<button type="button" id="btnBack" class="btn btn-success">Back</button>
 		
 	</section>
 </div>

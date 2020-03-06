@@ -5,9 +5,28 @@
   
 <mapper namespace="board">
 
+<!-- 挿入 -->
 <insert id="boardWrite">
 	insert into spboard (bno, title, writer, content, passwd) 
 	values (spboard_seq.nextval, #{title}, #{writer}, #{content}, #{passwd})
 </insert>
+
+<!-- リスト -->
+<select id="boardList" resultType="com.example.spring05.modelVO.BoardVO">
+	select bno, title, writer, regdate, uptodate, cnt from spboard order by bno desc
+</select>
+
+<!-- 照会 -->
+<select id="boardView" resultType="com.example.spring05.modelVO.BoardVO">
+	select bno, title, writer, content, regdate, uptodate from spboard where bno = #{bno}
+</select>
+
+<select id="passChk" resultType="int">
+	select count(*) from spboard where bno = #{bno} and passwd = #{passwd}
+</select>
+
+<update id="boardModify">
+	update spboard set title = #{title}, writer = #{writer}, content = #{content}, uptodate = sysdate where bno = #{bno}
+</update>
 
 </mapper>
