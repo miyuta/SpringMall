@@ -2,64 +2,12 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
 <mapper namespace="board">
 
-<select id="boardList" resultType="com.example.spring05.modelVO.BoardVO">
-	select seq, title, writer, regdate, cnt from spboard order by seq desc
-</select>
-
-<select id="boardListPage" resultType="com.example.spring05.modelVO.BoardVO" parameterType="com.example.spring05.modelVO.Criteria">
-	select rnum, seq, title, writer, regdate, cnt from (select seq, title, writer, regdate, cnt, row_number() over(order by seq) as rnum from spboard) sp 
-	where rnum between #{startPost} and #{endPost} order by seq desc
-</select>
-
-<select id="countAll" resultType="int">
-	<![CDATA[
-		select count(seq) from spboard where seq > 0
-	]]>
-</select>
-	
 <insert id="boardWrite">
-	insert into spboard (seq, title, writer, passwd, content) 
-	values (spboard_seq.nextval, #{title}, #{writer}, #{passwd}, #{content}) 
+	insert into spboard (bno, title, writer, content, passwd) 
+	values (spboard_seq.nextval, #{title}, #{writer}, #{content}, #{passwd})
 </insert>
-
-<select id="boardView" resultType="com.example.spring05.modelVO.BoardVO">
-	select seq, title, writer, passwd, content, regdate, cnt from spboard where seq = #{seq}
-</select>
-
-<select id="passChk" resultType="int">
-	select count(*) from spboard where seq = #{seq}  and passwd = #{passwd}
-</select>
-
-<update id="boardUpdate">
-	update spboard set title = #{title}, writer = #{writer}, passwd = #{passwd}, content = #{content}, modate = sysdate where seq = #{seq}
-</update>
-
-<delete id="boardDelete">
-	delete from spboard where seq=#{seq}
-</delete>
-
-<select id="boardListSch" resultType="com.example.spring05.modelVO.BoardVO" parameterType="com.example.spring05.modelVO.SearchVO">
-	select rnum, seq, title, writer, regdate, cnt from (select seq, title, writer, regdate, cnt, row_number() over(order by seq desc) as rnum from spboard
-	<include refid="search"></include> ) sp
-	where rnum between #{startPost} and #{endPost} order by seq desc	 
-</select>
-
-<select id="countSch" resultType="int">
-	select count(seq) from spboard <include refid="search"></include>
-<!-- 	<![CDATA[
-		and seq > 0
-	]]> -->
-</select>
-
-<sql id="search">
-	<if test="searchType != null">
-		<if test="searchType == 't'.toString()">where title like '%'||#{keyword}||'%'</if>
-		<if test="searchType == 'c'.toString()">where title like '%'||#{keyword}||'%'</if>
-		<if test="searchType == 'w'.toString()">where title like '%'||#{keyword}||'%'</if>
-		<if test="searchType == 'tc'.toString()">where (title like '%'||#{keyword}||'%') or (content like '%'||#{keyword}||'%')</if>
-	</if>
-</sql>
 
 </mapper>

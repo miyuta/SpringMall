@@ -1,30 +1,21 @@
 package com.example.spring05.modelVO;
 
-import java.util.Date;
-
 public class BoardVO {
-	private int rnum;
-	private int seq;
+	private int bno;
 	private String title;
 	private String writer;
 	private String content;
-	private Date regdate;
-	private Date modate;
+	private String regdate;
+	private String uptodate;
 	private int cnt;
 	private String passwd;
 	
 	
-	public int getRnum() {
-		return rnum;
+	public int getBno() {
+		return bno;
 	}
-	public void setRnum(int rnum) {
-		this.rnum = rnum;
-	}
-	public int getSeq() {
-		return seq;
-	}
-	public void setSeq(int seq) {
-		this.seq = seq;
+	public void setBno(int bno) {
+		this.bno = bno;
 	}
 	public String getTitle() {
 		return title;
@@ -44,17 +35,17 @@ public class BoardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegdate() {
+	public String getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(Date regdate) {
+	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	public Date getModate() {
-		return modate;
+	public String getUptodate() {
+		return uptodate;
 	}
-	public void setModate(Date modate) {
-		this.modate = modate;
+	public void setUptodate(String uptodate) {
+		this.uptodate = uptodate;
 	}
 	public int getCnt() {
 		return cnt;
@@ -68,4 +59,12 @@ public class BoardVO {
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "BoardVO [bno=" + bno + ", title=" + title + ", writer=" + writer + ", content=" + content + ", regdate="
+				+ regdate + ", uptodate=" + uptodate + ", cnt=" + cnt + ", passwd=" + passwd + "]";
+	}
+	
 }

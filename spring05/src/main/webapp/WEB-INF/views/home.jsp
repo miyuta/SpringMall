@@ -1,14 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@include file="/WEB-INF/views/include/header.jsp" %>
 <html>
 <head>
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
+<div id="root">
+	<header>
+		<h1>메인</h1>
+	</header>
+	<hr />
+	
+	<div>
+		<%@include file="/WEB-INF/views/include/aside.jsp" %>
+	</div>
+	<hr />
+	<P>  The time on the server is ${serverTime}. </P>
+</div>
 
-<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
