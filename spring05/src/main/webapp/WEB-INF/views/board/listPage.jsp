@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@include file="/WEB-INF/views/include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,60 +10,53 @@
 <title>Board</title>
 </head>
 <body>
-
-	<div id="root">
-		<header>
-			<h1>Board List Search</h1>
-		</header>
+<div id="root">
+	<header>
+		<h1>Board Listト</h1>
+	</header>
+	<hr />
+	
+	<div>
+		<%@include file="/WEB-INF/views/include/aside.jsp" %>
 	</div>
-
-<hr />
-
-	<nav>
-		<%@ include file="/WEB-INF/views/include/aside.jsp"%>
-	</nav>
-
-<hr />
-
+	<hr />
+	
 	<section id="container">
-	
-			<table>
+		<table class="table table-striped table table-boadered table table-hover">
+			<tr>
+				<th>BNO</th>
+				<th>Writer</th>
+				<th>Title</th>
+				<th>RegDate</th>
+				<th>Count</th>
+			</tr>
 			<c:forEach items="${boardListPage}" var="boardListPage">
-				<tr>
-					<th>BNo</th>
-					<th>Title</th>
-					<th>Writer</th>
-					<th>RegiterDate</th>
-					<th>ViewCount</th>
-				</tr>
-				<tr>
-					<td>${boardListPage.seq}</td>
-					<td><a href="${pageContext.request.contextPath}/board/view?seq=${boardListPage.seq}">${boardListPage.title}</a></td>
-					<td>${boardListPage.writer}</td>
-					<td><fmt:formatDate pattern="yyyy/MM/dd" value="${boardListPage.regdate}" /></td>
-					<td>${boardListPage.cnt}</td>
-				</tr>
+			<tr>
+				<td>${boardListPage.bno}</td>
+				<td><a href="${pageContext.request.contextPath}/board/view?bno=${boardListPage.bno}">${boardListPage.title}</a></td>
+				<td>${boardListPage.writer}</td>
+				<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${boardListPage.regdate}" /></td>
+				<td>${boardListPage.cnt}</td>
+			</tr>
 			</c:forEach>
-			</table>
+		</table>
+		
+		<div>
+			<c:if test="${pagiNation.prev != 0}">
+				<a href="${pageContext.request.contextPath}/board/listPage?atPage=${pagiNation.startPage - 1}">[이전]</a>
+			</c:if>
 			
-			<div>
-				<c:if test="${pageMaker.prev}">
-					<a href="${pageContext.request.contextPath}/board/listPage${PageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a>
-				</c:if>
-				
-				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="atPage">
-					<a href="${pageContext.request.contextPath}/board/listPage${pageMaker.makeQuery(atPage)}">${atPage}</a>
-				</c:forEach>
-				<%-- <c:if test="${pageMaker.criteria.atPage == atPage}">
-					<b></b>
-				</c:if> --%>
-				
-				<c:if test="${pageMaker.next}">
-					<a href="${pageContext.request.contextPath}/board/listPage${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a>
-				</c:if>
-			</div>
-	
+			<c:forEach begin="${pagiNation.startPage}" end="${pagiNation.endPage}" var="idx">
+				<a href="${pageContext.request.contextPath}/board/listPage?atPage=${idx}">${idx}</a>
+			</c:forEach>
+			
+			<c:if test="${pagiNation.next != 0}">
+				<a href="${pageContext.request.contextPath}/board/listPage?atPage=${pagiNation.endPage + 1}">[다음]</a>
+			</c:if>
+		</div>
+		
 	</section>
+</div>
 
 </body>
 </html>

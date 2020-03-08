@@ -1,6 +1,7 @@
 package com.example.spring05.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring05.modelVO.BoardVO;
+import com.example.spring05.modelVO.PageMaker;
 import com.example.spring05.service.BoardService;
 
 @Controller
@@ -23,6 +25,9 @@ public class BoardController {
 	
 	@Inject
 	private BoardService boardService;
+	
+	@Inject
+	private PageMaker pageMaker;
 	
 	@RequestMapping(value="/write", method = RequestMethod.GET)
 	public void boardWrite() throws Exception {
@@ -45,6 +50,20 @@ public class BoardController {
 		
 		List<BoardVO> boardList = boardService.boardList();
 		model.addAttribute("boardList", boardList);
+	}
+	
+	@RequestMapping(value="/listPage", method = RequestMethod.GET)
+	public void boardListPage(@RequestParam(value="atPage", defaultValue="1") int atPage, Model model) throws Exception {
+		logger.info("get board listpage");
+		
+		int totalPost = boardService.countAll();
+		Map <String, Integer> map = pageMaker.pagiNation(atPage, totalPost);
+		String makeQuery = pageMaker.makeQuery(atPage);
+		
+		List<BoardVO> boardListPage = boardService.boardListPage(map.get("startPost"), map.get("endPost"));
+		model.addAttribute("pagiNation", map);
+		model.addAttribute("boardListPage", boardListPage);
+		model.addAttribute("makeQuery", makeQuery);
 	}
 	
 	@RequestMapping(value="view", method = RequestMethod.GET)
@@ -98,6 +117,21 @@ public class BoardController {
 			System.out.println(111);
 			boardService.boardModify(modVO);
 			return "redirect:/board/view";
+		}
+	}
+	
+	@RequestMapping(value="delete", method = RequestMethod.POST)
+	public String boardDelete(BoardVO delVO, Model model) throws Exception {
+		
+		int passChk = boardService.passChk(delVO);
+		
+		if (passChk != 1) {
+			model.addAttribute("error", 1);
+			model.addAttribute("bno", delVO.getBno());
+			return "redirect:/board/view";
+		} else {
+			boardService.boardDelete(delVO.getBno());
+			return "redirect:/board/list";
 		}
 	}
 }

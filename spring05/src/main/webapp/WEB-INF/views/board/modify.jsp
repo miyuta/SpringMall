@@ -19,6 +19,10 @@
 			modFormObj.attr("method", "post");
 			modFormObj.submit();
 		});
+
+		$("#btnBack").on("click", function(){
+			location.href="${pageContext.request.contextPath}/board/view?bno=${boardModify.bno}";
+		});
 	});
 
 	function fn_valiChk() {

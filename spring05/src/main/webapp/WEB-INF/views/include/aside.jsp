@@ -20,7 +20,7 @@
 		<a href="${pageContext.request.contextPath}/member/register">REGISTER</a>
 		<a href="${pageContext.request.contextPath}/member/list">MEMBERLIST</a>
 		<a href="${pageContext.request.contextPath}/board/list">LIST</a>
-		<a href="${pageContext.request.contextPath}/board/listPage?num=1">LIST(Pagination)</a>
+		<a href="${pageContext.request.contextPath}/board/listPage?atPage=1">LIST(Pagination)</a>
 		<a href="${pageContext.request.contextPath}/board/write">WRITE</a>
 	</div>
 </div>

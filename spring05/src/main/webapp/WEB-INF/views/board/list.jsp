@@ -2,14 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@include file="/WEB-INF/views/include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.4.1.min.js"></script>
-<link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap-theme.min.css">
-<link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.css">
-<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/CSS/board.css">
 <meta charset="UTF-8">
 <title>Board</title>
 </head>

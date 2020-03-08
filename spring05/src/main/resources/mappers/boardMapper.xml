@@ -5,18 +5,20 @@
   
 <mapper namespace="board">
 
-<!-- 挿入 -->
 <insert id="boardWrite">
 	insert into spboard (bno, title, writer, content, passwd) 
 	values (spboard_seq.nextval, #{title}, #{writer}, #{content}, #{passwd})
 </insert>
 
-<!-- リスト -->
 <select id="boardList" resultType="com.example.spring05.modelVO.BoardVO">
 	select bno, title, writer, regdate, uptodate, cnt from spboard order by bno desc
 </select>
 
-<!-- 照会 -->
+<select id="boardListPage" resultType="com.example.spring05.modelVO.BoardVO" parameterType="com.example.spring05.modelVO.PageMaker">
+	select rnum, bno, title, writer, content, regdate, cnt from (select bno, writer, title, content, regdate, cnt, row_number() over(order by bno desc) as rnum from spboard) sp
+	where rnum between #{startPost} and #{endPost} order by bno desc
+</select>
+
 <select id="boardView" resultType="com.example.spring05.modelVO.BoardVO">
 	select bno, title, writer, content, regdate, uptodate from spboard where bno = #{bno}
 </select>
@@ -28,5 +30,15 @@
 <update id="boardModify">
 	update spboard set title = #{title}, writer = #{writer}, content = #{content}, uptodate = sysdate where bno = #{bno}
 </update>
+
+<delete id="boardDelete">
+	delete from spboard where bno = #{bno}
+</delete>
+
+<select id="countAll" resultType="int">
+	<![CDATA[
+		select count(bno) from spboard where bno > 0
+	]]>
+</select>
 
 </mapper>

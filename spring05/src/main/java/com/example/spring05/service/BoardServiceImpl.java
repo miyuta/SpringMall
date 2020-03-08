@@ -26,6 +26,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public List<BoardVO> boardListPage(int startPost, int endPost) throws Exception {
+		return boardDao.boardListPage(startPost, endPost);
+	}
+	
+	@Override
 	public BoardVO boardView(int bno) throws Exception {
 		return boardDao.boardView(bno);
 	}
@@ -38,5 +43,15 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void boardModify(BoardVO modVO) throws Exception {
 		boardDao.boardModify(modVO);
+	}
+	
+	@Override
+	public void boardDelete(int bno) throws Exception {
+		boardDao.boardDelete(bno);
+	}
+	
+	@Override
+	public int countAll() throws Exception {
+		return boardDao.countAll();
 	}
 }

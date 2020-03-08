@@ -22,6 +22,18 @@
 			viewFormObj.attr("method", "post");
 			viewFormObj.submit();
 		});
+
+		$("#btnDelete").on("click", function(){
+			if (confirm("Are you sure you wnat to delete?")){
+				viewFormObj.attr("action", "${pageContext.request.contextPath}/board/delete");
+				viewFormObj.attr("method", "post");
+				viewFormObj.submit();
+			}
+		});
+
+		$("#btnBack").on("click", function(){
+			location.href="${pageContext.request.contextPath}/board/list";
+		});
 	});
 </script>
 <body>
@@ -58,7 +70,8 @@
 				<label for="content">Content</label>
 				<textarea cols="55" rows="8" class="form-control" readonly="readonly">${boardView.content}</textarea>
 			</div>
-		<button type="button" id="btnModify" class="btn btn-primary">Modify</button>		
+		<button type="button" id="btnModify" class="btn btn-primary">Modify</button>
+		<button type="button" id="btnDelete" class="btn btn-danger">Delete</button>
 		<button type="button" id="btnBack" class="btn btn-success">Back</button>
 		
 	</section>
