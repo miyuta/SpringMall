@@ -19,6 +19,12 @@
 	where rnum between #{startPost} and #{endPost} order by bno desc
 </select>
 
+<select id="boardListPageSch" resultType="com.example.spring05.modelVO.BoardVO">
+	select rnum, bno, title, writer, content, regdate, cnt from
+	(select bno, writer, title, content, regdate, cnt, row_number() over(order by bno desc) as rnum from spboard <include refid="search"></include>) sp
+	where rnum between #{startPost} and #{endPost} order by bno desc
+</select>
+
 <select id="boardView" resultType="com.example.spring05.modelVO.BoardVO">
 	select bno, title, writer, content, regdate, uptodate from spboard where bno = #{bno}
 </select>
@@ -40,5 +46,22 @@
 		select count(bno) from spboard where bno > 0
 	]]>
 </select>
+
+<select id="countSch" resultType="int">
+	select count(bno) from spboard where 1=1 <include refid="search"></include> and bno > 0
+</select>
+
+<sql id="search">
+	<choose>
+		<when test="option == 'all'">
+			where writer like '%'||#{keyword}||'%'
+			or title = '%'||#{keyword}||'%'
+			or content like '%'||#{keyword}||'%'
+		</when>
+		<otherwise>
+			where ${searchOption} like '%'||#{keyword}||'%'
+		</otherwise>
+	</choose>
+</sql>
 
 </mapper>

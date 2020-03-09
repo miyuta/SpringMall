@@ -22,6 +22,7 @@
 	<hr />
 	
 	<section id="container">
+		<div>총 게시물 ${pagiNation.totalPost}개</div>
 		<table class="table table-striped table table-boadered table table-hover">
 			<tr>
 				<th>BNO</th>
@@ -42,15 +43,25 @@
 		</table>
 		
 		<div>
-			<c:if test="${pagiNation.prev != 0}">
+			<c:if test="${pagiNation.prev != 1}">
 				<a href="${pageContext.request.contextPath}/board/listPage?atPage=${pagiNation.startPage - 1}">[이전]</a>
 			</c:if>
 			
 			<c:forEach begin="${pagiNation.startPage}" end="${pagiNation.endPage}" var="idx">
-				<a href="${pageContext.request.contextPath}/board/listPage?atPage=${idx}">${idx}</a>
+				<span>
+					<c:if test="${pagiNation.atPage != idx}">
+						<a href="${pageContext.request.contextPath}/board/listPage?atPage=${idx}">${idx}</a>
+					</c:if>
+					
+					<c:if test="${pagiNation.atPage == idx}">
+						<b>${idx}</b>
+					</c:if>
+					
+				</span>			
 			</c:forEach>
+
 			
-			<c:if test="${pagiNation.next != 0}">
+			<c:if test="${pagiNation.next != 1}">
 				<a href="${pageContext.request.contextPath}/board/listPage?atPage=${pagiNation.endPage + 1}">[다음]</a>
 			</c:if>
 		</div>

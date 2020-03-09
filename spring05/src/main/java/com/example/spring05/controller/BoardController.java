@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring05.modelVO.BoardVO;
-import com.example.spring05.modelVO.PageMaker;
+import com.example.spring05.modelVO.PageSchMaker;
 import com.example.spring05.service.BoardService;
 
 @Controller
@@ -27,7 +27,7 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@Inject
-	private PageMaker pageMaker;
+	private PageSchMaker PageSchMaker;
 	
 	@RequestMapping(value="/write", method = RequestMethod.GET)
 	public void boardWrite() throws Exception {
@@ -57,13 +57,11 @@ public class BoardController {
 		logger.info("get board listpage");
 		
 		int totalPost = boardService.countAll();
-		Map <String, Integer> map = pageMaker.pagiNation(atPage, totalPost);
-		String makeQuery = pageMaker.makeQuery(atPage);
+		Map <String, Integer> map = PageSchMaker.pagiNation(atPage, totalPost);
 		
 		List<BoardVO> boardListPage = boardService.boardListPage(map.get("startPost"), map.get("endPost"));
 		model.addAttribute("pagiNation", map);
 		model.addAttribute("boardListPage", boardListPage);
-		model.addAttribute("makeQuery", makeQuery);
 	}
 	
 	@RequestMapping(value="view", method = RequestMethod.GET)

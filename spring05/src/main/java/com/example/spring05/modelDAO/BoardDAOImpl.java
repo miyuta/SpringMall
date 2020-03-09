@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.example.spring05.modelVO.BoardVO;
+import com.example.spring05.modelVO.PageSchMaker;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -59,5 +60,17 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int countAll() throws Exception {
 		return sqlSession.selectOne("board.countAll");
+	}
+
+	@Override
+	public List<BoardVO> boardListPageSch(PageSchMaker pageSch) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int countSch(String option, String keyword) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
