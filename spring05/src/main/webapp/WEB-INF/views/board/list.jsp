@@ -12,7 +12,7 @@
 <body>
 <div id="root">
 	<header>
-		<h1>Board Listト</h1>
+		<h1>Board List</h1>
 	</header>
 	<hr />
 	

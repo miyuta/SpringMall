@@ -64,6 +64,24 @@ public class BoardController {
 		model.addAttribute("boardListPage", boardListPage);
 	}
 	
+	@RequestMapping(value="/listPageSch", method = RequestMethod.GET)
+	public void boardListPageSch(@RequestParam(value="atPage", defaultValue="1") int atPage, PageSchMaker pageSchVO, Model model) throws Exception {
+		logger.info("get board listpageSearch");
+		
+		int totalPost = boardService.countSch(pageSchVO);
+		Map <String, Integer> map = PageSchMaker.pagiNation(atPage, totalPost);
+		
+		List<BoardVO> boardListPageSch = null;
+/*		if (pageSchVO.getOption().equals("list")) {
+			boardListPageSch = boardService.boardListPage(map.get("startPost"), map.get("endPost"));
+		} else {
+			boardListPageSch = boardService.boardListPageSch(pageSchVO);
+		}*/
+		boardListPageSch = boardService.boardListPageSch(pageSchVO);
+		model.addAttribute("pagiNation", map);
+		model.addAttribute("boardListPageSch", boardListPageSch);
+	}
+	
 	@RequestMapping(value="view", method = RequestMethod.GET)
 	public void boardView(@RequestParam("bno") int bno, @RequestParam(value="error", defaultValue="0") int error, Model model) throws Exception {
 		logger.info("get board view");

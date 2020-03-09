@@ -38,6 +38,11 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	@Override
+	public List<BoardVO> boardListPageSch(PageSchMaker pageSchVO) throws Exception {
+		return sqlSession.selectList("board.boardListPageSch", pageSchVO);
+	}
+	
+	@Override
 	public BoardVO boardView(int bno) throws Exception {
 		return sqlSession.selectOne("board.boardView", bno);
 	}
@@ -63,14 +68,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public List<BoardVO> boardListPageSch(PageSchMaker pageSch) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int countSch(String option, String keyword) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int countSch(PageSchMaker pageSchVO) throws Exception {
+		return sqlSession.selectOne("board.countSch");
 	}
 }

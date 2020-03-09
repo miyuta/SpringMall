@@ -9,7 +9,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class PageSchMaker {
-
 	private String option;
 	private String keyword;
 	

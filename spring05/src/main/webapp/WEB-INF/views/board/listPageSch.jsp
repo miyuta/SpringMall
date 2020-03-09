@@ -12,7 +12,7 @@
 <body>
 <div id="root">
 	<header>
-		<h1>Board List</h1>
+		<h1>Board List Search</h1>
 	</header>
 	<hr />
 	
@@ -22,6 +22,21 @@
 	<hr />
 	
 	<section id="container">
+		<form role="schForm" method="get">
+		<div class="search">
+			<select name="option">
+				<option value="list" <c:out value="${pageSchMaker.option == null ? 'selected' : '' }" />>-----</option>
+				<option value="title" <c:out value="${pageSchMaker.option eq 'title' ? 'selected' : ''}" />>Title</option>
+				<option value="writer" <c:out value="${pageSchMaker.option eq 'writer' ? 'selected' : ''}" />>Writer</option>
+				<option value="content" <c:out value="${pageSchMaker.option eq 'content' ? : 'selected' : ''}" />>Content</option>
+				<option value="all" <c:out value="${pageSchMaker.option eq 'all' ? : 'selected : ''}" />>All</option>
+			</select>
+		
+		<input type="text" name="keyword" id="keywordInput" value="${pageSchMaker.keyword}" />
+		
+		<button id="btnSearch" type="button">Search</button>
+			
+		</div>
 		<div>총 게시물 ${pagiNation.totalPost}개</div>
 		<table class="table table-striped table table-boadered table table-hover">
 			<tr>
@@ -31,16 +46,17 @@
 				<th>RegDate</th>
 				<th>Count</th>
 			</tr>
-			<c:forEach items="${boardListPage}" var="boardListPage">
+			<c:forEach items="${boardListPageSch}" var="boardListPageSch">
 			<tr>
 				<td>${boardListPage.bno}</td>
-				<td><a href="${pageContext.request.contextPath}/board/view?bno=${boardListPage.bno}">${boardListPage.title}</a></td>
-				<td>${boardListPage.writer}</td>
-				<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${boardListPage.regdate}" /></td>
-				<td>${boardListPage.cnt}</td>
+				<td><a href="${pageContext.request.contextPath}/board/view?bno=${boardListPageSch.bno}">${boardListPageSch.title}</a></td>
+				<td>${boardListPageSch.writer}</td>
+				<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${boardListPageSch.regdate}" /></td>
+				<td>${boardListPageSch.cnt}</td>
 			</tr>
 			</c:forEach>
 		</table>
+		</form>
 		
 		<div>
 			<c:if test="${pagiNation.prev != 1}">

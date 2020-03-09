@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.spring05.modelDAO.BoardDAO;
 import com.example.spring05.modelVO.BoardVO;
+import com.example.spring05.modelVO.PageSchMaker;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -28,6 +29,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> boardListPage(int startPost, int endPost) throws Exception {
 		return boardDao.boardListPage(startPost, endPost);
+	}
+	
+	@Override
+	public List<BoardVO> boardListPageSch(PageSchMaker pageSchVO) throws Exception {
+		return boardDao.boardListPageSch(pageSchVO);
 	}
 	
 	@Override
@@ -53,5 +59,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int countAll() throws Exception {
 		return boardDao.countAll();
+	}
+	
+	@Override
+	public int countSch(PageSchMaker pageSchVO) throws Exception {
+		return boardDao.countSch(pageSchVO);
 	}
 }

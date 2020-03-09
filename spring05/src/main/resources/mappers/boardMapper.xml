@@ -14,7 +14,7 @@
 	select bno, title, writer, regdate, uptodate, cnt from spboard order by bno desc
 </select>
 
-<select id="boardListPage" resultType="com.example.spring05.modelVO.BoardVO" parameterType="com.example.spring05.modelVO.PageMaker">
+<select id="boardListPage" resultType="com.example.spring05.modelVO.BoardVO" parameterType="com.example.spring05.modelVO.PageSchMaker">
 	select rnum, bno, title, writer, content, regdate, cnt from (select bno, writer, title, content, regdate, cnt, row_number() over(order by bno desc) as rnum from spboard) sp
 	where rnum between #{startPost} and #{endPost} order by bno desc
 </select>
@@ -48,20 +48,22 @@
 </select>
 
 <select id="countSch" resultType="int">
-	select count(bno) from spboard where 1=1 <include refid="search"></include> and bno > 0
+	select count(bno) from spboard <include refid="search"></include>
 </select>
 
 <sql id="search">
-	<choose>
-		<when test="option == 'all'">
-			where writer like '%'||#{keyword}||'%'
-			or title = '%'||#{keyword}||'%'
-			or content like '%'||#{keyword}||'%'
-		</when>
-		<otherwise>
-			where ${searchOption} like '%'||#{keyword}||'%'
-		</otherwise>
-	</choose>
+	<if test="option != null">
+		<choose>
+			<when test="option == 'all'">
+				where writer like '%'||#{keyword}||'%'
+				or title like '%'||#{keyword}||'%'
+				or content like '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				where ${searchOption} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</if>
 </sql>
 
 </mapper>

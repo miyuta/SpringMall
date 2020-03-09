@@ -15,5 +15,5 @@ public interface BoardDAO {
 	public void boardModify(BoardVO modVO) throws Exception;
 	public void boardDelete(int bno) throws Exception;
 	public int countAll() throws Exception;
-	public int countSch(String option, String keyword) throws Exception;
+	public int countSch(PageSchMaker pageSchVO) throws Exception;
 }
