@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.example.spring05.modelVO.BoardVO;
-import com.example.spring05.modelVO.PageSchMaker;
+import com.example.spring05.modelVO.PageMaker;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -38,8 +38,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	@Override
-	public List<BoardVO> boardListPageSch(PageSchMaker pageSchVO) throws Exception {
-		return sqlSession.selectList("board.boardListPageSch", pageSchVO);
+	public List<BoardVO> boardListPageSch(PageMaker pageMaker) throws Exception {
+		return sqlSession.selectList("board.boardListPageSch", pageMaker);
 	}
 	
 	@Override
@@ -68,7 +68,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public int countSch(PageSchMaker pageSchVO) throws Exception {
+	public int countSch(PageMaker pageSchVO) throws Exception {
 		return sqlSession.selectOne("board.countSch");
 	}
 }

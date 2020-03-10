@@ -1,60 +1,70 @@
 package com.example.spring05.modelVO;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
-public class PageSchMaker {
-	private String option;
-	private String keyword;
+public class PageMaker {
+	private int atPage;
+	private int totalPost;
+	private int perPagePost = 10;
+	private int displayPageNum = 10;
+	private int startPost;
+	private int startPage;
+	private int endPage;
+	private boolean prev;
+	private boolean next;
 	
-	public String getOption() {
-		return option;
+	
+	public void setAtPage(int atPage) {
+		this.atPage = atPage;
+	}
+	
+	public int getAtPage() {
+		return atPage;
+	}
+	
+	public int getTotalPost() {
+		return totalPost;
 	}
 
-	public void setOption(String option) {
-		this.option = option;
+	public void setTotalPost(int totalPost) {
+		this.totalPost = totalPost;
 	}
 
-	public String getKeyword() {
-		return keyword;
+	public int getPerPagePost() {
+		return perPagePost;
 	}
 
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+	public int getStartPost() {
+		return startPost = ((atPage - 1) * perPagePost) + 1;
 	}
 
-	public Map<String, Integer> pagiNation(int atPage, int totalPost) throws Exception {
-		int perPagePost = 10;
-		int displayPageNum = 10;
-		int startPost = ((atPage - 1) * perPagePost) + 1;
-		int endPost = startPost + perPagePost - 1;
-		int endPage = (int) (Math.ceil(atPage / (double) displayPageNum) * displayPageNum);
-		int startPage = (endPage - displayPageNum) + 1;
-		
+	public int getEndPost() {
+		return startPost + perPagePost - 1;
+	}
+
+	public int getEndPage() {
+		endPage = (int) (Math.ceil(atPage / (double) displayPageNum) * displayPageNum);
 		int tempEndPage = (int) (Math.ceil(totalPost / (double) perPagePost));
 		if (endPage > tempEndPage) {
 			endPage = tempEndPage;
-		}
-		
-		int prev = startPage == 1 ? 1 : 0;
-		int next = endPage * perPagePost >= totalPost ? 1 :0;
-		
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("startPost", startPost);
-		map.put("endPost", endPost);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("prev", prev);
-		map.put("next", next);
-		
-		return map;
+		} return endPage;
 	}
 	
+	public int getStartPage() {
+		return startPage = (getEndPage() - displayPageNum) + 1;
+	}
+	
+	public boolean isPrev() {
+		return startPage == 1 ? false : true;
+	}
+
+	public boolean isNext() {
+		return endPage * perPagePost >= totalPost ? false : true;
+	}
+
 	public String makeQuery(int atPage) {
 		UriComponents uriComponents =
 				UriComponentsBuilder.newInstance()

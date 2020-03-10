@@ -14,7 +14,7 @@
 	select bno, title, writer, regdate, uptodate, cnt from spboard order by bno desc
 </select>
 
-<select id="boardListPage" resultType="com.example.spring05.modelVO.BoardVO" parameterType="com.example.spring05.modelVO.PageSchMaker">
+<select id="boardListPage" resultType="com.example.spring05.modelVO.BoardVO" parameterType="com.example.spring05.modelVO.PageMaker">
 	select rnum, bno, title, writer, content, regdate, cnt from (select bno, writer, title, content, regdate, cnt, row_number() over(order by bno desc) as rnum from spboard) sp
 	where rnum between #{startPost} and #{endPost} order by bno desc
 </select>

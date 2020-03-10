@@ -1,7 +1,6 @@
 package com.example.spring05.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -14,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring05.modelVO.BoardVO;
-import com.example.spring05.modelVO.PageSchMaker;
+import com.example.spring05.modelVO.PageMaker;
+import com.example.spring05.modelVO.SearchKey;
 import com.example.spring05.service.BoardService;
 
 @Controller
@@ -25,9 +25,6 @@ public class BoardController {
 	
 	@Inject
 	private BoardService boardService;
-	
-	@Inject
-	private PageSchMaker PageSchMaker;
 	
 	@RequestMapping(value="/write", method = RequestMethod.GET)
 	public void boardWrite() throws Exception {
@@ -56,30 +53,27 @@ public class BoardController {
 	public void boardListPage(@RequestParam(value="atPage", defaultValue="1") int atPage, Model model) throws Exception {
 		logger.info("get board listpage");
 		
-		int totalPost = boardService.countAll();
-		Map <String, Integer> map = PageSchMaker.pagiNation(atPage, totalPost);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setAtPage(atPage);
+		pageMaker.setTotalPost(boardService.countAll());
 		
-		List<BoardVO> boardListPage = boardService.boardListPage(map.get("startPost"), map.get("endPost"));
-		model.addAttribute("pagiNation", map);
+		List<BoardVO> boardListPage = boardService.boardListPage(pageMaker.getStartPost(), pageMaker.getEndPost());
+		
 		model.addAttribute("boardListPage", boardListPage);
+		model.addAttribute("pageMaker", pageMaker);
 	}
 	
 	@RequestMapping(value="/listPageSch", method = RequestMethod.GET)
-	public void boardListPageSch(@RequestParam(value="atPage", defaultValue="1") int atPage, PageSchMaker pageSchVO, Model model) throws Exception {
+	public void boardListPageSch(SearchKey searchKey, Model model) throws Exception {
 		logger.info("get board listpageSearch");
 		
-		int totalPost = boardService.countSch(pageSchVO);
-		Map <String, Integer> map = PageSchMaker.pagiNation(atPage, totalPost);
+		PageMaker pageSchMaker = new PageMaker();
+		pageSchMaker.setAtPage(searchKey.getAtPage());
+		pageSchMaker.setTotalPost(boardService.countAll());
 		
-		List<BoardVO> boardListPageSch = null;
-/*		if (pageSchVO.getOption().equals("list")) {
-			boardListPageSch = boardService.boardListPage(map.get("startPost"), map.get("endPost"));
-		} else {
-			boardListPageSch = boardService.boardListPageSch(pageSchVO);
-		}*/
-		boardListPageSch = boardService.boardListPageSch(pageSchVO);
-		model.addAttribute("pagiNation", map);
+		List<BoardVO> boardListPageSch = boardService.boardListPageSch(searchKey);
 		model.addAttribute("boardListPageSch", boardListPageSch);
+		model.addAttribute("pageSchMaker", pageSchMaker);
 	}
 	
 	@RequestMapping(value="view", method = RequestMethod.GET)

@@ -22,7 +22,7 @@
 	<hr />
 	
 	<section id="container">
-		<div>총 게시물 ${pagiNation.totalPost}개</div>
+		<div>총 게시물 ${pageMaker.totalPost}개</div>
 		<table class="table table-striped table table-boadered table table-hover">
 			<tr>
 				<th>BNO</th>
@@ -43,17 +43,17 @@
 		</table>
 		
 		<div>
-			<c:if test="${pagiNation.prev != 1}">
-				<a href="${pageContext.request.contextPath}/board/listPage?atPage=${pagiNation.startPage - 1}">[이전]</a>
+			<c:if test="${pageMaker.prev}">
+				<a href="${pageContext.request.contextPath}/board/listPage${pageMaker.makeQuery(pageMaker.startPage - 1)}">[이전]</a>
 			</c:if>
 			
-			<c:forEach begin="${pagiNation.startPage}" end="${pagiNation.endPage}" var="idx">
+			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<span>
-					<c:if test="${pagiNation.atPage != idx}">
-						<a href="${pageContext.request.contextPath}/board/listPage?atPage=${idx}">${idx}</a>
+					<c:if test="${pageMaker.atPage != idx}">
+						<a href="${pageContext.request.contextPath}/board/listPage?${pageMaker.makeQuery(idx)}">${idx}</a>
 					</c:if>
 					
-					<c:if test="${pagiNation.atPage == idx}">
+					<c:if test="${pageMaker.atPage == idx}">
 						<b>${idx}</b>
 					</c:if>
 					
@@ -61,8 +61,8 @@
 			</c:forEach>
 
 			
-			<c:if test="${pagiNation.next != 1}">
-				<a href="${pageContext.request.contextPath}/board/listPage?atPage=${pagiNation.endPage + 1}">[다음]</a>
+			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+				<a href="${pageContext.request.contextPath}/board/listPage${pageMaker.makeQuery(pageMaker.endPage + 1)}">[다음]</a>
 			</c:if>
 		</div>
 		
