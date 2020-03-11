@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.example.spring04.modelVO.BoardVO;
+import com.example.spring04.modelVO.Criteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -75,4 +76,12 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		return sqlSession.selectOne("board.boardSelCount", map);
 	}
+	
+	
+	
+	@Override
+	public List<BoardVO> ListPage(Criteria cri) throws Exception {
+		return sqlSession.selectList("board.ListPaging", cri);
+	}
+	
 }

@@ -3,6 +3,7 @@ package com.example.spring04.modelDAO;
 import java.util.List;
 
 import com.example.spring04.modelVO.BoardVO;
+import com.example.spring04.modelVO.Criteria;
 
 public interface BoardDAO {
 	public void boardWrite(BoardVO wrtVO) throws Exception;
@@ -15,4 +16,6 @@ public interface BoardDAO {
 	public void boardDelete(int seq) throws Exception;
 	public List<BoardVO> boardListSchPage(BoardVO SchPage) throws Exception;
 	public int boardSelCount(String option, String keyword) throws Exception;
+	
+	public List<BoardVO> ListPage(Criteria cri) throws Exception;
 }

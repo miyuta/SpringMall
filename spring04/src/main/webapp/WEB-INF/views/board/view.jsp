@@ -95,11 +95,11 @@
 						<td colspan="4">
 						<c:choose>
 							<c:when test="${member.userid == boardView.writer}">
-								<button type="submit" id="btnUpdate">수정</button>
+								<button type="button" id="btnUpdate">수정</button>
 								<button type="submit" id="btnDelete">삭제</button>
 							</c:when>
 							<c:otherwise>
-								<input type="button" id="btnLogin" value="로그인이 필요합니다.">
+								<button type="button" id="btnLogin">로그인이 필요합니다.</button>
 							</c:otherwise>
 						</c:choose>
 							<button type="submit" id="btnBack">뒤로</button>

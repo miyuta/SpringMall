@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.spring04.modelDAO.BoardDAO;
 import com.example.spring04.modelVO.BoardVO;
+import com.example.spring04.modelVO.Criteria;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -69,5 +70,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int boardSelCount(String option, String keyword) throws Exception {
 		return boardDao.boardSelCount(option, keyword);
+	}
+	
+	
+	@Override
+	public List<BoardVO> ListPage(Criteria cri) throws Exception {
+		return boardDao.ListPage(cri);
 	}
 }

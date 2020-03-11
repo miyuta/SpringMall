@@ -10,12 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring04.modelVO.BoardVO;
+import com.example.spring04.modelVO.Criteria;
 import com.example.spring04.modelVO.MemberVO;
+import com.example.spring04.modelVO.PageMaker;
 import com.example.spring04.modelVO.ReplyVO;
 import com.example.spring04.service.BoardService;
 import com.example.spring04.service.PageService;
@@ -93,6 +96,7 @@ public class BoardController {
 	public void postBoardSearch(@RequestParam("option") String option, @RequestParam("keyword") String keyword, @RequestParam(value="num", defaultValue="1") int atPage, Model model) throws Exception {
 		logger.info("post board listpage");
 		
+		System.out.println(atPage);
 		//페이지 번호에 맞는 글 목록
 		List<BoardVO> boardList = null;
 		if (option.equals("list")) {
@@ -138,10 +142,10 @@ public class BoardController {
 		if(result!=1) {
 			int error=1;
 			model.addAttribute("error", error);
-			model.addAttribute("n", passChk.getSeq());
+			model.addAttribute("n", passChk.getBno());
 			return "redirect:/board/view";
 		} else {
-			model.addAttribute("seq", passChk.getSeq());
+			model.addAttribute("seq", passChk.getBno());
 			return "redirect:/board/update";
 		}
 	}
@@ -172,12 +176,26 @@ public class BoardController {
 		if(passChk != 1) {
 			int error = 1;
 			model.addAttribute("error", error);
-			model.addAttribute("n", delVO.getSeq());
+			model.addAttribute("n", delVO.getBno());
 			return "redirect:/board/view";
 		} else {
-			boardService.boardDelete(delVO.getSeq());
+			boardService.boardDelete(delVO.getBno());
 			
 			return "redirect:/board/list";
 		}
+	}
+	
+	
+	@RequestMapping(value="criListPage", method = RequestMethod.GET)
+	public void listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		logger.info("get board listpage");
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalPost(boardService.listCount());
+		model.addAttribute("pageMaker", pageMaker);
+		
+		List<BoardVO> ListPage = boardService.ListPage(cri);
+		model.addAttribute("boardList", ListPage);
 	}
 }

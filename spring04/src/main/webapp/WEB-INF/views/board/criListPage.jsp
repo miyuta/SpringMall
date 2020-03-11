@@ -81,29 +81,21 @@
 			</c:forEach>
 			</table>
 			
-			<c:if test="${map.prev == 0}">
-				<%-- <span>[ <a href="${pageContext.request.contextPath}/board/listPage?num=${map.startPageNum - 1}">이전</a> ]</span> --%>
-				<button type="button" id="btnPrev" value="${map.startPageNum}">이전</button>
+			<c:if test="${pageMaker.prev}">
+				<span>[ <a href="${pageContext.request.contextPath}/board/criListPage${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a> ]</span>
 			</c:if>
 			
-			<c:forEach begin="${map.startPageNum}" end="${map.endPageNum}" var="num">
-				<span>
-				
-					<c:if test="${map.atPage != num}">
-						<%-- <a href="${pageContext.request.contextPath}/board/listPage?num=${num}">${num}</a> --%>
-						<input type="submit" id="atPage" name="num" value="${num}">
-					</c:if>
+			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+						<a href="${pageContext.request.contextPath}/board/criListPage${pageMaker.makeQuery(idx)}">${idx}</a>
+
 					
-					<c:if test="${map.atPage == num}">
-						<b>${num}</b>
-					</c:if>
-				
-				</span>
+					<%-- <c:if test="${pageMaker.atPage == idx}">
+						<b>${idx}</b>
+					</c:if> --%>
 			</c:forEach>
 			
-			<c:if test="${map.next == 0}">
-				<%-- <span>[ <a href="${pageContext.request.contextPath}/board/listPage?num=${map.endPageNum + 1}">다음</a> ]</span> --%>
-				<button type="button" id="btnNext" value="${map.endPageNum}">다음</button>
+			<c:if test="${pageMaker.next}">
+				<span>[ <a href="${pageContext.request.contextPath}/board/criListPage${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a> ]</span>
 			</c:if>
 			
 			<%-- <div>

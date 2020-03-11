@@ -3,6 +3,7 @@ package com.example.spring04.service;
 import java.util.List;
 
 import com.example.spring04.modelVO.BoardVO;
+import com.example.spring04.modelVO.Criteria;
 
 public interface BoardService {
 	public void boardWrite(BoardVO wrtVO) throws Exception;
@@ -15,4 +16,7 @@ public interface BoardService {
 	public void boardDelete(int seq) throws Exception;
 	public List<BoardVO> boardListSchPage(String option, String keyword, int startRow, int endRow) throws Exception;
 	public int boardSelCount(String option, String keyword) throws Exception;
+	
+	
+	public List<BoardVO> ListPage(Criteria cri) throws Exception;
 }

@@ -5,50 +5,55 @@
 <mapper namespace="board">
 	
 <insert id="boardWrite">
-	insert into spboard (seq, title, writer, passwd, content) 
+	insert into spboard (bno, title, writer, passwd, content) 
 	values (spboard_seq.nextval, #{title}, #{writer}, #{passwd}, #{content}) 
 </insert>
 
 <select id="boardList" resultType="com.example.spring04.modelVO.BoardVO">
-	select seq, title, writer, regdate, cnt from spboard order by seq desc
+	select bno, title, writer, regdate, cnt from spboard order by bno desc
 </select>
 
 <select id="boardListPaging" resultType="com.example.spring04.modelVO.BoardVO" parameterType="hashMap">
-	select seq, title, writer, regdate, cnt from (select seq, title, writer, regdate, cnt, row_number() over(order by seq desc) as rnum from spboard)
-		where rnum between #{startRow} and #{endRow} order by seq desc
+	select bno, title, writer, regdate, cnt from (select bno, title, writer, regdate, cnt, row_number() over(order by bno desc) as rnum from spboard)
+		where rnum between #{startRow} and #{endRow} order by bno desc
+</select>
+
+<select id="ListPaging" resultType="com.example.spring04.modelVO.BoardVO" parameterType="com.example.spring04.modelVO.Criteria">
+	select bno, title, writer, regdate, cnt from (select bno, title, writer, regdate, cnt, row_number() over(order by bno desc) as rnum from spboard)
+		where rnum between #{startPost} and #{endPost} order by bno desc
 </select>
 
 <select id="boardListSchPage" resultType="com.example.spring04.modelVO.BoardVO">
-	select seq, title, writer, content, regdate, cnt from (select seq, title, writer, content, regdate, cnt, row_number() over(order by seq desc) as rnum from spboard <include refid="search"></include>)
-		where rnum between #{startRow} and #{endRow} order by seq desc
+	select bno, title, writer, content, regdate, cnt from (select bno, title, writer, content, regdate, cnt, row_number() over(order by bno desc) as rnum from spboard <include refid="search"></include>)
+		where rnum between #{startRow} and #{endRow} order by bno desc
 </select>
 
 <select id="boardListCnt" resultType="int">
 	<![CDATA[
-		select count(seq) from spboard where seq > 0
+		select count(bno) from spboard where bno > 0
 	]]>
 </select>
 
 <select id="boardView" resultType="com.example.spring04.modelVO.BoardVO">
-	select seq, title, writer, passwd, content, regdate, cnt from spboard where seq = #{seq}
+	select bno, title, writer, passwd, content, regdate, cnt from spboard where bno = #{bno}
 </select>
 
 <select id="passChk" resultType="int">
-	select count(*) from spboard where seq = #{seq} and passwd=#{passwd}
+	select count(*) from spboard where bno = #{bno} and passwd=#{passwd}
 </select>
 
 <update id="boardUpdate">
-	update spboard set title = #{title}, writer = #{writer}, passwd = #{passwd}, content = #{content}, modate = sysdate where seq = #{seq}
+	update spboard set title = #{title}, writer = #{writer}, passwd = #{passwd}, content = #{content}, modate = sysdate where bno = #{bno}
 </update>
 
 <delete id="boardDelete">
-	delete from spboard where seq=#{seq}
+	delete from spboard where bno=#{bno}
 </delete>
 
 <select id="boardSearch" resultType="com.example.spring04.modelVO.BoardVO">
-	select seq, title, writer, content, regdate, cnt from spboard
+	select bno, title, writer, content, regdate, cnt from spboard
 	<include refid="search"></include>
-	order by seq desc
+	order by bno desc
 </select>
 
 <select id="boardSelCount" resultType="int">
