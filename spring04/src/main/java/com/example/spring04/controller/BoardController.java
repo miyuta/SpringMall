@@ -20,6 +20,7 @@ import com.example.spring04.modelVO.Criteria;
 import com.example.spring04.modelVO.MemberVO;
 import com.example.spring04.modelVO.PageMaker;
 import com.example.spring04.modelVO.ReplyVO;
+import com.example.spring04.modelVO.SearchCriteria;
 import com.example.spring04.service.BoardService;
 import com.example.spring04.service.PageService;
 import com.example.spring04.service.ReplyService;
@@ -121,16 +122,17 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/view", method = RequestMethod.GET)
-	public void getBoardView(@RequestParam("n") int seq, @RequestParam(value="error", defaultValue="0") int error, Model model) throws Exception {
+	public void getBoardView(@RequestParam("bno") int bno, @RequestParam(value="error", defaultValue="0") int error, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		logger.info("get board view");
 		
 		if (error == 1) {
 			model.addAttribute("messege", "비밀번호를 확인해주세요.");
 		}
-		BoardVO boardView = boardService.boardView(seq);
-		List<ReplyVO> replyList = replyService.replyList(seq);
+		BoardVO boardView = boardService.boardView(bno);
+		List<ReplyVO> replyList = replyService.replyList(bno);
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("replyList", replyList);
+		model.addAttribute("scri", scri);
 	}
 	
 	@RequestMapping(value="/view", method = RequestMethod.POST)
@@ -197,5 +199,19 @@ public class BoardController {
 		
 		List<BoardVO> ListPage = boardService.ListPage(cri);
 		model.addAttribute("boardList", ListPage);
+	}
+	
+	@RequestMapping(value="criListSchPage", method = RequestMethod.GET)
+	public void listSchPage(@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
+		logger.info("get board listschpage");
+		
+		System.out.println(scri.getOption());
+		List<BoardVO> boardListSch = boardService.ListSchPage(scri);
+		model.addAttribute("boardSchList", boardListSch);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalPost(boardService.listCount());
+		model.addAttribute("pageMaker", pageMaker);
 	}
 }

@@ -43,8 +43,9 @@
 		});
 
 		$("#btnBack").on("click", function(){
-			event.preventDefault();
-			location.href="${pageContext.request.contextPath}/board/listPage";
+			self.location="${pageContext.request.contextPath}/board/criListSchPage?"
+				+ "atPage=${scri.atPage}&perPagePost=${scri.perPagePost}"
+				+ "&option=${scri.option}&keyword=${scri.keyword}";
 		});
 
 		$("#repSubmit").on("click", function(){
@@ -70,7 +71,12 @@
 	<section id="container">
 	
 		<form role="form1" method="post">
-		<input type="hidden" name="seq" value="${boardView.seq}">
+		<input type="hidden" name="bno" value="${boardView.bno}">
+		<input type="hidden" id="atPage" name="atPage" value="${scri.atPage}">
+		<input type="hidden" id="perPagePost" name="perPagePost" value="${scri.perPagePost}">
+		<input type="hidden" id="option" name="option" value="${scri.option}">
+		<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
+		
 			<table border="1">
 				<tbody>
 					<tr>
@@ -102,7 +108,7 @@
 								<button type="button" id="btnLogin">로그인이 필요합니다.</button>
 							</c:otherwise>
 						</c:choose>
-							<button type="submit" id="btnBack">뒤로</button>
+							<button type="button" id="btnBack">뒤로</button>
 							<div>${messege}</div>
 						</td>
 					</tr>
@@ -126,7 +132,7 @@
 			
 			<section id="replyForm">
 				<form role="form2" method="post">
-					<input type="hidden" name="n" value="${boardView.seq}">
+					<input type="hidden" name="n" value="${boardView.bno}">
 					
 					<p><label for="rewriter">작성자</label><input type="text" id="rewriter" name="rewriter"></p>
 					<p><label for="recontent">댓글</label><textarea id="recontent" name="recontent"></textarea></p>

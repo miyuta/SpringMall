@@ -28,6 +28,11 @@
 		where rnum between #{startRow} and #{endRow} order by bno desc
 </select>
 
+<select id="ListSchPage" resultType="com.example.spring04.modelVO.BoardVO">
+	select bno, title, writer, content, regdate, cnt from (select bno, title, writer, content, regdate, cnt, row_number() over(order by bno desc) as rnum from spboard <include refid="search"></include>)
+		where rnum between #{startPost} and #{endPost} order by bno desc
+</select>
+
 <select id="boardListCnt" resultType="int">
 	<![CDATA[
 		select count(bno) from spboard where bno > 0
@@ -62,16 +67,18 @@
 </select>
 
 <sql id="search">
-	<choose>
-		<when test="option == 'all' ">
-			where title like '%'||#{keyword}||'%'
-			or writer like '%'||#{keyword}||'%'
-			or content like '%'||#{keyword}||'%'
-		</when>
-		<otherwise>
-			where ${option} like '%'||#{keyword}||'%'
-		</otherwise>
-	</choose>
+	<if test="option != null and !option.equals('')">
+		<choose>
+			<when test="option == 'all' ">
+				where title like '%'||#{keyword}||'%'
+				or writer like '%'||#{keyword}||'%'
+				or content like '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				where ${option} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</if>
 </sql>
 
 </mapper>

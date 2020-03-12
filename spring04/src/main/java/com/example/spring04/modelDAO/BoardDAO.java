@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.spring04.modelVO.BoardVO;
 import com.example.spring04.modelVO.Criteria;
+import com.example.spring04.modelVO.SearchCriteria;
 
 public interface BoardDAO {
 	public void boardWrite(BoardVO wrtVO) throws Exception;
@@ -18,4 +19,5 @@ public interface BoardDAO {
 	public int boardSelCount(String option, String keyword) throws Exception;
 	
 	public List<BoardVO> ListPage(Criteria cri) throws Exception;
+	public List<BoardVO> ListSchPage(SearchCriteria scri) throws Exception;
 }

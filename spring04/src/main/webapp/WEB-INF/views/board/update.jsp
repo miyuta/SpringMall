@@ -22,7 +22,7 @@
 
 		$("#btnBack").on("click", function(){
 			event.preventDefault();
-			location.href="${pageContext.request.contextPath}/board/view?error=0&n=" + ${boardUpdate.seq};
+			location.href="${pageContext.request.contextPath}/board/view?error=0&n=" + ${boardUpdate.bno};
 		});
 	});
 
@@ -51,7 +51,7 @@
 	
 	<section id="container">
 		<form role="form1" method="post">
-		<input type="hidden" name="seq" value="${boardUpdate.seq}">
+		<input type="hidden" name="bno" value="${boardUpdate.bno}">
 			<table>
 				<tbody>
 					<tr>

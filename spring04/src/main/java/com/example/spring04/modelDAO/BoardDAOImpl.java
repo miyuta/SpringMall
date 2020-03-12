@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.spring04.modelVO.BoardVO;
 import com.example.spring04.modelVO.Criteria;
+import com.example.spring04.modelVO.SearchCriteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -84,4 +85,8 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectList("board.ListPaging", cri);
 	}
 	
+	@Override
+	public List<BoardVO> ListSchPage(SearchCriteria scri) throws Exception {
+		return sqlSession.selectList("board.ListSchPage", scri);
+	}
 }

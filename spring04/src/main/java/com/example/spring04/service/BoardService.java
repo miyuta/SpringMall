@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.spring04.modelVO.BoardVO;
 import com.example.spring04.modelVO.Criteria;
+import com.example.spring04.modelVO.SearchCriteria;
 
 public interface BoardService {
 	public void boardWrite(BoardVO wrtVO) throws Exception;
@@ -19,4 +20,5 @@ public interface BoardService {
 	
 	
 	public List<BoardVO> ListPage(Criteria cri) throws Exception;
+	public List<BoardVO> ListSchPage(SearchCriteria scri) throws Exception;
 }
