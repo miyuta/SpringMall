@@ -48,10 +48,19 @@
 				+ "&option=${scri.option}&keyword=${scri.keyword}";
 		});
 
-		$("#repSubmit").on("click", function(){
-			reFormObj.attr("action", "${pageContext.request.contextPath}/reply/write");
-			reFormObj.attr("method", "post");
-			reFormObj.submit();
+		$("#btnReply").on("click", function(){
+			var recontent = $("#recontent").val();
+			var bno = "${boardView.bno}";
+			var param = "recontent="+recontent+"&bno"+bno;
+
+			$.ajax({
+				type: "post",
+				url: "${pageContext.request.contextPath}/reply/write",
+				data: param,
+				success: function() {
+					alert("댓글이 등록되었습니다.");
+				}
+			});
 		});
 	});
 </script>
@@ -130,17 +139,10 @@
 				</c:forEach>
 			</ol>
 			
-			<section id="replyForm">
-				<form role="form2" method="post">
-					<input type="hidden" name="n" value="${boardView.bno}">
-					
-					<p><label for="rewriter">작성자</label><input type="text" id="rewriter" name="rewriter"></p>
-					<p><label for="recontent">댓글</label><textarea id="recontent" name="recontent"></textarea></p>
-					<p>
-						<button type="button" id="repSubmit">작성</button>
-					</p>
-				</form>
-			</section>
+			<p><label for="recontent">댓글</label><textarea cols="60" rows="8" id="recontent" name="recontent"></textarea></p>
+			<p>
+				<button type="button" id="btnReply">작성</button>
+			</p>
 		</div>
 	</section>
 </div>

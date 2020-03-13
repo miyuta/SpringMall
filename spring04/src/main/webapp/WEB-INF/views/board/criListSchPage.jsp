@@ -66,7 +66,7 @@
 																																	perPagePost=${scri.perPagePost}&
 																																	option=${scri.option}&
 																																	keyword=${scri.keyword}&
-																																	error=0">${boardSchList.title}</a></td>
+																																	error=0">${boardSchList.title} [${boardSchList.repno}]</a></td>
 					<td>${boardSchList.writer}</td>
 					<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${boardSchList.regdate}"/></td>
 					<td>${boardSchList.cnt}</td>

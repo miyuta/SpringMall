@@ -9,6 +9,8 @@ public class ReplyVO {
 	private String recontent;
 	private Date regdate;
 	private Date uptodate;
+	
+	
 	public int getRepno() {
 		return repno;
 	}
@@ -46,5 +48,9 @@ public class ReplyVO {
 		this.uptodate = uptodate;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "ReplyVO [repno=" + repno + ", bno=" + bno + ", rewriter=" + rewriter + ", recontent=" + recontent
+				+ ", regdate=" + regdate + ", uptodate=" + uptodate + "]";
+	}
 }

@@ -24,4 +24,14 @@ public class ReplyServiceImpl implements ReplyService {
 	public List<ReplyVO> replyList(int bno) throws Exception {
 		return replyDao.replyList(bno);
 	}
+	
+	@Override
+	public void replyModify(ReplyVO repMod) throws Exception {
+		replyDao.replyModify(repMod);
+	}
+	
+	@Override
+	public void replyDelete(int bno) throws Exception {
+		replyDao.replyDelete(bno);
+	}
 }

@@ -15,7 +15,7 @@ public class BoardVO {
 	private String keyword;
 	private int startRow;
 	private int endRow;
-	private int recnt;
+	private int repno;
 	
 	public int getBno() {
 		return bno;
@@ -89,10 +89,17 @@ public class BoardVO {
 	public void setEndRow(int endRow) {
 		this.endRow = endRow;
 	}
-	public int getRecnt() {
-		return recnt;
+	public int getRepno() {
+		return repno;
 	}
-	public void setRecnt(int recnt) {
-		this.recnt = recnt;
+	public void setRepno(int repno) {
+		this.repno = repno;
+	}
+	
+	@Override
+	public String toString() {
+		return "BoardVO [bno=" + bno + ", title=" + title + ", writer=" + writer + ", passwd=" + passwd + ", content="
+				+ content + ", regdate=" + regdate + ", modate=" + modate + ", cnt=" + cnt + ", option=" + option
+				+ ", keyword=" + keyword + ", startRow=" + startRow + ", endRow=" + endRow + ", repno=" + repno + "]";
 	}
 }

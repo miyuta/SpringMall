@@ -16,13 +16,23 @@ public class ReplyDAOImpl implements ReplyDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public void replyInsert(ReplyVO repInsert) throws Exception {
-		sqlSession.insert("reply.replyInsert", repInsert);
+	public void replyInsert(ReplyVO repIns) throws Exception {
+		sqlSession.insert("reply.replyInsert", repIns);
 	}
 	
 	@Override
 	public List<ReplyVO> replyList(int bno) throws Exception {
 		return sqlSession.selectList("reply.replyList", bno);
+	}
+	
+	@Override
+	public void replyModify(ReplyVO repMod) throws Exception {
+		sqlSession.update("reply.replyModify", repMod);
+	}
+	
+	@Override
+	public void replyDelete(int bno) throws Exception {
+		sqlSession.delete("reply.replyDelete", bno);
 	}
 
 }

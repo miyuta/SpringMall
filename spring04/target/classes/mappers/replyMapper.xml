@@ -12,4 +12,12 @@
 	select repno, bno, rewriter, recontent, regdate, uptodate from breply where bno = #{bno} order by repno desc
 </select>
 
+<update id="repModify">
+	update breply set recontent = #{recontent}, uptodate = #{uptodate} where bno = #{bno}
+</update>
+
+<delete id="repDelete">
+	delete breply where bno = #{bno}
+</delete>
+
 </mapper>

@@ -29,7 +29,7 @@
 </select>
 
 <select id="ListSchPage" resultType="com.example.spring04.modelVO.BoardVO">
-	select bno, title, writer, content, regdate, cnt from (select bno, title, writer, content, regdate, cnt, row_number() over(order by bno desc) as rnum from spboard <include refid="search"></include>)
+	select bno, title, writer, content, regdate, cnt, (select count(repno) from breply where bno = sp.bno) as repno from (select bno, title, writer, content, regdate, cnt, row_number() over(order by bno desc) as rnum from spboard <include refid="search"></include>) sp
 		where rnum between #{startPost} and #{endPost} order by bno desc
 </select>
 
