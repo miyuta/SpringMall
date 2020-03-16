@@ -36,7 +36,7 @@ public class ReplyController {
 		
 		repInsert.setRewriter(userid.getUserid());
 		replyService.replyInsert(repInsert);
-		model.addAttribute("bno",repInsert.getBno());
+		model.addAttribute("bno", repInsert.getBno());
 		
 		return "redirect:/board/view";
 	}
@@ -46,16 +46,9 @@ public class ReplyController {
 		logger.info("get reply list");
 		
 		List<ReplyVO> replyList = replyService.replyList(bno);
-		mav.setViewName("baord/replyList");
+		mav.setViewName("board/replyList");
 		mav.addObject("replyList", replyList);
 		
 		return mav;
-	}
-	
-	@RequestMapping("listJson.do")
-	@ResponseBody
-	public List<ReplyVO> listJson(@RequestParam int bno) throws Exception  {
-		List<ReplyVO> replyList = replyService.replyList(bno);
-		return replyList;
 	}
 }

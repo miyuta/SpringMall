@@ -205,7 +205,6 @@ public class BoardController {
 	public void listSchPage(@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		logger.info("get board listschpage");
 		
-		System.out.println(scri.getOption());
 		List<BoardVO> boardListSch = boardService.ListSchPage(scri);
 		model.addAttribute("boardSchList", boardListSch);
 		

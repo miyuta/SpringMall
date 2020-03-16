@@ -11,7 +11,8 @@
 <script>
 	$(document).ready(function(){
 		var formObj = $("form[role='form1']");
-		var reFormObj = $("form[role='form2']");
+
+		listReply();
 
 		$("#btnUpdate").on("click", function(){
 			var passwd = $("#passwd").val();
@@ -37,7 +38,7 @@
 			}
 		});
 
-		$("#btnLogin").on("click", function(){
+		$(".btnLogin").on("click", function(){
 			event.preventDefault();
 			location.href="${pageContext.request.contextPath}/login/login";
 		});
@@ -51,7 +52,7 @@
 		$("#btnReply").on("click", function(){
 			var recontent = $("#recontent").val();
 			var bno = "${boardView.bno}";
-			var param = "recontent="+recontent+"&bno"+bno;
+			var param = "recontent="+recontent+"&bno="+bno;
 
 			$.ajax({
 				type: "post",
@@ -59,10 +60,21 @@
 				data: param,
 				success: function() {
 					alert("댓글이 등록되었습니다.");
+					listReply();
 				}
 			});
 		});
 	});
+
+	function listReply(){
+		$.ajax({
+			type: "get",
+			url: "${pageContext.request.contextPath}/reply/list?bno=${boardView.bno}",
+			success: function(result) {
+				$("#listReply").html(result);
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -114,7 +126,7 @@
 								<button type="submit" id="btnDelete">삭제</button>
 							</c:when>
 							<c:otherwise>
-								<button type="button" id="btnLogin">로그인이 필요합니다.</button>
+								<button type="button" class="btnLogin">로그인이 필요합니다.</button>
 							</c:otherwise>
 						</c:choose>
 							<button type="button" id="btnBack">뒤로</button>
@@ -126,24 +138,22 @@
 		</form>
 	
 		<div>
-			<ol>
-				<c:forEach items="${replyList}" var="repList">
-					<li>
-						<p>
-							작성자 : ${repList.rewriter}<br />
-							작성 날짜 : <fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${repList.regdate}"/>
-						</p>
-						
-						<p>${repList.recontent}</p>
-					</li>
-				</c:forEach>
-			</ol>
-			
 			<p><label for="recontent">댓글</label><textarea cols="60" rows="8" id="recontent" name="recontent"></textarea></p>
-			<p>
-				<button type="button" id="btnReply">작성</button>
-			</p>
+			<c:choose>
+			<c:when test="${member != null}">
+				<p>
+					<button type="button" id="btnReply">작성</button>
+				</p>
+			</c:when>
+			<c:otherwise>
+				<p>
+					<button type="button" class="btnLogin">로그인이 필요합니다.</button>
+				</p>
+			</c:otherwise>
+			</c:choose>
 		</div>
+		
+		<div id="listReply"></div>
 	</section>
 </div>
 </body>
