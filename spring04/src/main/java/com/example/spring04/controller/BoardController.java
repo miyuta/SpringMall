@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.spring04.modelVO.BoardVO;
 import com.example.spring04.modelVO.Criteria;
@@ -46,16 +47,16 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/write", method = RequestMethod.POST)
-	public String postBoardWrite(BoardVO wrtVO, HttpSession session) throws Exception {
+	public String postBoardWrite(BoardVO wrtVO, HttpSession session, MultipartHttpServletRequest mpRequest) throws Exception {
 		logger.info("post board write");
 		
 		MemberVO sessionVO = (MemberVO) session.getAttribute("member");
 		String writer = sessionVO.getUserid();
 		
 		wrtVO.setWriter(writer);
-		boardService.boardWrite(wrtVO);
+		boardService.boardWrite(wrtVO, mpRequest);
 		
-		return "redirect:/board/listPage";
+		return "redirect:/board/criListSchPage";
 	}
 	
 	@RequestMapping(value="/listPage", method = RequestMethod.GET)
@@ -144,7 +145,7 @@ public class BoardController {
 		if(result!=1) {
 			int error=1;
 			model.addAttribute("error", error);
-			model.addAttribute("n", passChk.getBno());
+			model.addAttribute("bno", passChk.getBno());
 			return "redirect:/board/view";
 		} else {
 			model.addAttribute("seq", passChk.getBno());
@@ -166,7 +167,7 @@ public class BoardController {
 		
 		boardService.boardUpdate(updVO);
 		
-		return "redirect:/board/list";
+		return "redirect:/board/criListSchPage";
 	}
 	
 	@RequestMapping(value="delete", method = RequestMethod.POST)
@@ -178,12 +179,12 @@ public class BoardController {
 		if(passChk != 1) {
 			int error = 1;
 			model.addAttribute("error", error);
-			model.addAttribute("n", delVO.getBno());
+			model.addAttribute("bno", delVO.getBno());
 			return "redirect:/board/view";
 		} else {
 			boardService.boardDelete(delVO.getBno());
 			
-			return "redirect:/board/list";
+			return "redirect:/board/criListSchPage";
 		}
 	}
 	

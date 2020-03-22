@@ -18,7 +18,7 @@
 <select id="memberView" resultType="com.example.spring04.modelVO.MemberVO">
 	select rnum, userid, passwd, username, useremail, useraddr1, useraddr2, useraddr3, reg_date, up_date, useraccess from
 	(select userid, passwd, username, useremail, useraddr1, useraddr2, useraddr3, reg_date, up_date, useraccess, row_number() over(order by reg_date) as rnum from bmember)
-	where rnum = #{rnum} order by reg_date desc
+	where userid = #{userid} order by reg_date desc
 </select>
 
 <update id="memberModify">
@@ -35,9 +35,8 @@
 </delete>
 
 <select id="memberSearch" resultType="com.example.spring04.modelVO.MemberVO">
-	select userid, username, useremail, reg_date, useraccess
-	from bmember
-	<include refid="search"></include>
+	select rnum, userid, passwd, username, useremail, reg_date, useraccess from
+	(select userid, passwd, username, useremail, reg_date, useraccess, row_number() over(order by reg_date) as rnum from bmember <include refid="search"></include>)
 	order by reg_date desc
 </select>
 

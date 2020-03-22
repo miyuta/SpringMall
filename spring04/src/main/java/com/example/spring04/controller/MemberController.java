@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.spring04.modelVO.MemberVO;
 import com.example.spring04.service.MemberService;
@@ -52,8 +54,15 @@ public class MemberController {
 		logger.info("get member list");
 		
 		List<MemberVO> memberList = memberService.memberList();
-		
 		model.addAttribute("memberList", memberList);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/passChk", method = RequestMethod.GET)
+	public boolean passChk(@RequestParam("passwd") String passwd, ModelAndView mav) throws Exception {
+		logger.info("get member passchk");
+		
+		return true;
 	}
 	
 	@RequestMapping(value="/list", method = RequestMethod.POST)
@@ -77,10 +86,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/view", method = RequestMethod.GET)
-	public void memberView(@RequestParam("n") int rnum, @RequestParam("error") int error, Model model) throws Exception {
+	public void memberView(@RequestParam("userid") String userid, @RequestParam("error") int error, Model model) throws Exception {
 		logger.info("get member view");
 		
-		MemberVO memberView = memberService.memberView(rnum);
+		MemberVO memberView = memberService.memberView(userid);
 		
 		if (error != 0) {
 			String message = memberService.message(error);
@@ -92,7 +101,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET)
-	public void memberModify(@RequestParam("rnum") int rnum, @RequestParam("error") int error, Model model) throws Exception {
+	public void memberModify(@RequestParam("rnum") String rnum, @RequestParam("error") int error, Model model) throws Exception {
 		logger.info("get member modify");
 		
 		MemberVO memberModify = memberService.memberView(rnum);

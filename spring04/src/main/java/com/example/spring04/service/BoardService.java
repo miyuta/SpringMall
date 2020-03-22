@@ -2,12 +2,14 @@ package com.example.spring04.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.example.spring04.modelVO.BoardVO;
 import com.example.spring04.modelVO.Criteria;
 import com.example.spring04.modelVO.SearchCriteria;
 
 public interface BoardService {
-	public void boardWrite(BoardVO wrtVO) throws Exception;
+	public void boardWrite(BoardVO wrtVO, MultipartHttpServletRequest mpRequest) throws Exception;
 	public List<BoardVO> boardList() throws Exception;
 	public List<BoardVO> boardListPage(int startRow, int endRow) throws Exception;
 	public int listCount() throws Exception;

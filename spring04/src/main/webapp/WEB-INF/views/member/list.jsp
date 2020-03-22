@@ -2,30 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@include file="/WEB-INF/views/include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="${pageContext.request.contextPath }/resources/jquery/jquery-3.4.1.min.js"></script>
 <title>회원 리스트</title>
 </head>
-<script>
-	function linkView (passChk){
-		var passwd = $("#passwd").val();
-
-		if (passwd == "") {
-			alert("비밀번호를 입력해주세요.");
-			$("#passwd").focus();
-			event.preventDefault();
-			return;
-		}
-		if (passwd != passChk ) {
-			alert("비밀번호를 확인해주세요.");
-			event.preventDefault();
-			return;
-		}
-	}
-</script>
 <body>
 <div id= "root">
 	<header>
@@ -40,7 +23,6 @@
 	
 	<section id="container">
 		<form role="form1" method = "post" action="${pageContext.request.contextPath}/member/list">
-			<label for="passwd">비밀번호 : </label><input type="password" name="passwd" id="passwd">
 			<select name="option">
 				<option value="list" <c:out value="${option == 'list' ? 'selected' : ''}" />>리스트</option>
 				<option value="all" <c:out value="${option == 'all' ? 'selected' : ''}" />>아이디 + 이메일 + 권한</option>
@@ -50,19 +32,19 @@
 				<option value="useraccess" <c:out value="${option == 'useraccess' ? 'selected' : ''}" />>권한</option>
 			</select>
 			<input type="text" name="keyword" value="${keyword}">
-			<input type=submit value="조회">
-			</form>
+			<button type="submit" id="btnSearch">조회</button>
+		</form>
 			
-			<table>
+			<table class="table table-striped table table-bordered table table-hover">
 			<tr>
 				<th>번호</th><th>아이디</th><th>이름</th><th>이메일</th><th>등록일</th><th>권한</th>
 			</tr>
 			<c:forEach items="${memberList}" var="memlist">
 			<c:set var="access" value="${memlist.useraccess}" />
 				<tr align="center">
-					<td>${memlist.rnum}</td>
+					<td><div id="rnum">${memlist.rnum}</div></td>
 					<td>${memlist.userid}</td>
-					<td><a href="${pageContext.request.contextPath}/member/view?n=${memlist.rnum}&error=0" onclick="linkView(${memlist.passwd})">${memlist.username}</a></td>
+					<td><a href="${pageContext.request.contextPath}/member/view?userid=${memlist.userid}&error=0">${memlist.username}</a></td>
 					<td>${memlist.useremail}</td>
 					<td><fmt:formatDate pattern="yy/MM/dd HH:mm:ss" value="${memlist.reg_date}"/></td>
 					<td>

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="${pageContext.request.contextPath }/resources/jquery/jquery-3.4.1.min.js"></script>
 	<title>Insert title here</title>
 	</head>
 	
@@ -19,6 +19,10 @@
 			formObj.attr("action", "${pageContext.request.contextPath}/board/write");
 			formObj.attr("method", "post");
 			formObj.submit();
+		});
+
+		$("#btnBack").on("click", function(){
+			self.location="${pageContext.request.contextPath}/"
 		});
 	});
 	
@@ -46,36 +50,29 @@
 	<hr />
 	
 	<section id="container">
-		<form role="form1" method="post">
-			<table>
-				<tbody>
-					<tr>
-						<td>
-							<label for="title">제목</label><input type="text" name="title" class="check" title="제목을 입력해주세요.">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<!-- <label for="writer">작성자</label><input type="text" name="writer" class="check" title="작성자를 입력해주세요."> -->
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="passwd">비밀번호</label><input type="password" name="passwd" class="check" title="비밀번호를 입력해주세요.">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="content">내용</label><textarea cols="55" rows="8" name="content" class="check" title="내용을 입력해주세요."></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<button type="submit" id="btnWrite">작성</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<form role="form1" method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<label class="control-label" for="title">제목</label>
+				<input class="form-control" type="text" name="title" class="check" title="제목을 입력해주세요.">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="writer">작성자</label>
+				<input class="form-control" type="text" name="writer" class="check" title="작성자를 입력해주세요." value="${member.userid}">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="passwd">비밀번호</label>
+				<input class="form-control" type="password" name="passwd" class="check" title="비밀번호를 입력해주세요.">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="content">내용</label>
+				<textarea class="form-control" cols="55" rows="8" name="content" class="check" title="내용을 입력해주세요."></textarea>
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="file">파일 첨부</label>
+				<input type="file" name="file">
+			</div>
+				<button class="btn btn-outline-primary" type="submit" id="btnWrite">작성</button>
+				<button class="btn btn-outline-success" type="button" id="btnBack">뒤로</button>
 		</form>
 	</section>
 </div>

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="/WEB-INF/views/include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="${pageContext.request.contextPath }/resources/jquery/jquery-3.4.1.min.js"></script>
 <meta charset="UTF-8">
 <title>LogIn</title>
 </head>
@@ -29,7 +29,6 @@
 		});
 
 		$("#btnBack").click(function(){
-			event.preventDefault();
 			location.href="${pageContext.request.contextPath}/"
 		});
 	});
@@ -52,26 +51,18 @@
 	
 	<section id="container">
 		<form name="form1" method="post">
-			<table border="1">
-				<tbody>
-					<tr>
-						<td>
-							<label for="userid">아이디</label><input type="text" name="userid" id="userid" placeholder="아이디를 입력해주세요.">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="passwd">비밀번호</label><input type="password" name="passwd" id="passwd" placeholder="비밀번호를 입력해주세요.">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="button" id="btnLogin" value="로그인">
-							<input type="button" id="btnBack" value="뒤로">
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="form-group">
+				<label class="control-label" for="userid">아이디</label>
+				<input class="form-control" type="text" name="userid" id="userid" placeholder="아이디를 입력해주세요.">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="passwd">비밀번호</label>
+				<input class="form-control" type="password" name="passwd" id="passwd" placeholder="비밀번호를 입력해주세요.">
+			</div>
+			<div class="form-group">
+				<input class="btn btn-outline-primary" type="button" id="btnLogin" value="로그인">
+				<input class="btn btn-outline-success" type="button" id="btnBack" value="뒤로">
+			</div>
 		</form>
 	</section>
 </div>

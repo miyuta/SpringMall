@@ -1,25 +1,38 @@
 package com.example.spring04.service;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.spring04.modelDAO.BoardDAO;
 import com.example.spring04.modelVO.BoardVO;
 import com.example.spring04.modelVO.Criteria;
 import com.example.spring04.modelVO.SearchCriteria;
+import com.example.spring04.utils.FileUtils;
 
 @Service
 public class BoardServiceImpl implements BoardService {
+	
+	@Resource(name="fileUtils")
+	private FileUtils fileUtils;
 	
 	@Inject
 	private BoardDAO boardDao;
 	
 	@Override
-	public void boardWrite(BoardVO wrtVO) throws Exception {
+	public void boardWrite(BoardVO wrtVO, MultipartHttpServletRequest mpRequest) throws Exception {
 		boardDao.boardWrite(wrtVO);
+		
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(wrtVO, mpRequest);
+		int size = list.size();
+		for (int i = 0; i < size; i++) {
+			boardDao.insertFile(list.get(i));
+		}
 	}
 	
 	@Override

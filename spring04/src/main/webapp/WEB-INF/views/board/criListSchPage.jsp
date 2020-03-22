@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@include file="/WEB-INF/views/include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.4.1.min.js"></script>
 <meta charset="UTF-8">
 <title>게시판 리스트</title>
 </head>
@@ -41,24 +41,23 @@
 	
 	<section id="container">
 		<select id="option" name="option">
-			<option value="list" <c:out value="${option == 'null' ? 'selected' : ''}"/>>리스트</option>
-			<option value="all" <c:out value="${option == 'all' ? 'selected' : ''}"/>>제목 + 작성자 + 내용</option>
-			<option value="title" <c:out value="${option == 'title' ? 'selected' : ''}"/>>제목</option>
-			<option value="writer" <c:out value="${option == 'writer' ? 'selected' : ''}"/>>작성자</option>
-			<option value="content" <c:out value="${option == 'content' ? 'selected' : ''}"/>>내용</option>
+			<option value="list" <c:out value="${scri.option == null ? 'selected' : ''}"/>>리스트</option>
+			<option value="all" <c:out value="${scri.option == 'all' ? 'selected' : ''}"/>>제목 + 작성자 + 내용</option>
+			<option value="title" <c:out value="${scri.option == 'title' ? 'selected' : ''}"/>>제목</option>
+			<option value="writer" <c:out value="${scri.option == 'writer' ? 'selected' : ''}"/>>작성자</option>
+			<option value="content" <c:out value="${scri.option == 'content' ? 'selected' : ''}"/>>내용</option>
 		</select>
-		<input id="keyword" type="text" name="keyword" value="${keyword}">
+		<input id="keyword" type="text" name="keyword" value="${scri.keyword}">
 		<button type="button" id="btnSearch">조회</button>
 
 		<c:if test="${member != null}">
 			<button type="button" id="btnWrite">글쓰기</button>
 		</c:if>
-	
-			<table>
-			<c:forEach items="${boardSchList}" var="boardSchList">
+			<table class="table table-striped table table-bordered table table-hover">
 				<tr>
 					<th>번호</th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th>
 				</tr>
+				<c:forEach items="${boardSchList}" var="boardSchList">
 				<tr>
 					<td>${boardSchList.bno}</td>
 					<td><a href="${pageContext.request.contextPath}/board/view?bno=${boardSchList.bno}&
@@ -79,12 +78,15 @@
 			</c:if>
 			
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+				<span>
+					<c:if test="${pageMaker.cri.atPage != idx}">
 						<a href="${pageContext.request.contextPath}/board/criListSchPage${pageMaker.makeSearch(idx)}">${idx}</a>
-
+					</c:if>
 					
-					<%-- <c:if test="${pageMaker.atPage == idx}">
+					<c:if test="${pageMaker.cri.atPage == idx}">
 						<b>${idx}</b>
-					</c:if> --%>
+					</c:if>
+				</span>
 			</c:forEach>
 			
 			<c:if test="${pageMaker.next}">

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@include file="/WEB-INF/views/include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="${pageContext.request.contextPath }/resources/jquery/jquery-3.4.1.min.js"></script>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 
@@ -38,7 +38,7 @@
 			}
 		});
 
-		$(".btnLogin").on("click", function(){
+		$("#btnLogin").on("click", function(){
 			event.preventDefault();
 			location.href="${pageContext.request.contextPath}/login/login";
 		});
@@ -98,7 +98,7 @@
 		<input type="hidden" id="option" name="option" value="${scri.option}">
 		<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
 		
-			<table border="1">
+			<table class="table table-striped table table-bordered table table-hover">
 				<tbody>
 					<tr>
 						<td><label for="title">제목</label></td>
@@ -122,14 +122,14 @@
 						<td colspan="4">
 						<c:choose>
 							<c:when test="${member.userid == boardView.writer}">
-								<button type="button" id="btnUpdate">수정</button>
-								<button type="submit" id="btnDelete">삭제</button>
+								<button class="btn btn-outline-warning" type="button" id="btnUpdate">수정</button>
+								<button class="btn btn-outline-danger" type="submit" id="btnDelete">삭제</button>
 							</c:when>
 							<c:otherwise>
-								<button type="button" class="btnLogin">로그인이 필요합니다.</button>
+								<button class="btn btn-outline-info" type="button" id="btnLogin">로그인이 필요합니다.</button>
 							</c:otherwise>
 						</c:choose>
-							<button type="button" id="btnBack">뒤로</button>
+							<button class="btn btn-outline-success" type="button" id="btnBack">뒤로</button>
 							<div>${messege}</div>
 						</td>
 					</tr>
@@ -138,7 +138,12 @@
 		</form>
 	
 		<div>
-			<p><label for="recontent">댓글</label><textarea cols="60" rows="8" id="recontent" name="recontent"></textarea></p>
+		<div class="form-group">
+			<p>
+				<label for="recontent">댓글</label>
+				<textarea class="form-control" cols="60" rows="8" id="recontent" name="recontent"></textarea>
+			</p>
+		</div>
 			<c:choose>
 			<c:when test="${member != null}">
 				<p>

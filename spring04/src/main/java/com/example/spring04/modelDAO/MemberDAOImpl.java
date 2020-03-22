@@ -28,8 +28,8 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
-	public MemberVO memberView(int rnum) throws Exception {
-		return sqlSession.selectOne("member.memberView", rnum);
+	public MemberVO memberView(String userid) throws Exception {
+		return sqlSession.selectOne("member.memberView", userid);
 	}
 	
 	@Override

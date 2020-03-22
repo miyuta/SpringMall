@@ -1,6 +1,7 @@
 package com.example.spring04.modelDAO;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.spring04.modelVO.BoardVO;
 import com.example.spring04.modelVO.Criteria;
@@ -20,4 +21,5 @@ public interface BoardDAO {
 	
 	public List<BoardVO> ListPage(Criteria cri) throws Exception;
 	public List<BoardVO> ListSchPage(SearchCriteria scri) throws Exception;
+	public void insertFile(Map<String, Object> map) throws Exception;
 }

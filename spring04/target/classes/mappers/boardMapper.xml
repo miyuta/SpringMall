@@ -4,9 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
 	
-<insert id="boardWrite">
+<insert id="boardWrite" parameterType="com.example.spring04.modelVO.BoardVO" useGeneratedKeys="true" keyProperty="bno">
+	<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+		select spboard_seq.nextval from dual
+	</selectKey>
 	insert into spboard (bno, title, writer, passwd, content) 
-	values (spboard_seq.nextval, #{title}, #{writer}, #{passwd}, #{content}) 
+	values (#{bno}, #{title}, #{writer}, #{passwd}, #{content}) 
+</insert>
+
+<insert id="insertFile" parameterType="hashMap">
+	insert into spfile (fno, bno, oriname, sername, fsize)
+	values (seq_spfile_no.nextval, #{bno}, #{oriname}, #{sername}, #{fsize})
 </insert>
 
 <select id="boardList" resultType="com.example.spring04.modelVO.BoardVO">
@@ -43,6 +51,10 @@
 	select bno, title, writer, passwd, content, regdate, cnt from spboard where bno = #{bno}
 </select>
 
+<select id="fileList" parameterType="int" resultType="hashMap">
+	select fno, oriname, round(fsize/1024, 1) as fsize from spfile where bno = #{bno} and delflg = 'N'
+</select>
+
 <select id="passChk" resultType="int">
 	select count(*) from spboard where bno = #{bno} and passwd=#{passwd}
 </select>
@@ -67,7 +79,7 @@
 </select>
 
 <sql id="search">
-	<if test="option != null and !option.equals('')">
+	<if test="option != null and !option.equals('') and !option.equals('list')">
 		<choose>
 			<when test="option == 'all' ">
 				where title like '%'||#{keyword}||'%'

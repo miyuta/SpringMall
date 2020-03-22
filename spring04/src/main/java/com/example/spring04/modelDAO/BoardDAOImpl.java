@@ -89,4 +89,9 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<BoardVO> ListSchPage(SearchCriteria scri) throws Exception {
 		return sqlSession.selectList("board.ListSchPage", scri);
 	}
+
+	@Override
+	public void insertFile(Map<String, Object> map) throws Exception {
+		sqlSession.insert("board.insertFile", map);
+	}
 }
