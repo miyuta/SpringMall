@@ -10,138 +10,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.spring05.modelVO.BoardVO;
-import com.example.spring05.modelVO.PageMaker;
-import com.example.spring05.modelVO.SearchKey;
 import com.example.spring05.service.BoardService;
 
 @Controller
 @RequestMapping(value="/board/*")
 public class BoardController {
-	
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@Inject
 	private BoardService boardService;
 	
-	@RequestMapping(value="/write", method = RequestMethod.GET)
-	public void boardWrite() throws Exception {
-		logger.info("get board write");
-	}
-	
-	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String boardWrite(BoardVO insVO) throws Exception {
-		logger.info("post board write");
-		
-		System.out.println(insVO);
-		boardService.boardWrite(insVO);
-		
-		return "redirect:board/list";
-	}
-	
-	@RequestMapping(value="/list", method = RequestMethod.GET)
+	@RequestMapping(value="list", method=RequestMethod.GET)
 	public void boardList(Model model) throws Exception {
 		logger.info("get board list");
 		
-		List<BoardVO> boardList = boardService.boardList();
-		model.addAttribute("boardList", boardList);
-	}
-	
-	@RequestMapping(value="/listPage", method = RequestMethod.GET)
-	public void boardListPage(@RequestParam(value="atPage", defaultValue="1") int atPage, Model model) throws Exception {
-		logger.info("get board listpage");
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setAtPage(atPage);
-		pageMaker.setTotalPost(boardService.countAll());
-		
-		List<BoardVO> boardListPage = boardService.boardListPage(pageMaker.getStartPost(), pageMaker.getEndPost());
-		
-		model.addAttribute("boardListPage", boardListPage);
-		model.addAttribute("pageMaker", pageMaker);
-	}
-	
-	@RequestMapping(value="/listPageSch", method = RequestMethod.GET)
-	public void boardListPageSch(SearchKey searchKey, Model model) throws Exception {
-		logger.info("get board listpageSearch");
-		
-		PageMaker pageSchMaker = new PageMaker();
-		pageSchMaker.setAtPage(searchKey.getAtPage());
-		pageSchMaker.setTotalPost(boardService.countAll());
-		
-		List<BoardVO> boardListPageSch = boardService.boardListPageSch(searchKey);
-		model.addAttribute("boardListPageSch", boardListPageSch);
-		model.addAttribute("pageSchMaker", pageSchMaker);
-	}
-	
-	@RequestMapping(value="view", method = RequestMethod.GET)
-	public void boardView(@RequestParam("bno") int bno, @RequestParam(value="error", defaultValue="0") int error, Model model) throws Exception {
-		logger.info("get board view");
-		
-		if (error != 0) {
-			model.addAttribute("message", "Check the Password.");
-		}
-		BoardVO boardView = boardService.boardView(bno);
-		model.addAttribute("boardView", boardView);
-	}
-	
-	@RequestMapping(value="view", method = RequestMethod.POST)
-	public String boardView(BoardVO modVO, Model model) throws Exception {
-		logger.info("post board modify");
-		
-		int passChk = boardService.passChk(modVO);
-		model.addAttribute("bno", modVO.getBno());
-		
-		if (passChk != 1) {
-			model.addAttribute("error", 1);
-			return "redirect:/board/view";
-		} else {
-			return "redirect:/board/modify";
-		}
-	}
-	
-	@RequestMapping(value="modify", method = RequestMethod.GET)
-	public void boardModify(@RequestParam(value="error", defaultValue="0") int error, @RequestParam("bno") int bno, Model model) throws Exception {
-		logger.info("get board modify");
-		
-		if (error != 0) {
-			model.addAttribute("message", "Check the Password.");
-		}
-		BoardVO boardModify = boardService.boardView(bno);
-		model.addAttribute("boardModify", boardModify);
-	}
-	
-	@RequestMapping(value="modify", method = RequestMethod.POST)
-	public String boardModify(BoardVO modVO, Model model) throws Exception {
-		logger.info("post board modify");
-		
-		int passChk = boardService.passChk(modVO);
-		model.addAttribute("bno", modVO.getBno());
-		
-		if (passChk != 1) {
-			model.addAttribute("error", 1);
-			return "redirect:/board/modify";
-		} else {
-			System.out.println(111);
-			boardService.boardModify(modVO);
-			return "redirect:/board/view";
-		}
-	}
-	
-	@RequestMapping(value="delete", method = RequestMethod.POST)
-	public String boardDelete(BoardVO delVO, Model model) throws Exception {
-		
-		int passChk = boardService.passChk(delVO);
-		
-		if (passChk != 1) {
-			model.addAttribute("error", 1);
-			model.addAttribute("bno", delVO.getBno());
-			return "redirect:/board/view";
-		} else {
-			boardService.boardDelete(delVO.getBno());
-			return "redirect:/board/list";
-		}
+		model.addAttribute("boardList", boardService.boardList());
 	}
 }
