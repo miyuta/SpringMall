@@ -47,7 +47,7 @@
 		<form role="wrtForm">
 			<div class="form-group">
 		    	<label for="title">제목</label>
-		    	<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요.">
+		    	<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${boardView.title}">
 		  	</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">

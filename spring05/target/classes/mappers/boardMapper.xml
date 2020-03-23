@@ -10,12 +10,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 </select>
 
 <select id="boardView" resultType="com.example.spring05.model.BoardVO" parameterType="int">
-	select bno, cate_cd, title, content, tag, view_cnt, reg_id, reg_dt, edit_dt from blod_board where bno = #{bno}
+	select bno, cate_cd, title, content, tag, view_cnt, reg_id, reg_dt, edit_dt from blog_board where bno = #{bno}
 </select>
 
-<insert id="boardInsert" parameterType="com.example.spring05.model.BoardVO">
-	insert into blog_board (bno, cate_cd, title, content, tag, reg_id)
-	values(seq_blogboard.nextval, #{cate_cd}, #{title}, #{content}, #{tag}, #{reg_id})
+<insert id="boardWrite" parameterType="com.example.spring05.model.BoardVO">
+	insert into blog_board (bno, cate_cd, title, content, tag, reg_id, passwd)
+	values(seq_blogboard.nextval, #{cate_cd}, #{title}, #{content}, #{tag}, #{reg_id}, #{passwd})
 </insert>
 
 <update id="boardModify" parameterType="com.example.spring05.model.BoardVO">

@@ -26,8 +26,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public int boardInsert(BoardVO insVO) throws Exception {
-		return sqlSession.insert("board.boardInsert", insVO);
+	public int boardWrite(BoardVO wrtVO) throws Exception {
+		return sqlSession.insert("board.boardWrite", wrtVO);
 	}
 
 	@Override
