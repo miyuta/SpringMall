@@ -28,7 +28,7 @@
 		<table id="tblList" class="table table-striped table table-boardered table table-hover">
 			<thead>
 			<tr>
-				<th>번호</th><th>제목</th><th>작성자</th><th>조회수</th><th>작성일</th>
+				<th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -38,7 +38,7 @@
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${boardList}" var="boardList">
-							<tr ondblclick=location.href="${pageContext.request.contextPath}/board/view?bno=${boardList.bno}">
+							<tr ondblclick="location.href='${pageContext.request.contextPath}/board/view?bno=${boardList.bno}'">
 								<td>${boardList.bno}</td>
 								<td>${boardList.title}</td>
 								<td>${boardList.reg_id}</td>

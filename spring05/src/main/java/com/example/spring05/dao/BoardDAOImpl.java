@@ -16,6 +16,11 @@ public class BoardDAOImpl implements BoardDAO {
 	private SqlSession sqlSession;
 	
 	@Override
+	public String passChk(int bno) throws Exception {
+		return sqlSession.selectOne("board.passChk", bno);
+	}
+	
+	@Override
 	public List<BoardVO> boardList() throws Exception {
 		return sqlSession.selectList("board.boardList");
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.spring05.model.BoardVO;
 
 public interface BoardDAO {
+	public String passChk(int bno) throws Exception;
 	public List<BoardVO> boardList() throws Exception;
 	public BoardVO boardView(int bno) throws Exception;
 	public int boardWrite(BoardVO wrtVO) throws Exception;

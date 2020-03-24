@@ -16,6 +16,11 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO boardDao;
 	
 	@Override
+	public String passChk(int bno) throws Exception {
+		return boardDao.passChk(bno);
+	}
+	
+	@Override
 	public List<BoardVO> boardList() throws Exception {
 		return boardDao.boardList();
 	}

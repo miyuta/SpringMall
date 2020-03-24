@@ -5,6 +5,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <mapper namespace="board">
 
+<select id="passChk" resultType="String">
+	select passwd from blog_board where bno = #{bno}
+</select>
+
 <select id="boardList" resultType="com.example.spring05.model.BoardVO">
 	select bno, cate_cd, title, content, tag, view_cnt, reg_id, reg_dt, edit_dt from blog_board 
 </select>
