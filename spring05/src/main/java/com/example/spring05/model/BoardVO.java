@@ -11,7 +11,7 @@ public class BoardVO {
 	public int view_cnt;
 	public String reg_id;
 	public Date reg_dt;
-	public Date eidt_dt;
+	public Date edit_dt;
 	public String passwd;
 	
 	
@@ -63,11 +63,11 @@ public class BoardVO {
 	public void setReg_dt(Date reg_dt) {
 		this.reg_dt = reg_dt;
 	}
-	public Date getEidt_dt() {
-		return eidt_dt;
+	public Date getEdit_dt() {
+		return edit_dt;
 	}
-	public void setEidt_dt(Date eidt_dt) {
-		this.eidt_dt = eidt_dt;
+	public void setEdit_dt(Date edit_dt) {
+		this.edit_dt = edit_dt;
 	}
 	public String getPasswd() {
 		return passwd;
@@ -79,7 +79,7 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", cate_cd=" + cate_cd + ", title=" + title + ", content=" + content + ", tag="
-				+ tag + ", view_cnt=" + view_cnt + ", reg_id=" + reg_id + ", reg_dt=" + reg_dt + ", eidt_dt=" + eidt_dt
+				+ tag + ", view_cnt=" + view_cnt + ", reg_id=" + reg_id + ", reg_dt=" + reg_dt + ", edit_dt=" + edit_dt
 				+ ", passwd=" + passwd + "]";
 	}
 }

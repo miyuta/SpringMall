@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.spring05.dao.BoardDAO;
 import com.example.spring05.model.BoardVO;
@@ -25,6 +27,7 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.boardList();
 	}
 
+	@Transactional
 	@Override
 	public BoardVO boardView(int bno) throws Exception {
 		return boardDao.boardView(bno);

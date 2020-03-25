@@ -11,30 +11,54 @@
 </head>
 <script>
 	$(document).ready(function(){
+		
 		$("#btnModify").on("click", function(){
 			var passwd = $("#passwd").val();
 			var bno = "${boardView.bno}";
 			var data = {"passwd":passwd, "bno":bno};
-			console.log(data);
-			$.ajax({
-				url: "${pageContext.request.contextPath}/board/passChk",
-				type: "post",
-				dataType : "text",
-				data : JSON.stringify(data),
-				contentType : "application/json; charset=utf-8",
-				success : function(result) {
-					console.log(result);
-					if (result=="true") {
-						self.location="${pageContext.request.contextPath}/board/modify?bno=${boardView.bno}";
-					} else {
-						$("#message").html("비밀번호를 확인해주세요.");
+			if ( passwd != "") {
+				$.ajax({
+					url: "${pageContext.request.contextPath}/board/passChk",
+					type: "post",
+					dataType : "text",
+					data : JSON.stringify(data),
+					contentType : "application/json; charset=utf-8",
+					success : function(result) {
+						console.log(result);
+						if (result=="true") {
+							self.location="${pageContext.request.contextPath}/board/modify?bno=${boardView.bno}";
+						} else {
+							$("#message").html("비밀번호를 확인해주세요.");
+						}
 					}
-				}
-			});
+				});
+			} else {
+				alert("비밀번호를 입력해주세요.");
+				$("#passwd").focus();
+			}
+		});
+
+		$("#btnDelete").on("click", function(){
+			var passwd = $("#passwd").val();
+			var bno = ${boardView.bno};
+			if (passwd != "") {
+				$.ajax({
+					url: "${pageContext.request.contextPath}/board/delete",
+					type: "post",
+					data: JSON.stringify(bno),
+					contentType : "application/json; charset=utf-8",
+					success: function() {
+						self.location="${pageContext.request.contextPath}/board/list";
+					}
+				});
+			} else {
+				alert("비밀번호를 입력해주세요.");
+				$("#passwd").focus();
+			}
 		});
 
 		$("#btnBack").on("click", function(){
-			self.location="${pageContext.request.contextPath}/";
+			self.location="${pageContext.request.contextPath}/board/list";
 		});
 	});		
 </script>
@@ -80,6 +104,7 @@
    			<textarea class="form-control" id="content" name="content" rows="5" placeholder="내용을 입력해주세요." readonly="readonly">${boardView.content}</textarea>
  			</div>
 	  <button type="button" class="btn btn-outline-primary" id="btnModify">수정</button>
+	  <button type="button" class="btn btn-outline-danger" id="btnDelete">삭제</button>
 	  <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
 	</section>
 </div>

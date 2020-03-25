@@ -10,12 +10,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 </select>
 
 <select id="boardList" resultType="com.example.spring05.model.BoardVO">
-	select bno, cate_cd, title, content, tag, view_cnt, reg_id, reg_dt, edit_dt from blog_board 
+	select bno, cate_cd, title, content, tag, view_cnt, reg_id, reg_dt, edit_dt from blog_board  order by bno desc
 </select>
 
 <select id="boardView" resultType="com.example.spring05.model.BoardVO" parameterType="int">
 	select bno, cate_cd, title, content, tag, view_cnt, reg_id, reg_dt, edit_dt from blog_board where bno = #{bno}
 </select>
+
+<update id="viewCnt">
+	update blog_board set view_cnt =  view_cnt + 1 where bno = #{bno}
+</update>
 
 <insert id="boardWrite" parameterType="com.example.spring05.model.BoardVO">
 	insert into blog_board (bno, cate_cd, title, content, tag, reg_id, passwd)
@@ -23,7 +27,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 </insert>
 
 <update id="boardModify" parameterType="com.example.spring05.model.BoardVO">
-	update blog_board set cate_cd = #{cate_cd}, title = #{title}, content = #{content}, tag = #{tag}, update = sysdate where bno = #{bno}
+	update blog_board set cate_cd = #{cate_cd}, title = #{title}, content = #{content}, tag = #{tag}, edit_dt = sysdate where bno = #{bno}
 </update>
 
 <delete id="boardDelete" parameterType="int">

@@ -24,6 +24,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<BoardVO> boardList() throws Exception {
 		return sqlSession.selectList("board.boardList");
 	}
+	
+	@Override
+	public void viewCnt(int bno) throws Exception {
+		sqlSession.update("board.viewCnt", bno);
+	}
 
 	@Override
 	public BoardVO boardView(int bno) throws Exception {

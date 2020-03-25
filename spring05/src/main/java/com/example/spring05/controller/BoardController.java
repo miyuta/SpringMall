@@ -80,6 +80,15 @@ public class BoardController {
 		
 		boardService.boardModify(modVO);
 		
-		return "redirect:/board/view?bno=modVO.getBno()";
+		return "redirect:/board/view?bno="+modVO.getBno();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public void boardDelete(@RequestBody int bno) throws Exception {
+		logger.info("post board delete");
+		
+		System.out.println(bno);
+		boardService.boardDelete(bno);
 	}
 }

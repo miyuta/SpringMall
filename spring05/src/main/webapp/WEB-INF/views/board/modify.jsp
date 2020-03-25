@@ -11,24 +11,28 @@
 </head>
 <script>
 	$(document).ready(function(){
-		var formObj = $("form[role='wrtForm']");
+		var formObj = $("form[role='modForm']");
 
-		$("#btnWrite").on("click", function(){
+		$("#btnModify").on("click", function(){
 			if (valiChk()) {
 				return false;
 			}
-			formObj.attr("action", "${pageContext.request.contextPath}/board/write");
+			formObj.attr("action", "${pageContext.request.contextPath}/board/modify");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
 
 		$("#btnBack").on("click", function(){
-			self.location="${pageContext.request.contextPath}/";
+			self.location="${pageContext.request.contextPath}/board/view?bno=${boardModify.bno}";
+		});
+
+		$("#btnList").on("click", function(){
+			self.location="${pageContext.request.contextPath}/"
 		});
 	});
 
 	function valiChk() {
-		 var regForm = $("form[role='wrtForm'] .form-control").length;
+		 var regForm = $("form[role='modForm'] .form-control").length;
 		for (var i = 0; i < regForm; i++) {
 			if ($(".form-control").eq(i).val() == "" || $(".form-control").eq(i).val() == null) {
 				alert($(".form-control").eq(i).attr("placeholder"));
@@ -46,7 +50,8 @@
 	<%@include file="/WEB-INF/views/include/nav.jsp" %>
 	
 	<section id="container">
-		<form role="wrtForm">
+		<form role="modForm">
+		<input type="hidden" name="bno" value="${boardModify.bno}">
 			<div class="form-group">
 		    	<label for="title">제목</label>
 		    	<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${boardModify.title}">
@@ -58,7 +63,7 @@
 				</div>
 				<div class="form-group col-md-6">
 					<label for="passwd">등록 날짜</label>
-					<input type="text" class="form-control" id="reg_dt" name="reg_dt" value=<fmt:formatDate pattern="yyyy/MM/dd::HH:mm:ss" value="${boardModify.reg_dt}"/> readonly="readonly">
+					<input type="text" class="form-control" value=<fmt:formatDate pattern="yyyy/MM/dd::HH:mm:ss" value="${boardModify.reg_dt}"/> readonly="readonly">
 				</div>
 			</div>
 			<div class="form-row">
@@ -82,6 +87,7 @@
   			</div>
 		  <button type="button" class="btn btn-outline-primary" id="btnModify">등록</button>
 		  <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
+		  <button type="button" class="btn btn-outline-warning" id="btnList">목록</button>
 		</form>
 	</section>
 </div>
