@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.spring05.dao.PageMaker;
 import com.example.spring05.model.BoardVO;
+import com.example.spring05.model.PaginationVO;
 import com.example.spring05.service.BoardService;
 
 @Controller
@@ -45,6 +47,21 @@ public class BoardController {
 		logger.info("get board list");
 		
 		model.addAttribute("boardList", boardService.boardList());
+	}
+	
+	@RequestMapping(value="/listPage", method=RequestMethod.GET)
+	public void boardListPage(Model model, PaginationVO pageVO) throws Exception {
+		logger.info("get board listPage");
+		
+		System.out.println(pageVO.getStartPost());
+		System.out.println(pageVO.getEndPost());
+		
+		model.addAttribute("boardListPage", boardService.boardListPage(pageVO));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setPageVO(pageVO);
+		pageMaker.setTotalPost(boardService.countAll());
+		model.addAttribute("pageMaker", pageMaker);
 	}
 	
 	@RequestMapping(value="/write", method=RequestMethod.GET)

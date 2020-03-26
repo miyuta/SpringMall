@@ -3,10 +3,13 @@ package com.example.spring05.dao;
 import java.util.List;
 
 import com.example.spring05.model.BoardVO;
+import com.example.spring05.model.PaginationVO;
 
 public interface BoardDAO {
 	public String passChk(int bno) throws Exception;
+	public int countAll() throws Exception;
 	public List<BoardVO> boardList() throws Exception;
+	public List<BoardVO> boardListPage(PaginationVO pageVO) throws Exception;
 	public void viewCnt(int bno) throws Exception;
 	public BoardVO boardView(int bno) throws Exception;
 	public int boardWrite(BoardVO wrtVO) throws Exception;

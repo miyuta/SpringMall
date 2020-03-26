@@ -11,9 +11,9 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/list">List</a>
+      <a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/listPage">ListPage</a>
+      <a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/listPageSch">listPageSch</a>
       <a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/write">Write</a>
-      <a class="nav-item nav-link" href="#">Pricing</a>
-      <a class="nav-item nav-link" href="#">Disabled</a>
     </div>
   </div>
 </nav>

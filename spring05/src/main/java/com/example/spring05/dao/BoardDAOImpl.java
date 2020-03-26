@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.example.spring05.model.BoardVO;
+import com.example.spring05.model.PaginationVO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -21,8 +22,18 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	@Override
+	public int countAll() throws Exception {
+		return sqlSession.selectOne("board.countAll");
+	}
+	
+	@Override
 	public List<BoardVO> boardList() throws Exception {
 		return sqlSession.selectList("board.boardList");
+	}
+	
+	@Override
+	public List<BoardVO> boardListPage(PaginationVO pageVO) throws Exception {
+		return sqlSession.selectList("board.boardListPage", pageVO);
 	}
 	
 	@Override

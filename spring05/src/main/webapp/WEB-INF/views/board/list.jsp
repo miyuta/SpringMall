@@ -9,14 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<script>
-	$(document).ready(function(){
-		
-		function test(bno) {
-			console.log(bno);
-		}
-	});
-</script>
 <body>
 <div id=root>
 	<header>

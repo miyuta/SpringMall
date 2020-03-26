@@ -80,9 +80,13 @@
 				<label for="reg_id">작성자</label>
 				<input type="text" class="form-control" id="reg_id" name="reg_id" value="${boardView.reg_id}" readonly="readonly">
 			</div>
-			<div class="form-group col-md-6">
+			<div class="form-group col-md-4">
 				<label for="passwd">비밀번호</label>
 				<input type="password" class="form-control" id="passwd" name="passwd">
+			</div>
+			<div class="form-group col-md-2">
+				<label for="view_cnt">조회수</label>
+				<input type="text" class="form-control" id="view_cnt" name="view_cnt" value="${boardView.view_cnt}" readonly="readonly">
 			</div>
 		</div>
 		<div class="form-row">

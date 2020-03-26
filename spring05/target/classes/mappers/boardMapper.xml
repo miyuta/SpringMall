@@ -9,11 +9,23 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	select passwd from blog_board where bno = #{bno}
 </select>
 
+<select id="countAll" resultType="int">
+	<![CDATA[
+		select count(bno) from blog_board where bno > 0 
+	]]>
+</select>
+
 <select id="boardList" resultType="com.example.spring05.model.BoardVO">
 	select bno, cate_cd, title, content, tag, view_cnt, reg_id, reg_dt, edit_dt from blog_board  order by bno desc
 </select>
 
-<select id="boardView" resultType="com.example.spring05.model.BoardVO" parameterType="int">
+<select id="boardListPage" resultType="com.example.spring05.model.BoardVO">
+	select rnum, bno, cate_cd, title, content, tag, view_cnt, reg_id, reg_dt, edit_dt from 
+	(select bno, cate_cd, title, content, tag, view_cnt, reg_id, reg_dt, edit_dt, row_number() over(order by bno desc) as rnum from blog_board) bb
+	where rnum between #{startPost} and #{endPost} order by bno desc
+</select>
+
+<select id="boardView" resultType="com.example.spring05.model.BoardVO">
 	select bno, cate_cd, title, content, tag, view_cnt, reg_id, reg_dt, edit_dt from blog_board where bno = #{bno}
 </select>
 

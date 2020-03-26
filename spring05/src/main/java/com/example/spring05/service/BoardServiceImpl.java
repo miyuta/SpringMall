@@ -4,12 +4,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.spring05.dao.BoardDAO;
 import com.example.spring05.model.BoardVO;
+import com.example.spring05.model.PaginationVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -23,21 +23,34 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public int countAll() throws Exception {
+		return boardDao.countAll();
+	}
+	
+	@Override
 	public List<BoardVO> boardList() throws Exception {
 		return boardDao.boardList();
 	}
-
-	@Transactional
+	
 	@Override
-	public BoardVO boardView(int bno) throws Exception {
-		return boardDao.boardView(bno);
+	public List<BoardVO> boardListPage(PaginationVO pageVO) throws Exception {
+		return boardDao.boardListPage(pageVO);
 	}
 
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public BoardVO boardView(int bno) throws Exception {
+			boardDao.viewCnt(bno); 
+			return boardDao.boardView(bno);
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void boardWrite(BoardVO wrtVO) throws Exception {
 		boardDao.boardWrite(wrtVO);
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int boardModify(BoardVO modVO) throws Exception {
 		return boardDao.boardModify(modVO);
