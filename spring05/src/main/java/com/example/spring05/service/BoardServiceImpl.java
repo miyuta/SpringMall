@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.spring05.dao.BoardDAO;
 import com.example.spring05.model.BoardVO;
 import com.example.spring05.model.PaginationVO;
+import com.example.spring05.model.SearchVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -28,6 +29,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public int countSch() throws Exception {
+		return boardDao.countSch();
+	}
+	
+	@Override
 	public List<BoardVO> boardList() throws Exception {
 		return boardDao.boardList();
 	}
@@ -35,6 +41,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> boardListPage(PaginationVO pageVO) throws Exception {
 		return boardDao.boardListPage(pageVO);
+	}
+	
+	@Override
+	public List<BoardVO> boardListPageSch(SearchVO schVO) throws Exception {
+		return boardDao.boardListPageSch(schVO);
 	}
 
 	@Transactional(rollbackFor = Exception.class)

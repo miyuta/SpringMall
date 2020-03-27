@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.spring05.model.BoardVO;
 import com.example.spring05.model.PaginationVO;
+import com.example.spring05.model.SearchVO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -25,6 +26,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public int countAll() throws Exception {
 		return sqlSession.selectOne("board.countAll");
 	}
+
+	@Override
+	public int countSch() throws Exception {
+		return sqlSession.selectOne("board.countSch");
+	}
 	
 	@Override
 	public List<BoardVO> boardList() throws Exception {
@@ -34,6 +40,11 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<BoardVO> boardListPage(PaginationVO pageVO) throws Exception {
 		return sqlSession.selectList("board.boardListPage", pageVO);
+	}
+	
+	@Override
+	public List<BoardVO>boardListPageSch(SearchVO schVO) throws Exception {
+		return sqlSession.selectList("board.boardListPageSch", schVO);
 	}
 	
 	@Override

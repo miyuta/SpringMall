@@ -11,11 +11,12 @@
 </head>
 <script>
 	$(document).ready(function(){
+		var formObj = $("form[role='schForm']");
 		
 		$("#btnModify").on("click", function(){
 			var passwd = $("#passwd").val();
-			var bno = "${boardView.bno}";
-			var data = {"passwd":passwd, "bno":bno};
+			var passBno = "${boardView.bno}";
+			var data  = {"passwd":passwd, "bno":passBno};
 			if ( passwd != "") {
 				$.ajax({
 					url: "${pageContext.request.contextPath}/board/passChk",
@@ -24,9 +25,12 @@
 					data : JSON.stringify(data),
 					contentType : "application/json; charset=utf-8",
 					success : function(result) {
-						console.log(result);
 						if (result=="true") {
-							self.location="${pageContext.request.contextPath}/board/modify?bno=${boardView.bno}";
+							self.location="${pageContext.request.contextPath}/board/modify?bno=${boardView.bno}"
+																																			+"&atPage=${schVO.atPage}"
+																																			+"&perPagePost=${schVO.perPagePost}"
+																																			+"&option=${schVO.option}"
+																																			+"&keyword=${schVO.keyword}"
 						} else {
 							$("#message").html("비밀번호를 확인해주세요.");
 						}
@@ -48,7 +52,11 @@
 					data: JSON.stringify(bno),
 					contentType : "application/json; charset=utf-8",
 					success: function() {
-						self.location="${pageContext.request.contextPath}/board/list";
+						self.location="${pageContext.request.contextPath}/board/listPageSch?bno=${boardView.bno}"
+																																				+"&atPage=${schVO.atPage}"
+																																				+"&perPagePost=${schVO.perPagePost}"
+																																				+"&option=${schVO.option}"
+																																				+"&keyword=${schVO.keyword}";
 					}
 				});
 			} else {
@@ -58,9 +66,13 @@
 		});
 
 		$("#btnBack").on("click", function(){
-			self.location="${pageContext.request.contextPath}/board/list";
+			self.location="${pageContext.request.contextPath}/board/listPageSch?bno=${boardView.bno}"
+									+"&atPage=${schVO.atPage}"
+									+"&perPagePost=${schVO.perPagePost}"
+									+"&option=${schVO.option}"
+									+"&keyword=${schVO.keyword}";
 		});
-	});		
+	});
 </script>
 <body>
 <div id=root>
@@ -110,6 +122,13 @@
 	  <button type="button" class="btn btn-outline-primary" id="btnModify">수정</button>
 	  <button type="button" class="btn btn-outline-danger" id="btnDelete">삭제</button>
 	  <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
+	  
+	  <form role="schForm">
+	  	<input class="search" type="hidden" id="atPage" value="${schVO.atPage}">
+	  	<input class="search" type="hidden" id="perPagePost" value="${schVO.perPagePost}">
+	  	<input class="search" type="hidden" id="option" value="${schVO.option}">
+	  	<input class="search" type="hidden" id="keyword" value="${schVO.keyword}">
+	  </form>
 	</section>
 </div>
 </body>

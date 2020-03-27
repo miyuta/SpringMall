@@ -23,7 +23,11 @@
 		});
 
 		$("#btnBack").on("click", function(){
-			self.location="${pageContext.request.contextPath}/board/view?bno=${boardModify.bno}";
+			self.location="${pageContext.request.contextPath}/board/view?bno=${boardModify.bno}"
+																																  +"&atPage=${schVO.atPage}"
+																																  +"&perPagePost=${schVO.perPagePost}"
+																																  +"&option=${schVO.option}"
+																																  +"&keyword=${schVO.keyword}";
 		});
 
 		$("#btnList").on("click", function(){
@@ -51,7 +55,11 @@
 	
 	<section id="container">
 		<form role="modForm">
-		<input type="hidden" name="bno" value="${boardModify.bno}">
+			<input type="hidden" name="atPage" value="${schVO.atPage}">
+		  	<input type="hidden" name="perPagePost" value="${schVO.perPagePost}">
+		  	<input type="hidden" name="option" value="${schVO.option}">
+		  	<input type="hidden" name="keyword" value="${schVO.keyword}">
+			<input type="hidden" name="bno" value="${boardModify.bno}">
 			<div class="form-group">
 		    	<label for="title">제목</label>
 		    	<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${boardModify.title}">
@@ -83,7 +91,7 @@
 			</div>
 		    <div class="form-group">
    			 	<label for="content">내용</label>
-    			<textarea class="form-control" id="content" name="content" rows="5" placeholder="내용을 입력해주세요.">${boardModify.title}</textarea>
+    			<textarea class="form-control" id="content" name="content" rows="5" placeholder="내용을 입력해주세요.">${boardModify.content}</textarea>
   			</div>
 		  <button type="button" class="btn btn-outline-primary" id="btnModify">등록</button>
 		  <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>

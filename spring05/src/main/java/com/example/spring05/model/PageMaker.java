@@ -1,9 +1,10 @@
-package com.example.spring05.dao;
+package com.example.spring05.model;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import com.example.spring05.model.PaginationVO;
 
 public class PageMaker {
 	
@@ -66,5 +67,26 @@ public class PageMaker {
 																  .queryParam("perPagePost", pageVO.getPerPagePost())
 																  .build();
 		return uriComponents.toString();
+	}
+	
+	public String makeSearch(int atPage) {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+																  .queryParam("atPage", atPage)
+																  .queryParam("perPagePost", pageVO.getPerPagePost())
+																  .queryParam("option", (((SearchVO)pageVO).getOption()))
+																  .queryParam("keyword", encoding(((SearchVO)pageVO).getKeyword()))
+																  .build();
+		return uriComponents.toString();
+	}
+	
+	private String encoding(String keyword) {
+		if (keyword == null || keyword.trim().length() == 0) {
+			return null;
+		}
+		try {
+			return URLEncoder.encode(keyword, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return null;
+		}
 	}
 }
