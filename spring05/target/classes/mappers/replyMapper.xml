@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">
+
+<select id="replyList" resultType="com.example.spring05.model.ReplyVO">
+	select repno, bno, rewriter, recontent, regdate, uptodate from breply where bno = #{bno} order by repno
+</select>
+
+<insert id="replyWrite" parameterType="com.example.spring05.model.ReplyVO">
+	insert into breply (repno, rewriter, recontent, uptodate) values (reply_bno.nextval , #{rewriter}, #{recontent}, sysdate)
+</insert>
+
+<update id="replyModify" parameterType="com.example.spring05.model.ReplyVO">
+	update breply set rewriter = #{rewriter}, recontent = #{recontent}, uptodate = sysdate where repno = #{repno} and bno = #{bno}
+</update>
+
+<delete id="replyDelete" parameterType="int">
+	delete breply where rep = #{repno} and bno = #{bno}
+</delete>
+
+</mapper>

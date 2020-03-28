@@ -12,6 +12,8 @@
 <script>
 	$(document).ready(function(){
 		var formObj = $("form[role='schForm']");
+
+		replyList();
 		
 		$("#btnModify").on("click", function(){
 			var passwd = $("#passwd").val();
@@ -72,7 +74,33 @@
 									+"&option=${schVO.option}"
 									+"&keyword=${schVO.keyword}";
 		});
+
+		$("#btnRply").on("click", function(){
+			var rewriter = "${replyList.rewirter}";
+			var recontent = $("#recontent").val();
+			var data = {"rewriter":rewriter, "recontent":recontent}
+			$.ajax({
+				url: "${pageContext.request.contextPath}/reply/write",
+				type:"post",
+				data: JSON.stringify(data),
+				contentType : "application/json; charset=utf-8",
+				success: function() {
+					alert("댓글이 등록되었습니다.");
+					replyList();
+				}
+			});
+		});
 	});
+
+	function replyList() {
+		$.ajax({
+			url: "${pageContext.request.contextPath}/reply/list?bno=${boardView.bno}",
+			type: "get",
+			success: function(result) {
+				$("#replyList").html(result);
+			}
+		});
+	}
 </script>
 <body>
 <div id=root>
@@ -116,19 +144,32 @@
 			</div>
 		</div>
 	    <div class="form-group">
-  			 	<label for="content">내용</label>
+  			 <label for="content">내용</label>
    			<textarea class="form-control" id="content" name="content" rows="5" placeholder="내용을 입력해주세요." readonly="readonly">${boardView.content}</textarea>
- 			</div>
-	  <button type="button" class="btn btn-outline-primary" id="btnModify">수정</button>
-	  <button type="button" class="btn btn-outline-danger" id="btnDelete">삭제</button>
-	  <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
-	  
+ 		</div>
+		<div>
+			<button type="button" class="btn btn-outline-primary" id="btnModify">수정</button>
+		 	<button type="button" class="btn btn-outline-danger" id="btnDelete">삭제</button>
+		 	<button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
+		</div>
 	  <form role="schForm">
 	  	<input class="search" type="hidden" id="atPage" value="${schVO.atPage}">
 	  	<input class="search" type="hidden" id="perPagePost" value="${schVO.perPagePost}">
 	  	<input class="search" type="hidden" id="option" value="${schVO.option}">
 	  	<input class="search" type="hidden" id="keyword" value="${schVO.keyword}">
 	  </form>
+	  
+	  		
+		<!-- 댓글 -->
+		<div class="form-group col-md-5">
+			<label for="recontent">댓글</label>
+			<textarea class="form-control" cols="60" rows="4" id="recontent" name="recontent"></textarea>
+		<div>
+			<button class="btn btn-outline-primary" type="button" id="btnReply">작성</button>
+		</div>
+		</div>
+		
+		<div id="replyList"></div>
 	</section>
 </div>
 </body>
