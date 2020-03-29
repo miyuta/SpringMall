@@ -75,20 +75,25 @@
 									+"&keyword=${schVO.keyword}";
 		});
 
-		$("#btnRply").on("click", function(){
-			var rewriter = "${replyList.rewirter}";
+		$("#btnReply").on("click", function(){
+			var bno = "${boardView.bno}";
+			var rewriter = "${boardView.reg_id}";
 			var recontent = $("#recontent").val();
-			var data = {"rewriter":rewriter, "recontent":recontent}
-			$.ajax({
-				url: "${pageContext.request.contextPath}/reply/write",
-				type:"post",
-				data: JSON.stringify(data),
-				contentType : "application/json; charset=utf-8",
-				success: function() {
-					alert("댓글이 등록되었습니다.");
-					replyList();
-				}
-			});
+			var data = {"bno":bno, "rewriter":rewriter, "recontent":recontent}
+			if (recontent != "") {
+				$.ajax({
+					url: "${pageContext.request.contextPath}/reply/write",
+					type:"post",
+					data: JSON.stringify(data),
+					contentType : "application/json; charset=utf-8",
+					success: function() {
+						alert("댓글이 등록되었습니다.");
+						replyList();
+					}
+				});
+			} else {
+			alert("댓글을 입력해주세요.");
+			}
 		});
 	});
 
@@ -164,10 +169,11 @@
 		<div class="form-group col-md-5">
 			<label for="recontent">댓글</label>
 			<textarea class="form-control" cols="60" rows="4" id="recontent" name="recontent"></textarea>
+		</div>
 		<div>
 			<button class="btn btn-outline-primary" type="button" id="btnReply">작성</button>
 		</div>
-		</div>
+		<hr />
 		
 		<div id="replyList"></div>
 	</section>

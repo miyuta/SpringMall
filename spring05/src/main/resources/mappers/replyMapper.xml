@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 </select>
 
 <insert id="replyWrite" parameterType="com.example.spring05.model.ReplyVO">
-	insert into breply (repno, rewriter, recontent, uptodate) values (reply_bno.nextval , #{rewriter}, #{recontent}, sysdate)
+	insert into breply (repno, bno, rewriter, recontent, uptodate) values (reply_repno.nextval , #{bno}, #{rewriter}, #{recontent}, sysdate)
 </insert>
 
 <update id="replyModify" parameterType="com.example.spring05.model.ReplyVO">

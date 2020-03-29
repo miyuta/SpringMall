@@ -5,7 +5,7 @@ import java.util.Date;
 public class ReplyVO {
 	private int repno;
 	private int bno;
-	private String rewiter;
+	private String rewriter;
 	private String recontent;
 	private Date regdate;
 	private Date uptodate;
@@ -23,11 +23,11 @@ public class ReplyVO {
 	public void setBno(int bno) {
 		this.bno = bno;
 	}
-	public String getRewiter() {
-		return rewiter;
+	public String getRewriter() {
+		return rewriter;
 	}
-	public void setRewiter(String rewiter) {
-		this.rewiter = rewiter;
+	public void setRewriter(String rewriter) {
+		this.rewriter = rewriter;
 	}
 	public String getRecontent() {
 		return recontent;
@@ -50,7 +50,7 @@ public class ReplyVO {
 	
 	@Override
 	public String toString() {
-		return "ReplyVO [repno=" + repno + ", bno=" + bno + ", rewiter=" + rewiter + ", recontent=" + recontent
+		return "ReplyVO [repno=" + repno + ", bno=" + bno + ", rewriter=" + rewriter + ", recontent=" + recontent
 				+ ", regdate=" + regdate + ", uptodate=" + uptodate + "]";
 	}
 }
