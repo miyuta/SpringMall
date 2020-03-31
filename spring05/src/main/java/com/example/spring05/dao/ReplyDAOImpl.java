@@ -21,18 +21,23 @@ public class ReplyDAOImpl implements ReplyDAO {
 	}
 
 	@Override
-	public void replyWrite(ReplyVO rewrtVO) throws Exception {
-		sqlSession.insert("reply.replyWrite", rewrtVO);
+	public void replyWrite(ReplyVO reWrtVO) throws Exception {
+		sqlSession.insert("reply.replyWrite", reWrtVO);
+	}
+	
+	@Override
+	public ReplyVO replyView(ReplyVO reViewVO) throws Exception {
+		return sqlSession.selectOne("reply.replyView", reViewVO);
 	}
 
 	@Override
-	public void replyModify(ReplyVO remodVO) throws Exception {
-		sqlSession.update("reply.replyModify", remodVO);
+	public void replyModify(ReplyVO reModVO) throws Exception {
+		sqlSession.update("reply.replyModify", reModVO);
 	}
 
 	@Override
-	public void replyDelete(ReplyVO redelVO) throws Exception {
-		sqlSession.delete("reply.replyDelete", redelVO);
+	public void replyDelete(ReplyVO reDelVO) throws Exception {
+		sqlSession.delete("reply.replyDelete", reDelVO);
 	}
 
 }

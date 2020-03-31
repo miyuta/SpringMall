@@ -21,18 +21,23 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public void replyWrite(ReplyVO rewrtVO) throws Exception {
-		replyDao.replyWrite(rewrtVO);
+	public void replyWrite(ReplyVO reWrtVO) throws Exception {
+		replyDao.replyWrite(reWrtVO);
+	}
+	
+	@Override
+	public ReplyVO replyView(ReplyVO reViewVO) throws Exception {
+		return replyDao.replyView(reViewVO);
 	}
 
 	@Override
-	public void replyModify(ReplyVO remodVO) throws Exception {
-		replyDao.replyModify(remodVO);
+	public void replyModify(ReplyVO reModVO) throws Exception {
+		replyDao.replyModify(reModVO);
 	}
 
 	@Override
-	public void replyDelete(ReplyVO redelVO) throws Exception {
-		replyDao.replyDelete(redelVO);
+	public void replyDelete(ReplyVO reDelVO) throws Exception {
+		replyDao.replyDelete(reDelVO);
 	}
 
 }

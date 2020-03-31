@@ -1,7 +1,5 @@
 package com.example.spring05.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -33,30 +31,50 @@ public class ReplyController {
 		logger.info("get reply list");
 		
 		mav.setViewName("board/replyList");
-		List<ReplyVO> reply = replyService.replyList(bno);
 		mav.addObject("replyList", replyService.replyList(bno));
-		System.out.println(reply);
+		
 		return mav;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String replyWrite(@RequestBody ReplyVO rewrtVO, HttpSession session, Model model) throws Exception {
+	public String replyWrite(@RequestBody ReplyVO reWrtVO, HttpSession session, Model model) throws Exception {
 		logger.info("post reply write");
 		
-		replyService.replyWrite(rewrtVO);
-		model.addAttribute("bno", rewrtVO.getBno());
+		replyService.replyWrite(reWrtVO);
+		model.addAttribute("bno", reWrtVO.getBno());
+		
+		return "redirect:/board/view";
+	}
+	
+	@RequestMapping(value="view", method=RequestMethod.GET)
+	public ModelAndView replyModify(ReplyVO reViewVO, ModelAndView mav) throws Exception {
+		logger.info("get reply view");
+		
+		mav.setViewName("board/replyModify");
+		mav.addObject("replyView", replyService.replyView(reViewVO));
+		
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="modify", method=RequestMethod.POST)
+	public String replyModify(@RequestBody ReplyVO reModVO, Model model) throws Exception {
+		logger.info("post reply modify");
+		
+		replyService.replyModify(reModVO);
+		model.addAttribute("bno", reModVO.getBno());
 		
 		return "redirect:/board/view";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public String replyDelete(@RequestBody ReplyVO redelVO, Model model) throws Exception {
+	public String replyDelete(@RequestBody ReplyVO reDelVO, Model model) throws Exception {
 		logger.info("post reply delete");
 		
-		replyService.replyDelete(redelVO);
-		model.addAttribute("bno", redelVO.getBno());
+		replyService.replyDelete(reDelVO);
+		model.addAttribute("bno", reDelVO.getBno());
 		
 		return "redirect:/board/view";
 	}

@@ -88,6 +88,7 @@
 					contentType : "application/json; charset=utf-8",
 					success: function() {
 						alert("댓글이 등록되었습니다.");
+						$("#recontent").val("");
 						replyList();
 					}
 				});
@@ -168,7 +169,7 @@
 		<!-- 댓글 -->
 		<div class="form-group col-md-5">
 			<label for="recontent">댓글</label>
-			<textarea class="form-control" cols="60" rows="4" id="recontent" name="recontent"></textarea>
+			<textarea class="form-control" cols="160" rows="2" id="recontent" name="recontent"></textarea>
 		</div>
 		<div>
 			<button class="btn btn-outline-primary" type="button" id="btnReply">작성</button>
@@ -176,6 +177,7 @@
 		<hr />
 		
 		<div id="replyList"></div>
+
 	</section>
 </div>
 </body>

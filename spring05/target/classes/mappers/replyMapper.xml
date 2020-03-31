@@ -13,12 +13,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	insert into breply (repno, bno, rewriter, recontent, uptodate) values (reply_repno.nextval , #{bno}, #{rewriter}, #{recontent}, sysdate)
 </insert>
 
+<select id="replyView" resultType="com.example.spring05.model.ReplyVO">
+	select repno, bno, rewriter, recontent, regdate from breply where repno = #{repno}
+</select>
+
 <update id="replyModify" parameterType="com.example.spring05.model.ReplyVO">
-	update breply set rewriter = #{rewriter}, recontent = #{recontent}, uptodate = sysdate where repno = #{repno} and bno = #{bno}
+	update breply set recontent = #{recontent}, uptodate = sysdate where repno = #{repno} and bno = #{bno}
 </update>
 
 <delete id="replyDelete" parameterType="int">
-	delete breply where rep = #{repno} and bno = #{bno}
+	delete breply where repno = #{repno} and bno = #{bno}
 </delete>
 
 </mapper>
