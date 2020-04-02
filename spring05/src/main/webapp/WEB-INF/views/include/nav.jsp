@@ -10,10 +10,12 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/list">List</a>
-      <a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/listPage">ListPage</a>
-      <a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/listPageSch">listPageSch</a>
-      <a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/write">Write</a>
+		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/member/list">Member</a>
+		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/member/register">Register</a>
+		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/list">List</a>
+		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/listPage">ListPage</a>
+		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/listPageSch">listPageSch</a>
+		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/write">Write</a>
     </div>
   </div>
 </nav>

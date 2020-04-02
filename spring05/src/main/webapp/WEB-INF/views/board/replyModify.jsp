@@ -14,7 +14,7 @@
 		$("#btnReWrite").on("click", function(){
 			var repno = "${replyView.repno}";
 			var bno = "${replyView.bno}";
-			var recontent = $("textarea[name=recontent]").text();
+			var recontent = $("#recontent"+repno).val();
 			var data = {"repno":repno, "bno":bno, "recontent":recontent}
 			console.log(data);
 
@@ -54,7 +54,7 @@
 	</div>	
 	<div class="row">
 		<div class="col-md-8">
-			<textarea class="form-control" name="recontent" cols="160" rows="2"></textarea>
+			<textarea class="form-control" id="recontent${replyView.repno}" name="recontent" cols="160" rows="2">${replyView.recontent}</textarea>
 		</div>
 		<div class="col-md-2">
 			<button class="btn btn-outline-warning btn-sm" type="button" id="btnReWrite">작성</button>

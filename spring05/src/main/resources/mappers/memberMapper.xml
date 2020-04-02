@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+<insert id="memberRegister"  parameterType="com.example.spring05.model.MemberVO">
+	insert into bmember (userid, passwd, username, useremail,  userphone, useraddr1, useraddr2, useraddr3, reg_date, useraccess)
+	values (#{userid}, #{passwd}, #{username}, #{useremail}, #{userphone}, #{useradd1}, #{useraddr2}, #{useraddr3}, reg_date, 0)
+</insert>
+
+<select id="memberList" resultType="com.example.spring05.model.MemberVO">
+	select rnum, userid, passwd, username, useremail, userphone, useraddr1, useraddr2, useraddr3, reg_date, up_date, useraccess from
+	(select userid, passwd, username, useremail, userphone, useraddr1, useraddr2, useraddr3, reg_date, up_date, useraccess, row_number() over(order by reg_date desc) as rnum from bmember) bm
+	order by reg_date desc
+</select>
+
+<select id="memberView" resultType="com.example.spring05.model.MemberVO">
+	select userid, passwd, username, useremail, userphone, useraddr1, useraddr2, useraddr3, reg_date, up_date, useraccess from bmember where userid = #{userid}
+</select>
+
+<update id="memberModify" parameterType="com.example.spring05.model.MemberVO">
+	update bmember set passwd = #{passwd}, useremail = #{useremail}, userphone = #{userphone}, useraddr1 = #{useraddr1}, useraddr2 = #{useraddr2},
+	useraddr3 = #{useraddr3}, up_date = sysdate where userid = #{userid} and passwd = #{passwd}
+</update>
+
+<update id="memberAccess" parameterType="com.example.spring05.model.MemberVO">
+	update bmemeber set useraccess = #{useraccess} where userid = #{userid}
+</update>
+
+<delete id="memberDelete" parameterType="com.example.spring05.model.MemberVO">
+	delete bmember where userid = #{userid} and passwd = #{passwd}
+</delete>
+
+</mapper>
