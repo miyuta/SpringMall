@@ -5,9 +5,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <mapper namespace="member">
 
+<select id="memberPasschk" resultType="String">
+	select passwd from bmember where userid = #{userid}
+</select>
+
 <insert id="memberRegister"  parameterType="com.example.spring05.model.MemberVO">
-	insert into bmember (userid, passwd, username, useremail,  userphone, useraddr1, useraddr2, useraddr3, reg_date, useraccess)
-	values (#{userid}, #{passwd}, #{username}, #{useremail}, #{userphone}, #{useradd1}, #{useraddr2}, #{useraddr3}, reg_date, 0)
+	insert into bmember (userid, passwd, username, useremail,  userphone, carrier, postnum, useraddr1, useraddr2, useraddr3, reg_date, useraccess)
+	values (#{userid}, #{passwd}, #{username}, #{useremail}, #{userphone}, #{useraddr1}, #{useraddr2}, #{useraddr3}, sysdate, 0)
 </insert>
 
 <select id="memberList" resultType="com.example.spring05.model.MemberVO">
@@ -17,7 +21,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 </select>
 
 <select id="memberView" resultType="com.example.spring05.model.MemberVO">
-	select userid, passwd, username, useremail, userphone, useraddr1, useraddr2, useraddr3, reg_date, up_date, useraccess from bmember where userid = #{userid}
+	select userid, passwd, username, useremail, userphone, carrier, postnum, useraddr1, useraddr2, useraddr3, reg_date, up_date, useraccess from bmember where userid = #{userid}
 </select>
 
 <update id="memberModify" parameterType="com.example.spring05.model.MemberVO">

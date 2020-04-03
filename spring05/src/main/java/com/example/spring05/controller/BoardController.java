@@ -106,8 +106,6 @@ public class BoardController {
 	public String boardModify(BoardVO modVO, @ModelAttribute("schVO") SearchVO schVO, RedirectAttributes rttr) throws Exception {
 		logger.info("post board modify");
 		
-		System.out.println(schVO.getAtPage());
-		System.out.println(schVO.getPerPagePost());
 		boardService.boardModify(modVO);
 		rttr.addAttribute("bno", modVO.getBno());
 		rttr.addAttribute("atPage", schVO.getAtPage());

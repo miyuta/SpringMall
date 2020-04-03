@@ -37,7 +37,7 @@
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${memberList}" var="memberList">
-							<tr ondblclick="location.href='${pageContext.request.contextPath}/member/view?bno=${memberList.rnum}'">
+							<tr ondblclick="location.href='${pageContext.request.contextPath}/member/view?userid=${memberList.userid}'">
 								<td>${memberList.rnum}</td>
 								<td>${memberList.userid}</td>
 								<td>${memberList.username}</td>

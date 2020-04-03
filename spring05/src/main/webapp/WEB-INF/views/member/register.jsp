@@ -10,14 +10,22 @@
 <script>
 	$(document).ready(function(){
 		var formObj = $("form[role='regForm']");
-
+		var passwd = $("#passwd").val();
+		var repasswd = $("#repasswd").val();
+		
 		$("#btnRegister").on("click", function(){
 			if (valiChk()) {
 				return false;
-			}
-			formObj.attr("action", "${pageContext.request.contextPath}/member/register");
-			formObj.attr("method", "post");
-			formObj.submit();
+			} else {
+				if (passwd == repasswd) {
+					formObj.attr("action", "${pageContext.request.contextPath}/member/register");
+					formObj.attr("method", "post");
+					formObj.submit();
+				} else {
+					alert("비밀번호를 확인해주세요.");
+					return;
+				}
+			}			
 		});
 
 		$("#btnBack").on("click", function(){
@@ -26,11 +34,11 @@
 	});
 
 	function valiChk() {
-		 var regForm = $("form[role='wrtForm'] .form-control").length;
+		var regForm = $("form[role='regForm'] .form-control").length;
 		for (var i = 0; i < regForm; i++) {
 			if ($(".form-control").eq(i).val() == "" || $(".form-control").eq(i).val() == null) {
 				alert($(".form-control").eq(i).attr("placeholder"));
-				$(".check").eq(i).focus();
+				$(".form-control").eq(i).focus();
 				return true;
 			}
 		}
@@ -47,7 +55,7 @@
 		<form role="regForm">
 			<div class="form-row">
 				<div class="form-group col-md-6">
-			    	<label for="title">아이디</label>
+			    	<label for="userid">아이디</label>
 			    	<input type="text" class="form-control" id="userid" name="userid" placeholder="아이디를 입력해주세요.">
 			  	</div>
 		  	</div>
@@ -57,10 +65,16 @@
 					<input type="password" class="form-control" id="passwd" name="passwd" placeholder="비밀번호를 입력해주세요.">
 				</div>
 				<div class="form-group col-md-3">
-					<label for="passwd">비밀번호 확인</label>
-					<input type="password" class="form-control" id="passwd" name="passwd" placeholder="비밀번호를 입력해주세요.">
+					<label for="repasswd">비밀번호 확인</label>
+					<input type="password" class="form-control" id="repasswd" name="repasswd" placeholder="비밀번호를 입력해주세요.">
 				</div>
 			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+			    	<label for="useremail">이메일</label>
+			    	<input type="email" class="form-control" id="useremail" name="useremail" placeholder="이메일을 입력해주세요.">
+			  	</div>
+		  	</div>
 			<h6>이름</h6>
 			<div class="form-row">
 				<div class="form-group col-md-2">
@@ -74,33 +88,33 @@
 		  	</div>
 		  	<h6>전화번호</h6>
 		  	<div class="form-row">
-				<div class="form-group col-md-1">
+				<div class="form-group col-md-2">
 					<label for="carrier"></label>
 					<select class="form-control" id="carrier" name="carrier">
-						<option>SKT</option>
-						<option>KT</option>
-						<option>LGU</option>
-						<option>ETC</option>
+						<option value="SKT">SKT</option>
+						<option value="KT">KT</option>
+						<option value="LGU">LGU</option>
+						<option value="ETC">ETC</option>
 					</select>
 				</div>
 				<div class="form-group col-md-1">
-					<label for="FstNum"></label>
-					<input type="text" class="form-control" id="FstNum" name="FstNum">
+					<label for="fstnum"></label>
+					<input type="text" class="form-control" id="fstnum" name="fstnum">
 				</div>
 				<div class="form-group col-md-1">
-					<label for="SndNum"></label>
-					<input type="text" class="form-control" id="SndNum" name="SndNum">
+					<label for="sndnum"></label>
+					<input type="text" class="form-control" id="sndnum" name="sndnum">
 				</div>
 				<div class="form-group col-md-1">
-					<label for="ThdNum"></label>
-					<input type="text" class="form-control" id="ThdNum" name="ThdNum">
+					<label for="thdnum"></label>
+					<input type="text" class="form-control" id="thdnum" name="thdnum">
 				</div>
 			</div>
 			<h6>주소</h6>
 			<div class="form-row">
 				<div class="form-group col-md-2">
-					<label for="state"></label>
-					<select class="form-control" id="state" name="state">
+					<label for="useraddr1"></label>
+					<select class="form-control" id="useraddr1" name="useraddr1">
 						<option value="null" selected>지역</option>
 						<option value="1">서울</option>
 						<option value="2">경기도</option>
@@ -108,18 +122,18 @@
 					</select>
 				</div>
 			    <div class="form-group col-md-2">
-			    	<label for="postNum"></label>
-			    	<input type="text" class="form-control" id="postNum" name="postNum" placeholder="우편번호를 입력해주세요.">
+			    	<label for="postnum"></label>
+			    	<input type="text" class="form-control" id="postnum" name="postnum" placeholder="우편번호를 입력해주세요.">
 			  	</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-3">
-					<label for="city">시군구</label>
-					<input type="text" class="form-control" id="city" name="city" placeholder="시군구를 입력해주세요.">
+					<label for="useraddr2"></label>
+					<input type="text" class="form-control" id="useraddr2" name="useraddr2" placeholder="시군구동읍면을 입력해주세요.">
 				</div>
 				<div class="form-group col-md-3">
-					<label for="road">동읍면</label>
-					<input type="text" class="form-control" id="road" name="road" placeholder="동읍면을 입력해주세요.">
+					<label for="useraddr3"></label>
+					<input type="text" class="form-control" id="useraddr3" name="useraddr3" placeholder="나머지 주소를 입력해주세요.">
 				</div>
 			</div>
 		  <button type="button" class="btn btn-outline-primary" id="btnRegister">등록</button>

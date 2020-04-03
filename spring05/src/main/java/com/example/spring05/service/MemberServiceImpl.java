@@ -16,18 +16,36 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO memberDao;
 	
 	@Override
+	public String passChk(String userid) throws Exception {
+		return memberDao.passChk(userid);
+	}
+	
+	@Override
 	public List<MemberVO> memberList() throws Exception {
 		return memberDao.memberList();
 	}
 
 	@Override
 	public void memberRegister(MemberVO memRegVO) throws Exception {
+		memRegVO.setUsername(memRegVO.getFamilyname() + " " + memRegVO.getLastname());
+		memRegVO.setUserphone(memRegVO.getFstnum() + "-" + memRegVO.getSndnum() + "-" + memRegVO.getThdnum());
+		
 		memberDao.memberRegister(memRegVO);
 	}
 
 	@Override
-	public MemberVO memberView(MemberVO memViewVO) throws Exception {
-		return memberDao.memberView(memViewVO);
+	public MemberVO memberView(String userid) throws Exception {
+		MemberVO memberView = memberDao.memberView(userid);
+		String[] username = memberView.getUsername().split(" ");
+		memberView.setFamilyname(username[0]);
+		memberView.setLastname(username[1]);
+		
+		String[] userphone = memberView.getUserphone().split("-");
+		memberView.setFstnum(userphone[0]);
+		memberView.setSndnum(userphone[1]);
+		memberView.setThdnum(userphone[2]);
+		
+		return memberView;
 	}
 
 	@Override

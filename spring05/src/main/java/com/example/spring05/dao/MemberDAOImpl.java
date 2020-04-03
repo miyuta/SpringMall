@@ -14,6 +14,11 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	@Inject
 	private SqlSession sqlSession;
+	
+	@Override
+	public String passChk(String userid) throws Exception {
+		return sqlSession.selectOne("member.memberPasschk", userid);
+	}
 
 	@Override
 	public List<MemberVO> memberList() throws Exception {
@@ -26,8 +31,8 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public MemberVO memberView(MemberVO memViewVO) throws Exception {
-		return sqlSession.selectOne("member.memberView", memViewVO);
+	public MemberVO memberView(String userid) throws Exception {
+		return sqlSession.selectOne("member.memberView", userid);
 	}
 
 	@Override

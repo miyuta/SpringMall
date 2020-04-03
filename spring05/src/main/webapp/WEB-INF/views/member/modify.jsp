@@ -43,29 +43,6 @@
 			}
 		});
 
-		$("#btnDelete").on("click", function(){
-			var passwd = $("#passwd").val();
-			var userid = ${memberView.userid};
-			if (passwd != "") {
-				$.ajax({
-					url: "${pageContext.request.contextPath}/member/delete",
-					type: "post",
-					data: JSON.stringify(userid),
-					contentType : "application/json; charset=utf-8",
-					success: function() {
-						self.location="${pageContext.request.contextPath}/member/listPageSch?userid=${memberView.userid}"
-																																				+"&atPage=${schVO.atPage}"
-																																				+"&perPagePost=${schVO.perPagePost}"
-																																				+"&option=${schVO.option}"
-																																				+"&keyword=${schVO.keyword}";
-					}
-				});
-			} else {
-				alert("비밀번호를 입력해주세요.");
-				$("#passwd").focus();
-			}
-		});
-
 		$("#btnBack").on("click", function(){
 			self.location="${pageContext.request.contextPath}/member/listPageSch?userid=${memberView.userid}"
 									+"&atPage=${schVO.atPage}"
@@ -86,7 +63,7 @@
 		<div class="form-row">
 			<div class="form-group col-md-6">
 		    	<label for="userid">아이디</label>
-		    	<input type="text" class="form-control" id="userid" name="userid" value="${memberView.userid}" readonly="readonly">
+		    	<input type="text" class="form-control" id="userid" name="userid" value="${memberModify.userid}">
 		  	</div>
 	  	</div>
 		<div class="form-row">
@@ -98,62 +75,61 @@
 		<div class="form-row">
 			<div class="form-group col-md-6">
 		    	<label for="useremail">이메일</label>
-		    	<input type="email" class="form-control" id="useremail" name="useremail" value="${memberView.useremail}" readonly="readonly">
+		    	<input type="email" class="form-control" id="useremail" name="useremail" value="${memberModify.useremail}">
 		  	</div>
 	  	</div>
 		<h6>이름</h6>
 		<div class="form-row">
 			<div class="form-group col-md-2">
 		    	<label for="familyname"></label>
-		    	<input type="text" class="form-control" id="familyname" name="familyname" value="${memberView.familyname}" readonly="readonly">
+		    	<input type="text" class="form-control" id="familyname" name="familyname" value="${memberModify.familyname}">
 		  	</div>
 			<div class="form-group col-md-2">
 		    	<label for="lastname"></label>
-		    	<input type="text" class="form-control" id="lastname" name="lastname" value="${memberView.lastname}" readonly="readonly">
+		    	<input type="text" class="form-control" id="lastname" name="lastname" value="${memberModify.lastname}">
 		  	</div>
 	  	</div>
 	  	<h6>전화번호</h6>
 	  	<div class="form-row">
 			<div class="form-group col-md-1">
 				<label for="carrier"></label>
-				<input class="form-control" id="carrier" name="carrier" value="${memberView.carrier}" readonly="readonly">
+				<input class="form-control" id="carrier" name="carrier" value="${memberModify.carrier}">
 			</div>
 			<div class="form-group col-md-1">
 				<label for="fstnum"></label>
-				<input type="text" class="form-control" id="fstnum" name="fstnum" value="${memberView.fstnum}" readonly="readonly">
+				<input type="text" class="form-control" id="fstnum" name="fstnum" value="${memberModify.fstnum}">
 			</div>
 			<div class="form-group col-md-1">
 				<label for="sndnum"></label>
-				<input type="text" class="form-control" id="sndnum" name="sndnum" value="${memberView.sndnum}" readonly="readonly">
+				<input type="text" class="form-control" id="sndnum" name="sndnum" value="${memberModify.sndnum}">
 			</div>
 			<div class="form-group col-md-1">
 				<label for="thdnum"></label>
-				<input type="text" class="form-control" id="thdnum" name="thdnum" value="${memberView.thdnum}" readonly="readonly">
+				<input type="text" class="form-control" id="thdnum" name="thdnum" value="${memberModify.thdnum}">
 			</div>
 		</div>
 		<h6>주소</h6>
 		<div class="form-row">
 			<div class="form-group col-md-2">
 				<label for="useradd1"></label>
-				<input class="form-control" id="useradd1" name="useradd1" value="${memberView.useraddr1}" readonly="readonly">
+				<input class="form-control" id="useradd1" name="useradd1" value="${memberModify.useraddr1}">
 			</div>
 		    <div class="form-group col-md-2">
 		    	<label for="postnum"></label>
-		    	<input type="text" class="form-control" id="postnum" name="postnum" value="${memberView.postnum}" readonly="readonly">
+		    	<input type="text" class="form-control" id="postnum" name="postnum" value="${memberModify.postnum}">
 		  	</div>
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-3">
 				<label for="useradd2">시군구</label>
-				<input type="text" class="form-control" id="useradd2" name="useradd2" value="${memberView.useraddr2}" readonly="readonly">
+				<input type="text" class="form-control" id="useradd2" name="useradd2" value="${memberModify.useraddr2}">
 			</div>
 			<div class="form-group col-md-3">
 				<label for="useradd3">동읍면</label>
-				<input type="text" class="form-control" id="useradd3" name="useradd3" value="${memberView.useraddr3}" readonly="readonly">
+				<input type="text" class="form-control" id="useradd3" name="useradd3" value="${memberModify.useraddr3}">
 			</div>
 		</div>
 	  <button type="button" class="btn btn-outline-primary" id="btnModify">수정</button>
-	  <button type="button" class="btn btn-outline-danger" id="btnDelete">삭제</button>
 	  <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
 	</section>
 </div>

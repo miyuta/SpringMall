@@ -7,8 +7,15 @@ public class MemberVO {
 	private String userid;
 	private String passwd;
 	private String username;
+	private String familyname;
+	private String lastname;
 	private String useremail;
-	private String phone;
+	private String userphone;
+	private String carrier;
+	private String fstnum;
+	private String sndnum;
+	private String thdnum;
+	private String postnum;
 	private String useraddr1;
 	private String useraddr2;
 	private String useraddr3;
@@ -41,17 +48,59 @@ public class MemberVO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public String getFamilyname() {
+		return familyname;
+	}
+	public void setFamilyname(String familyname) {
+		this.familyname = familyname;
+	}
+	public String getLastname() {
+		return lastname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
 	public String getUseremail() {
 		return useremail;
 	}
 	public void setUseremail(String useremail) {
 		this.useremail = useremail;
 	}
-	public String getPhone() {
-		return phone;
+	public String getUserphone() {
+		return userphone;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setUserphone(String userphone) {
+		this.userphone = userphone;
+	}
+	public String getCarrier() {
+		return carrier;
+	}
+	public void setCarrier(String carrier) {
+		this.carrier = carrier;
+	}
+	public String getFstnum() {
+		return fstnum;
+	}
+	public void setFstnum(String fstnum) {
+		this.fstnum = fstnum;
+	}
+	public String getSndnum() {
+		return sndnum;
+	}
+	public void setSndnum(String sndnum) {
+		this.sndnum = sndnum;
+	}
+	public String getThdnum() {
+		return thdnum;
+	}
+	public void setThdnum(String thdnum) {
+		this.thdnum = thdnum;
+	}
+	public String getPostnum() {
+		return postnum;
+	}
+	public void setPostnum(String postnum) {
+		this.postnum = postnum;
 	}
 	public String getUseraddr1() {
 		return useraddr1;
@@ -90,10 +139,13 @@ public class MemberVO {
 		this.useraccess = useraccess;
 	}
 	
+	
 	@Override
 	public String toString() {
-		return "MemberVO [rnum" + rnum + ", userid=" + userid + ", passwd=" + passwd + ", username=" + username + ", useremail="
-				+ useremail + ", phone=" + phone + ", useraddr1=" + useraddr1 + ", useraddr2=" + useraddr2 + ", useraddr3="
+		return "MemberVO [rnum=" + rnum + ", userid=" + userid + ", passwd=" + passwd + ", username=" + username
+				+ ", familyname=" + familyname + ", lastname=" + lastname + ", useremail=" + useremail + ", userphone="
+				+ userphone + ", carrier=" + carrier + ", fstnum=" + fstnum + ", sndnum=" + sndnum + ", thdnum=" + thdnum
+				+ ", postnum=" + postnum + ", useraddr1=" + useraddr1 + ", useraddr2=" + useraddr2 + ", useraddr3="
 				+ useraddr3 + ", reg_date=" + reg_date + ", up_data=" + up_data + ", useraccess=" + useraccess + "]";
 	}
 }

@@ -30,7 +30,7 @@
 		for (var i = 0; i < regForm; i++) {
 			if ($(".form-control").eq(i).val() == "" || $(".form-control").eq(i).val() == null) {
 				alert($(".form-control").eq(i).attr("placeholder"));
-				$(".check").eq(i).focus();
+				$(".form-control").eq(i).focus();
 				return true;
 			}
 		}
