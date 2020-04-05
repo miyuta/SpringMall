@@ -34,7 +34,6 @@ public class MemberController {
 		if  (passwd != null) {
 			result = true;
 		}
-		System.out.println(result);
 		return result;
 	}
 	

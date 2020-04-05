@@ -91,6 +91,7 @@
 				<div class="form-group col-md-2">
 					<label for="carrier"></label>
 					<select class="form-control" id="carrier" name="carrier">
+						<option value="none">Choose</option>
 						<option value="SKT">SKT</option>
 						<option value="KT">KT</option>
 						<option value="LGU">LGU</option>

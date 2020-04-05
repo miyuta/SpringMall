@@ -27,7 +27,7 @@
 					data : JSON.stringify(data),
 					contentType : "application/json; charset=utf-8",
 					success : function(result) {
-						if (result=="true") {
+						if (result =="true") {
 							self.location="${pageContext.request.contextPath}/board/modify?bno=${boardView.bno}"
 																																			+"&atPage=${schVO.atPage}"
 																																			+"&perPagePost=${schVO.perPagePost}"

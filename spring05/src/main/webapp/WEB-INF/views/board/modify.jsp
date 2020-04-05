@@ -40,7 +40,7 @@
 		for (var i = 0; i < regForm; i++) {
 			if ($(".form-control").eq(i).val() == "" || $(".form-control").eq(i).val() == null) {
 				alert($(".form-control").eq(i).attr("placeholder"));
-				$(".check").eq(i).focus();
+				$(".form-control").eq(i).focus();
 				return true;
 			}
 		}
@@ -82,7 +82,7 @@
 			    <div class="form-group col-md-3">
 					<label for="cate_cd">카테고리</label>
 					<select class="form-control" id="cate_cd" name="cate_cd">
-						<option selected>Choose</option>
+						<option value="none" <c:out value="${boardModify.cate_cd == 'none' ? 'selected' : ''}" />>Choose</option>
 						<option value="Programming" <c:out value="${boardModify.cate_cd == 'Programming' ? 'selected' : ''}"/>>Programming</option>
 						<option value="DataBase" <c:out value="${boardModify.cate_cd == 'DataBase' ? 'selected' : ''}"/>>DataBase</option>
 						<option value="Etc" <c:out value="${boardModify.cate_cd == 'Etc' ? 'selected' : ''}"/>>Etc</option>
