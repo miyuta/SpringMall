@@ -35,7 +35,7 @@
 
 	function valiChk() {
 		var regForm = $("form[role='regForm'] .form-control").length;
-		for (var i = 0; i < regForm; i++) {
+		for (var i = 0; i < 5; i++) {
 			if ($(".form-control").eq(i).val() == "" || $(".form-control").eq(i).val() == null) {
 				alert($(".form-control").eq(i).attr("placeholder"));
 				$(".form-control").eq(i).focus();
@@ -91,7 +91,7 @@
 				<div class="form-group col-md-2">
 					<label for="carrier"></label>
 					<select class="form-control" id="carrier" name="carrier">
-						<option value="none">Choose</option>
+						<option value="" selected>Choose</option>
 						<option value="SKT">SKT</option>
 						<option value="KT">KT</option>
 						<option value="LGU">LGU</option>
@@ -116,7 +116,7 @@
 				<div class="form-group col-md-2">
 					<label for="useraddr1"></label>
 					<select class="form-control" id="useraddr1" name="useraddr1">
-						<option value="null" selected>지역</option>
+						<option value="" selected>지역</option>
 						<option value="1">서울</option>
 						<option value="2">경기도</option>
 						<option value="3">인천광역시</option>

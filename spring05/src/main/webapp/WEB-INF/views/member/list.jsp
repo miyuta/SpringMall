@@ -9,13 +9,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<script>
+<!-- <script>
 	$(document).ready(function(){
 		$(function(){
 			$("#tblList tbody").sortable();
 		});
 	});
-</script>
+</script> -->
 <body>
 <div id=root>
 	<header>

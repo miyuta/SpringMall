@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.spring05.model.MemberVO;
+import com.example.spring05.model.PageMaker;
+import com.example.spring05.model.PaginationVO;
 import com.example.spring05.service.MemberService;
 
 @Controller
@@ -42,6 +44,18 @@ public class MemberController {
 		logger.info("get member list");
 		
 		model.addAttribute("memberList", memberService.memberList());
+	}
+	
+	@RequestMapping(value="/listPage", method=RequestMethod.GET)
+	public void memberListPage(PaginationVO pageVO, Model model) throws Exception {
+		logger.info("get member listpage");
+		
+		model.addAttribute("memberListPage", memberService.memberListPage(pageVO.getStartPost(), pageVO.getEndPost()));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setPageVO(pageVO);
+		pageMaker.setTotalPost(memberService.countAll());
+		model.addAttribute("pageMaker", pageMaker);
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
@@ -78,6 +92,15 @@ public class MemberController {
 		
 		memberService.memberModify(memModVO);
 		
-		return "redirect:/member/view?=" + memModVO.getUserid();
+		return "redirect:/member/view?userid=" + memModVO.getUserid();
+	}
+
+	@RequestMapping(value="/delete", method = RequestMethod.POST)
+	public String memberDelete(MemberVO memDelVO) throws Exception {
+		logger.info("post member delete");
+		
+		memberService.memberDelete(memDelVO);
+		
+		return "return:/list";
 	}
 }

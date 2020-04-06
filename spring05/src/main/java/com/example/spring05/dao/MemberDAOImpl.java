@@ -1,6 +1,8 @@
 package com.example.spring05.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -19,10 +21,25 @@ public class MemberDAOImpl implements MemberDAO {
 	public String passChk(String userid) throws Exception {
 		return sqlSession.selectOne("member.memberPasschk", userid);
 	}
+	
+	@Override
+	public int countAll() throws Exception {
+		return sqlSession.selectOne("member.countAll");
+	}
 
 	@Override
 	public List<MemberVO> memberList() throws Exception {
 		return sqlSession.selectList("member.memberList");
+	}
+	
+	@Override
+	public List<MemberVO> memberListPage(int startPost, int endPost) throws Exception {
+		
+		Map<String, Integer> postRange = new HashMap<String, Integer>();
+		postRange.put("startPost", startPost);
+		postRange.put("endPost", endPost);
+		
+		return sqlSession.selectList("member.memberListPage", postRange);
 	}
 
 	@Override

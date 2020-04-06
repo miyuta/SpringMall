@@ -18,7 +18,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Override
 	public List<ReplyVO> replyList(int bno) throws Exception {
 		return sqlSession.selectList("reply.replyList", bno);
-	}
+	}	
 
 	@Override
 	public void replyWrite(ReplyVO reWrtVO) throws Exception {

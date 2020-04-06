@@ -45,7 +45,7 @@
 
 		$("#btnDelete").on("click", function(){
 			var passwd = $("#passwd").val();
-			var userid = ${memberView.userid};
+			var userid = "${memberView.userid}";
 			if (passwd != "") {
 				$.ajax({
 					url: "${pageContext.request.contextPath}/member/delete",
@@ -53,11 +53,12 @@
 					data: JSON.stringify(userid),
 					contentType : "application/json; charset=utf-8",
 					success: function() {
-						self.location="${pageContext.request.contextPath}/member/listPageSch?userid=${memberView.userid}"
+						self.location="${pageContext.request.contextPath}/member/list"
+																																				/*?userid=${memberView.userid}";
 																																				+"&atPage=${schVO.atPage}"
 																																				+"&perPagePost=${schVO.perPagePost}"
 																																				+"&option=${schVO.option}"
-																																				+"&keyword=${schVO.keyword}";
+																																				+"&keyword=${schVO.keyword}"; */
 					}
 				});
 			} else {
@@ -67,11 +68,11 @@
 		});
 
 		$("#btnBack").on("click", function(){
-			self.location="${pageContext.request.contextPath}/member/listPageSch?userid=${memberView.userid}"
-									+"&atPage=${schVO.atPage}"
-									+"&perPagePost=${schVO.perPagePost}"
-									+"&option=${schVO.option}"
-									+"&keyword=${schVO.keyword}";
+			self.location="${pageContext.request.contextPath}/member/list?userid=${memberView.userid}"
+																																			/* +"&atPage=${schVO.atPage}"
+																																			+"&perPagePost=${schVO.perPagePost}"
+																																			+"&option=${schVO.option}"
+																																			+"&keyword=${schVO.keyword}"; */
 		});
 	});
 </script>

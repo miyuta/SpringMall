@@ -34,7 +34,7 @@
 
 	function valiChk(){
 		var regForm = $("form[role='modForm'] .form-control").length;
-		for (var i = 0; i < regForm; i++) {
+		for (var i = 0; i < 5; i++) {
 			if ($(".form-control").eq(i).val() == "" || $(".form-control").eq(i).val() == null) {
 				alert($(".form-control").eq(i).attr("placeholder"));
 				$(".form-control").eq(i).focus();
@@ -55,7 +55,7 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 			    	<label for="userid">아이디</label>
-			    	<input type="text" class="form-control" id="userid" name="userid" value="${memberModify.userid}" placeholder="아이디를 입력해주세요.">
+			    	<input type="text" class="form-control" id="userid" name="userid" value="${memberModify.userid}" readonly="readonly">
 			  	</div>
 		  	</div>
 			<div class="form-row">
@@ -86,7 +86,7 @@
 				<div class="form-group col-md-2">
 					<label for="carrier"></label>
 					<select class="form-control" id="carrier" name="carrier">
-						<option value="none" <c:out value="${memberModify.carrier == 'none' ? 'selected' : ''}"/>>Choose</option>
+						<option value="" <c:out value="${memberModify.carrier == '' ? 'selected' : ''}"/>>Choose</option>
 						<option value="SKT" <c:out value="${memberModify.carrier == 'SKT' ? 'selected' : ''}"/>>SKT</option>
 						<option value="KT" <c:out value="${memberModify.carrier == 'KT' ? 'selected' : ''}"/>>KT</option>
 						<option value="LGU" <c:out value="${memberModify.carrier == 'LGU' ? 'selected' : ''}"/>>LGU</option>
@@ -111,7 +111,7 @@
 				<div class="form-group col-md-2">
 					<label for="useraddr1"></label>
 					<select class="form-control" id="useraddr1" name="useraddr1">
-						<option value="none" <c:out value="${memberModify.useraddr1 == 'none' ? 'selected' : ''}"/>>지역</option>
+						<option value="" <c:out value="${memberModify.useraddr1 == '' ? 'selected' : ''}"/>>지역</option>
 						<option value="1" <c:out value="${memberModify.useraddr1 == '1' ? 'selected' : ''}"/>>서울</option>
 						<option value="2" <c:out value="${memberModify.useraddr1 == '2' ? 'selected' : ''}"/>>경기도</option>
 						<option value="3" <c:out value="${memberModify.useraddr1 == '3' ? 'selected' : ''}"/>>인천광역시</option>
