@@ -9,7 +9,7 @@ import com.example.spring05.model.SearchVO;
 public interface BoardDAO {
 	public String passChk(int bno) throws Exception;
 	public int countAll() throws Exception;
-	public int countSch() throws Exception;
+	public int countSch(SearchVO schVO) throws Exception;
 	public List<BoardVO> boardList() throws Exception;
 	public List<BoardVO> boardListPage(PaginationVO pageVO) throws Exception;
 	public List<BoardVO> boardListPageSch(SearchVO schVO) throws Exception;

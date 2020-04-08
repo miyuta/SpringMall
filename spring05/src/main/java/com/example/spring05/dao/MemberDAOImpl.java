@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.example.spring05.model.MemberVO;
+import com.example.spring05.model.SearchVO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -26,6 +27,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public int countAll() throws Exception {
 		return sqlSession.selectOne("member.countAll");
 	}
+	
+	@Override
+	public int countSch(SearchVO schVO) throws Exception {
+		return sqlSession.selectOne("member.countSch", schVO);
+	}
 
 	@Override
 	public List<MemberVO> memberList() throws Exception {
@@ -40,6 +46,11 @@ public class MemberDAOImpl implements MemberDAO {
 		postRange.put("endPost", endPost);
 		
 		return sqlSession.selectList("member.memberListPage", postRange);
+	}
+	
+	@Override
+	public List<MemberVO> memberListPageSch(SearchVO schVO) throws Exception {
+		return sqlSession.selectList("member.memberListPageSch", schVO);
 	}
 
 	@Override

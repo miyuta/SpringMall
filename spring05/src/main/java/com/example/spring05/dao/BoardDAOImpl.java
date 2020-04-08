@@ -28,8 +28,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public int countSch() throws Exception {
-		return sqlSession.selectOne("board.countSch");
+	public int countSch(SearchVO schVO) throws Exception {
+		return sqlSession.selectOne("board.countSch", schVO);
 	}
 	
 	@Override

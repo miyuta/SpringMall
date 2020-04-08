@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.spring05.model.MemberVO;
 import com.example.spring05.model.PageMaker;
 import com.example.spring05.model.PaginationVO;
+import com.example.spring05.model.SearchVO;
 import com.example.spring05.service.MemberService;
 
 @Controller
@@ -56,6 +58,19 @@ public class MemberController {
 		pageMaker.setPageVO(pageVO);
 		pageMaker.setTotalPost(memberService.countAll());
 		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@RequestMapping(value="/listPageSch", method=RequestMethod.GET)
+	public void memberListPageSch(@ModelAttribute("schVO") SearchVO schVO, Model model) throws Exception {
+		logger.info("get member listpagesch");
+		
+		model.addAttribute("memberListPageSch", memberService.memberListPageSch(schVO));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setPageVO(schVO);
+		pageMaker.setTotalPost(memberService.countSch(schVO));
+		model.addAttribute("pageMaker", pageMaker);
+		
+		
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)

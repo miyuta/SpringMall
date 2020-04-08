@@ -21,6 +21,7 @@
     </c:choose>
 		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/member/list">MemberList</a>
 		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/member/listPage">MemberListPage</a>
+		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/member/listPageSch">MemberListPageSch</a>
 		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/list">List</a>
 		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/listPage">ListPage</a>
 		<a class="nav-item nav-link" href="${pageContext.request.contextPath}/board/listPageSch">listPageSch</a>

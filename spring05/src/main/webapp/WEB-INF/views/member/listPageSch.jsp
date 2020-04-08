@@ -12,7 +12,7 @@
 <script>
 	$(document).ready(function(){
 		$("#btnSearch").on("click", function(){
-			self.location="${pageContext.request.contextPath}/board/listPageSch"
+			self.location="${pageContext.request.contextPath}/member/listPageSch"
 									+"${pageMaker.makeQuery(1)}"
 									+"&option="
 									+$("select option:selected").val()
@@ -21,6 +21,13 @@
 		});
 	});
 </script>
+<!-- <script>
+	$(document).ready(function(){
+		$(function(){
+			$("#tblList tbody").sortable();
+		});
+	});
+</script> -->
 <body>
 <div id=root>
 	<header>
@@ -33,38 +40,38 @@
 			<select name="option">
 				<option value="list" <c:out value="${schVO.option == 'list' ? 'selected' : ''}"/>>---------</option>
 				<option value="all" <c:out value="${schVO.option == 'all' ? 'selected' : ''}"/>>All</option>
-				<option value="title" <c:out value="${schVO.option == 'title' ? 'selected' : ''}"/>>Title</option>
-				<option value="reg_id" <c:out value="${schVO.option == 'reg_id' ? 'selected' : ''}"/>>Writer</option>
-				<option value="content" <c:out value="${schVO.option == 'content' ? 'select' : ''}"/>>Content</option>
+				<option value="userid" <c:out value="${schVO.option == 'userid' ? 'selected' : ''}"/>>UserId</option>
+				<option value="username" <c:out value="${schVO.option == 'username' ? 'selected' : ''}"/>>UserName</option>
+				<option value="useremail" <c:out value="${schVO.option == 'useremail' ? 'selected' : '' }"/>>UserEmail</option>
 			</select>
 			
 			<input type="text" id="keyword" name="keyword" value="${schVO.keyword}">
 			
-			<button type="button" id="btnSearch">검색</button>
+			<button type="button" id="btnSearch">검색</button> 
 		</div>
 		<table id="tblList" class="table table-striped table table-boardered table table-hover">
 			<thead>
 			<tr>
-				<th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th>
+				<th>번호</th><th>아이디</th><th>이름</th><th>이메일</th><th>등록일</th>
 			</tr>
 			</thead>
 			<tbody>
 				<c:choose>
-					<c:when test="${empty boardListPageSch}">
+					<c:when test="${empty memberListPageSch}">
 						<tr><td colspan="5" align="center">데이터가 없습니다.</td></tr>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items="${boardListPageSch}" var="boardListPageSch">
-							<tr ondblclick="location.href='${pageContext.request.contextPath}/board/view?bno=${boardListPageSch.bno}'
-																																										+'&atPage=${schVO.atPage}'
-																																										+'&perPagePost=${schVO.perPagePost}'
-																																										+'&option=${schVO.option}'
-																																										+'&keyword=${schVO.keyword}'">
-								<td>${boardListPageSch.bno}</td>
-								<td>${boardListPageSch.title}</td>
-								<td>${boardListPageSch.reg_id}</td>
-								<td><fmt:formatDate pattern="yyyy/MM/dd" value="${boardListPageSch.reg_dt}" /></td>
-								<td>${boardListPageSch.view_cnt}</td>
+						<c:forEach items="${memberListPageSch}" var="memberListPageSch">
+							<tr ondblclick="location.href='${pageContext.request.contextPath}/member/view?userid=${memberListPageSch.userid}'
+																																														+'&atPage=${schVO.atPage}'
+																																														+'&perPagePost=${schVO.perPagePost}'
+																																														+'&option=${schVO.option}'
+																																														+'&keyword=${schVO.keyword}'">
+								<td>${memberListPageSch.rnum}</td>
+								<td>${memberListPageSch.userid}</td>
+								<td>${memberListPageSch.username}</td>
+								<td>${memberListPageSch.useremail}</td>
+								<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm:SS" value="${memberListPageSch.reg_date}" /></td>
 							</tr>
 						</c:forEach>
 					</c:otherwise>
@@ -74,13 +81,13 @@
 		
 		<div>
 			<c:if test="${pageMaker.prev}">
-				<a href="${pageContext.request.contextPath}/board/listPageSch${pageMaker.makeSearch(pageMaker.startPage - 1)}">이전</a>
+				<a href="${pageContext.request.contextPath}/member/listPageSch${pageMaker.makeSearch(pageMaker.startPage - 1)}">이전</a>
 			</c:if>
 			
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="atPage">
 				<span>
 					<c:if test="${pageMaker.pageVO.atPage != atPage}">
-						<a href="${pageContext.request.contextPath}/board/listPageSch${pageMaker.makeSearch(atPage)}">${atPage}</a>
+						<a href="${pageContext.request.contextPath}/member/listPageSch${pageMaker.makeSearch(atPage)}">${atPage}</a>
 					</c:if>
 					
 					<c:if test="${pageMaker.pageVO.atPage == atPage}">
@@ -90,7 +97,7 @@
 			</c:forEach>
 			
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<a href="${pageContext.request.contextPath}/board/listPageSch${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a>
+				<a href="${pageContext.request.contextPath}/member/listPageSch${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a>
 			</c:if>
 		</div>
 	</section>

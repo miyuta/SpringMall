@@ -62,14 +62,14 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/listPageSch", method=RequestMethod.GET)
-	public void boardListPageSch(Model model, @ModelAttribute("schVO") SearchVO schVO) throws Exception {
+	public void boardListPageSch(@ModelAttribute("schVO") SearchVO schVO, Model model) throws Exception {
 		logger.info("get board listPageSch");
 		
 		model.addAttribute("boardListPageSch", boardService.boardListPageSch(schVO));
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setPageVO(schVO);
-		pageMaker.setTotalPost(boardService.countAll());
+		pageMaker.setTotalPost(boardService.countSch(schVO));
 		model.addAttribute("pageMaker", pageMaker);
 	}
 	

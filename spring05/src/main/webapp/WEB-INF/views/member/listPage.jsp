@@ -52,7 +52,7 @@
 		
 		<div>
 			<c:if test="${pageMaker.prev}">
-				<a href="${pageContext.request.contextPath}/member/listPage${pageMaker.makerQuery(pageMaker.startPage - 1)}">이전</a>
+				<a href="${pageContext.request.contextPath}/member/listPage${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a>
 			</c:if>
 			
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="atPage">

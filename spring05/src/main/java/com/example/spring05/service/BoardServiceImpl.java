@@ -29,8 +29,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public int countSch() throws Exception {
-		return boardDao.countSch();
+	public int countSch(SearchVO schVO) throws Exception {
+		return boardDao.countSch(schVO);
 	}
 	
 	@Override

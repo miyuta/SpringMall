@@ -26,12 +26,11 @@
 					contentType : "application/json; charset=utf-8",
 					success : function(result) {
 						if (result=="true") {
-							self.location="${pageContext.request.contextPath}/member/modify?userid=${memberView.userid}";
-							/* self.location="${pageContext.request.contextPath}/board/modify?userid=${memberView.userid}"
+							self.location="${pageContext.request.contextPath}/board/modify?userid=${memberView.userid}"
 																																			+"&atPage=${schVO.atPage}"
 																																			+"&perPagePost=${schVO.perPagePost}"
 																																			+"&option=${schVO.option}"
-																																			+"&keyword=${schVO.keyword}" */
+																																			+"&keyword=${schVO.keyword}"
 						} else {
 							$("#message").html("비밀번호를 확인해주세요.");
 						}
@@ -53,12 +52,11 @@
 					data: JSON.stringify(userid),
 					contentType : "application/json; charset=utf-8",
 					success: function() {
-						self.location="${pageContext.request.contextPath}/member/list"
-																																				/*?userid=${memberView.userid}";
+						self.location="${pageContext.request.contextPath}/member/listPageSch?userid=${memberView.userid}"
 																																				+"&atPage=${schVO.atPage}"
 																																				+"&perPagePost=${schVO.perPagePost}"
 																																				+"&option=${schVO.option}"
-																																				+"&keyword=${schVO.keyword}"; */
+																																				+"&keyword=${schVO.keyword}"; 
 					}
 				});
 			} else {
@@ -68,11 +66,11 @@
 		});
 
 		$("#btnBack").on("click", function(){
-			self.location="${pageContext.request.contextPath}/member/list?userid=${memberView.userid}"
-																																			/* +"&atPage=${schVO.atPage}"
+			self.location="${pageContext.request.contextPath}/member/listPageSch?userid=${memberView.userid}"
+																																			+"&atPage=${schVO.atPage}"
 																																			+"&perPagePost=${schVO.perPagePost}"
 																																			+"&option=${schVO.option}"
-																																			+"&keyword=${schVO.keyword}"; */
+																																			+"&keyword=${schVO.keyword}";
 		});
 	});
 </script>

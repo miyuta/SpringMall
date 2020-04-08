@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.spring05.dao.MemberDAO;
 import com.example.spring05.model.MemberVO;
+import com.example.spring05.model.SearchVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -26,6 +27,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public int countSch(SearchVO schVO) throws Exception {
+		return memberDao.countSch(schVO);
+	}
+	
+	@Override
 	public List<MemberVO> memberList() throws Exception {
 		return memberDao.memberList();
 	}
@@ -33,6 +39,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberVO> memberListPage(int startPost, int endPost) throws Exception {
 		return memberDao.memberListPage(startPost, endPost);
+	}
+	
+	@Override
+	public List<MemberVO> memberListPageSch(SearchVO schVO) throws Exception {
+		return memberDao.memberListPageSch(schVO);
 	}
 
 	@Override
