@@ -41,6 +41,14 @@ public class MemberController {
 		return result;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/idDubChk", method=RequestMethod.POST)
+	public int idDubChk(@RequestBody String userid) throws Exception {
+		logger.info("post member idDubChk");
+		
+		return memberService.idDubChk(userid);
+	}
+	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public void memberList(Model model) throws Exception {
 		logger.info("get member list");
@@ -69,8 +77,6 @@ public class MemberController {
 		pageMaker.setPageVO(schVO);
 		pageMaker.setTotalPost(memberService.countSch(schVO));
 		model.addAttribute("pageMaker", pageMaker);
-		
-		
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
@@ -82,23 +88,34 @@ public class MemberController {
 	public String memberRegister(MemberVO memRegVO) throws Exception {
 		logger.info("post member register");
 		
-		memberService.memberRegister(memRegVO);
-		
+		int result = memberService.idDubChk(memRegVO.getUserid());
+		try {
+			if (result == 1) {
+				return "redirect:/member/register";
+			} else {
+			memberService.memberRegister(memRegVO);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
 		return "redirect:/member/list";
 	}
 	
 	@RequestMapping(value="/view", method = RequestMethod.GET)
-	public void memberView(@RequestParam("userid")  String userid, Model model) throws Exception {
+	public void memberView(@RequestParam("userid")  String userid, @ModelAttribute SearchVO schVO, Model model) throws Exception {
 		logger.info("get member view");
 		
 		model.addAttribute("memberView", memberService.memberView(userid));
+		model.addAttribute("schVO", schVO);
 	}
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET)
-	public void memebrModify(String userid, Model model) throws Exception {
+	public void memebrModify(@RequestParam("userid") String userid, @ModelAttribute SearchVO schVO, Model model) throws Exception {
 		logger.info("get member modify");
 		
 		model.addAttribute("memberModify", memberService.memberView(userid));
+		model.addAttribute("schVO", schVO);
+		
 	}
 	
 	@RequestMapping(value="/modify", method = RequestMethod.POST)

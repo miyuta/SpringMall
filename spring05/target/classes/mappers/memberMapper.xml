@@ -5,8 +5,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <mapper namespace="member">
 
-<select id="memberPasschk" resultType="String">
+<select id="memberPassChk" resultType="String">
 	select passwd from bmember where userid = #{userid}
+</select>
+
+<select id="idDubChk" resultType="int">
+	select count(userid) from bmember where userid = #{userid}
 </select>
 
 <select id="countAll" resultType="int">

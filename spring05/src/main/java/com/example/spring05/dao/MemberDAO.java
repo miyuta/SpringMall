@@ -7,6 +7,7 @@ import com.example.spring05.model.SearchVO;
 
 public interface MemberDAO {
 	public String passChk(String userid) throws Exception;
+	public int idDubChk(String usrid) throws Exception;
 	public int countAll() throws Exception;
 	public int countSch(SearchVO schVO) throws Exception;
 	public List<MemberVO> memberList() throws Exception;

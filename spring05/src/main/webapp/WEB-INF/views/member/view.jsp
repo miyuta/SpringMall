@@ -26,7 +26,7 @@
 					contentType : "application/json; charset=utf-8",
 					success : function(result) {
 						if (result=="true") {
-							self.location="${pageContext.request.contextPath}/board/modify?userid=${memberView.userid}"
+							self.location="${pageContext.request.contextPath}/member/modify?userid=${memberView.userid}"
 																																			+"&atPage=${schVO.atPage}"
 																																			+"&perPagePost=${schVO.perPagePost}"
 																																			+"&option=${schVO.option}"
@@ -45,23 +45,24 @@
 		$("#btnDelete").on("click", function(){
 			var passwd = $("#passwd").val();
 			var userid = "${memberView.userid}";
-			if (passwd != "") {
-				$.ajax({
-					url: "${pageContext.request.contextPath}/member/delete",
-					type: "post",
-					data: JSON.stringify(userid),
-					contentType : "application/json; charset=utf-8",
-					success: function() {
-						self.location="${pageContext.request.contextPath}/member/listPageSch?userid=${memberView.userid}"
-																																				+"&atPage=${schVO.atPage}"
-																																				+"&perPagePost=${schVO.perPagePost}"
-																																				+"&option=${schVO.option}"
-																																				+"&keyword=${schVO.keyword}"; 
-					}
-				});
-			} else {
-				alert("비밀번호를 입력해주세요.");
-				$("#passwd").focus();
+			if (confirm("회원 탈퇴하시겠습니까?")) {
+				if (passwd != "") {
+					$.ajax({
+						url: "${pageContext.request.contextPath}/member/delete",
+						type: "post",
+						data: JSON.stringify(userid),
+						success: function() {
+							self.location="${pageContext.request.contextPath}/member/listPageSch?userid=${memberView.userid}"
+																																					+"&atPage=${schVO.atPage}"
+																																					+"&perPagePost=${schVO.perPagePost}"
+																																					+"&option=${schVO.option}"
+																																					+"&keyword=${schVO.keyword}"; 
+						}
+					});
+				} else {
+					alert("비밀번호를 입력해주세요.");
+					$("#passwd").focus();
+				}
 			}
 		});
 
@@ -151,9 +152,11 @@
 				<input type="text" class="form-control" id="useradd3" name="useradd3" value="${memberView.useraddr3}" readonly="readonly">
 			</div>
 		</div>
-	  <button type="button" class="btn btn-outline-primary" id="btnModify">수정</button>
-	  <button type="button" class="btn btn-outline-danger" id="btnDelete">삭제</button>
-	  <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
+		<div>
+			<button type="button" class="btn btn-outline-primary" id="btnModify">수정</button>
+	  		<button type="button" class="btn btn-outline-danger" id="btnDelete">삭제</button>
+	  		<button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
+	  	</div>
 	</section>
 </div>
 </body>

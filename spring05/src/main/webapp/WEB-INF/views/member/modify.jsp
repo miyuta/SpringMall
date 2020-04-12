@@ -25,10 +25,10 @@
 
 		$("#btnBack").on("click", function(){
 			self.location="${pageContext.request.contextPath}/member/view?userid=${memberModify.userid}";
-/* 									+"&atPage=${schVO.atPage}"
-									+"&perPagePost=${schVO.perPagePost}"
-									+"&option=${schVO.option}"
-									+"&keyword=${schVO.keyword}"; */
+																																		+"&atPage=${schVO.atPage}"
+																																		+"&perPagePost=${schVO.perPagePost}"
+																																		+"&option=${schVO.option}"
+																																		+"&keyword=${schVO.keyword}";
 		});
 	});
 

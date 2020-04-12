@@ -17,15 +17,43 @@
 			if (valiChk()) {
 				return false;
 			} else {
-				if (passwd == repasswd) {
-					formObj.attr("action", "${pageContext.request.contextPath}/member/register");
-					formObj.attr("method", "post");
-					formObj.submit();
+				if ($("#btnIdDubChk").val() == "N") {
+					alert("중복 확인 버튼을 눌러주세요.");
 				} else {
-					alert("비밀번호를 확인해주세요.");
-					return;
+					if (passwd == repasswd) {
+						formObj.attr("action", "${pageContext.request.contextPath}/member/register");
+						formObj.attr("method", "post");
+						formObj.submit();
+					} else {
+						alert("비밀번호를 확인해주세요.");
+						return;
+					}
 				}
-			}			
+			}
+		});
+
+		$("#btnIdDubChk").on("click", function(){
+			var userid = $("#userid").val();
+			if (userid == null || userid =="") {
+				alert("아이디를 입력해주세요.");
+				$("#userid").focus();
+			} else {
+				$.ajax({
+					url: "${pageContext.request.contextPath}/member/idDubChk",
+					type: "post",
+					data: userid,
+					contentType : "application/json; charset=utf-8",
+					success: function(result) {
+						if (result != 0) {
+							alert("중복된 아이디입니다.");
+							$("#userid").focus();
+						} else {
+							$("#btnIdDubChk").attr("value", "Y");
+							alert("사용가능한 아이디입니다.");
+						}
+					}
+				});
+			}
 		});
 
 		$("#btnBack").on("click", function(){
@@ -42,7 +70,7 @@
 				return true;
 			}
 		}
-	}			
+	}
 </script>
 <body>
 <div id=root>
@@ -55,7 +83,7 @@
 		<form role="regForm">
 			<div class="form-row">
 				<div class="form-group col-md-6">
-			    	<label for="userid">아이디</label>
+			    	<label for="userid">아이디</label> <button class="btn btn-secondary btn-sm" type="button" id="btnIdDubChk" value="N">중복확인</button>
 			    	<input type="text" class="form-control" id="userid" name="userid" placeholder="아이디를 입력해주세요.">
 			  	</div>
 		  	</div>

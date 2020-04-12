@@ -20,7 +20,12 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	@Override
 	public String passChk(String userid) throws Exception {
-		return sqlSession.selectOne("member.memberPasschk", userid);
+		return sqlSession.selectOne("member.memberPassChk", userid);
+	}
+	
+	@Override
+	public int idDubChk(String userid) throws Exception {
+		return sqlSession.selectOne("member.idDubChk", userid);
 	}
 	
 	@Override

@@ -22,6 +22,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public int idDubChk(String userid) throws Exception {
+		return memberDao.idDubChk(userid);
+	}
+	
+	@Override
 	public int countAll() throws Exception {
 		return memberDao.countAll();
 	}
