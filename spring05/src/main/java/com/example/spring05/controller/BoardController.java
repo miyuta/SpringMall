@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.spring05.model.BoardVO;
@@ -79,10 +80,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String boardWrite(BoardVO wrtVO) throws Exception {
+	public String boardWrite(BoardVO wrtVO, MultipartHttpServletRequest mpRequest) throws Exception {
 		logger.info("post board write");
 		
-		boardService.boardWrite(wrtVO);
+		boardService.boardWrite(wrtVO, mpRequest);
 		return "redirect:/board/listPageSch";
 	}
 	

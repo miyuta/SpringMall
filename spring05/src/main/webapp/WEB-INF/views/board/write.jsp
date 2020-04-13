@@ -44,7 +44,7 @@
 	<%@include file="/WEB-INF/views/include/nav.jsp" %>
 	
 	<section id="container">
-		<form role="wrtForm">
+		<form role="wrtForm" enctype="multipart/form-data">
 			<div class="form-group">
 		    	<label for="title">제목</label>
 		    	<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요.">
@@ -77,6 +77,10 @@
 		    <div class="form-group">
    			 	<label for="content">내용</label>
     			<textarea class="form-control" id="content" name="content" rows="5" placeholder="내용을 입력해주세요."></textarea>
+  			</div>
+  			<div class="custom-file">
+  				<label class="custom-file-label" for="customFile">Choose File</label>
+  				<input type="file" class="custom-file-input" id="customFile" name="file">
   			</div>
 		  <button type="button" class="btn btn-outline-primary" id="btnWrite">등록</button>
 		  <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>

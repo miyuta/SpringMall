@@ -1,20 +1,27 @@
 package com.example.spring05.service;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.spring05.dao.BoardDAO;
 import com.example.spring05.model.BoardVO;
 import com.example.spring05.model.PaginationVO;
 import com.example.spring05.model.SearchVO;
+import com.example.spring05.util.FileUtils;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
+	@Resource(name="fileUtils")
+	private FileUtils fileUtils;
+	
 	@Inject
 	private BoardDAO boardDao;
 	
@@ -57,14 +64,20 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public void boardWrite(BoardVO wrtVO) throws Exception {
+	public void boardWrite(BoardVO wrtVO, MultipartHttpServletRequest mpRequest) throws Exception {
 		boardDao.boardWrite(wrtVO);
+		
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(wrtVO, mpRequest);
+		int size = list.size();
+		for (int i = 0; i < size; i++) {
+			boardDao.uploadFile(list.get(i));
+		}
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int boardModify(BoardVO modVO) throws Exception {
-		return boardDao.boardModify(modVO);
+	public void boardModify(BoardVO modVO) throws Exception {
+		boardDao.boardModify(modVO);
 	}
 
 	@Override

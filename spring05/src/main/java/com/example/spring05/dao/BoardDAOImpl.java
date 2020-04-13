@@ -1,6 +1,7 @@
 package com.example.spring05.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -58,13 +59,18 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public int boardWrite(BoardVO wrtVO) throws Exception {
-		return sqlSession.insert("board.boardWrite", wrtVO);
+	public void boardWrite(BoardVO wrtVO) throws Exception {
+		sqlSession.insert("board.boardWrite", wrtVO);
+	}
+	
+	@Override
+	public void uploadFile(Map<String, Object> map) throws Exception {
+		sqlSession.insert("board.uploadFile", map);
 	}
 
 	@Override
-	public int boardModify(BoardVO modVO) throws Exception {
-		return sqlSession.update("board.boardModify", modVO);
+	public void boardModify(BoardVO modVO) throws Exception {
+		sqlSession.update("board.boardModify", modVO);
 	}
 
 	@Override
