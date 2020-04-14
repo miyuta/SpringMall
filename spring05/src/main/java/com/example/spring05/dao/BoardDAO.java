@@ -18,6 +18,7 @@ public interface BoardDAO {
 	public BoardVO boardView(int bno) throws Exception;
 	public void boardWrite(BoardVO wrtVO) throws Exception;
 	public void uploadFile(Map<String, Object> map) throws Exception;
+	public List<Map<String, Object>> fileList(int bno) throws Exception;
 	public void boardModify(BoardVO modVO) throws Exception;
 	public int boardDelete(int bno) throws Exception;
 }

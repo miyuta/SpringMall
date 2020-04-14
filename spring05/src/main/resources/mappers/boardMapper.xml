@@ -52,8 +52,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 </insert>
 
 <insert id="uploadFile" parameterType="hashMap">
-	insert into (spfile, bno, oriname, sername, fsize) values (seq_spfile_no.nextval(), #{bno}, #{oriname}, #{sername}, #{fsize})
+	insert into spfile (fno, bno, oriname, sername, fsize) values (seq_spfile_no.nextval, #{bno}, #{oriname}, #{sername}, #{fsize})
 </insert>
+
+<select id="fileList" parameterType="int" resultType="hashMap">
+	select fno, oriname, fsize from spfile where bno = #{bno} and delflg = 'N'
+</select>
 
 <update id="boardModify" parameterType="com.example.spring05.model.BoardVO">
 	update blog_board set cate_cd = #{cate_cd}, title = #{title}, content = #{content}, tag = #{tag}, edit_dt = sysdate where bno = #{bno}

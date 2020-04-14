@@ -76,16 +76,16 @@
 			</div>
 		    <div class="form-group">
    			 	<label for="content">내용</label>
-    			<textarea class="form-control" id="content" name="content" rows="5" placeholder="내용을 입력해주세요."></textarea>
+    			<textarea class="form-control" id="content" name="content" rows="18" placeholder="내용을 입력해주세요."></textarea>
   			</div>
-  			<div class="custom-file">
-  				<label class="custom-file-label" for="customFile">Choose File</label>
-  				<input type="file" class="custom-file-input" id="customFile" name="file">
-  			</div>
-		  <button type="button" class="btn btn-outline-primary" id="btnWrite">등록</button>
-		  <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
+			<div class="custom-file">
+				<label class="custom-file-label" for="customFile">Choose file</label>
+				<input type="file" class="custom-file-input" id="customFile" name="file">
+			</div>
+		    <button type="button" class="btn btn-outline-primary" id="btnWrite">등록</button>
+		    <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
 		</form>
-	</section>
+		</section>
 </div>
 </body>
 </html>

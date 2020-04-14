@@ -91,7 +91,7 @@
 			</div>
 		    <div class="form-group">
    			 	<label for="content">내용</label>
-    			<textarea class="form-control" id="content" name="content" rows="5" placeholder="내용을 입력해주세요.">${boardModify.content}</textarea>
+    			<textarea class="form-control" id="content" name="content" rows="18" placeholder="내용을 입력해주세요.">${boardModify.content}</textarea>
   			</div>
 		  <button type="button" class="btn btn-outline-primary" id="btnModify">등록</button>
 		  <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>

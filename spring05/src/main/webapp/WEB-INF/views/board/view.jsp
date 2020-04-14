@@ -151,8 +151,17 @@
 		</div>
 	    <div class="form-group">
   			 <label for="content">내용</label>
-   			<textarea class="form-control" id="content" name="content" rows="5" placeholder="내용을 입력해주세요." readonly="readonly">${boardView.content}</textarea>
+   			<textarea class="form-control" id="content" name="content" rows="18" placeholder="내용을 입력해주세요." readonly="readonly">${boardView.content}</textarea>
  		</div>
+ 		<hr />
+ 		
+ 		<span>파일 목록</span>
+ 		<div class="form-group" style="border:1px solid #dbdbdb;">
+ 			<c:forEach var="fileList" items="${fileList}">
+ 				<button type="button" class="btn btn-link">${fileList.ORINAME}</button>(${fileList.FSIZE} ${fileList.VOLUME})
+ 			</c:forEach>
+ 		</div>
+		
 		<div>
 			<button type="button" class="btn btn-outline-primary" id="btnModify">수정</button>
 		 	<button type="button" class="btn btn-outline-danger" id="btnDelete">삭제</button>

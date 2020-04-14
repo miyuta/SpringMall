@@ -1,5 +1,6 @@
 package com.example.spring05.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -72,6 +73,26 @@ public class BoardServiceImpl implements BoardService {
 		for (int i = 0; i < size; i++) {
 			boardDao.uploadFile(list.get(i));
 		}
+	}
+	
+	@Override
+	public List<Map<String, Object>> fileList(int bno) throws Exception {
+		
+		List<Map<String, Object>> fileList = boardDao.fileList(bno);
+		
+		for (Map<String, Object> file : fileList) {
+			file.put("VOLUME", "KB");
+			double fileSize = ((BigDecimal) file.get("FSIZE")).intValue();
+			if (fileSize < 1024) {
+				file.put("FSIZE", 1);
+			} else if (fileSize > 1024*1024) {
+				file.put("FSIZE", Math.round(fileSize/1024/1024*100)/100.0);
+				file.put("VOLUME", "MB");
+			} else {
+				file.put("FSIZE", Math.round(fileSize/1024*100)/100.0);
+			}
+		}
+		return fileList;
 	}
 
 	@Transactional(rollbackFor = Exception.class)

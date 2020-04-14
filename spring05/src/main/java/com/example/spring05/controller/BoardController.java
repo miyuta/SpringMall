@@ -1,5 +1,8 @@
 package com.example.spring05.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -88,11 +91,16 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/view", method=RequestMethod.GET)
-	public void boatrdView(@RequestParam("bno") int bno, @ModelAttribute("schVO") SearchVO schVO, Model model) throws Exception {
+	public String boatrdView(@RequestParam("bno") int bno, @ModelAttribute("schVO") SearchVO schVO, Model model) throws Exception {
 		logger.info("get board view");
 		
 		model.addAttribute("boardView", boardService.boardView(bno));
 		model.addAttribute("schVO", schVO);
+		
+		List<Map<String, Object>> fileList = boardService.fileList(bno);
+		System.out.println(fileList);
+		model.addAttribute("fileList", fileList);
+		return "board/view";
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)

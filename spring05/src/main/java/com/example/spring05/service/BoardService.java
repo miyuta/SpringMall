@@ -1,6 +1,7 @@
 package com.example.spring05.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -17,6 +18,7 @@ public interface BoardService {
 	public List<BoardVO> boardListPageSch(SearchVO schVO) throws Exception;
 	public BoardVO boardView(int bno) throws Exception;
 	public void boardWrite(BoardVO wrtVO, MultipartHttpServletRequest mpREquest) throws Exception;
+	public List<Map<String, Object>> fileList(int bno) throws Exception;
 	public void boardModify(BoardVO modVO) throws Exception;
 	public int boardDelete(int bno) throws Exception;
 }
