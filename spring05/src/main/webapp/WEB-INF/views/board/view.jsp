@@ -11,7 +11,6 @@
 </head>
 <script>
 	$(document).ready(function(){
-		var formObj = $("form[role='schForm']");
 
 		replyList();
 		
@@ -107,6 +106,13 @@
 			}
 		});
 	}
+
+	function btnFileDown(fno) {
+		var formObj = $("form[role='fdlForm']");
+		formObj.attr("action", "${pageContext.request.contextPath}/board/fileDownload");
+		formObj.attr("method", "post");
+		formObj.submit();
+	}
 </script>
 <body>
 <div id=root>
@@ -156,25 +162,21 @@
  		<hr />
  		
  		<span>파일 목록</span>
- 		<div class="form-group" style="border:1px solid #dbdbdb;">
- 			<c:forEach var="fileList" items="${fileList}">
- 				<button type="button" class="btn btn-link">${fileList.ORINAME}</button>(${fileList.FSIZE} ${fileList.VOLUME})
- 			</c:forEach>
- 		</div>
+ 		<form role="fdlForm">
+	 		<div class="form-group" style="border:1px solid #dbdbdb;">
+	 			<c:forEach var="fileList" items="${fileList}">
+	 				<input type="hidden" name="fno" value="${fileList.FNO}">
+	 				<button type="button" onclick="btnFileDown(${fileList.FNO})" class="btn btn-link">${fileList.ORINAME}</button>(${fileList.FSIZE} ${fileList.VOLUME})
+	 			</c:forEach>
+	 		</div>
+ 		</form>
 		
 		<div>
 			<button type="button" class="btn btn-outline-primary" id="btnModify">수정</button>
 		 	<button type="button" class="btn btn-outline-danger" id="btnDelete">삭제</button>
 		 	<button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
 		</div>
-	  <form role="schForm">
-	  	<input class="search" type="hidden" id="atPage" value="${schVO.atPage}">
-	  	<input class="search" type="hidden" id="perPagePost" value="${schVO.perPagePost}">
-	  	<input class="search" type="hidden" id="option" value="${schVO.option}">
-	  	<input class="search" type="hidden" id="keyword" value="${schVO.keyword}">
-	  </form>
-	  
-	  		
+		
 		<!-- 댓글 -->
 		<div class="form-group col-md-5">
 			<label for="recontent">댓글</label>

@@ -1,10 +1,14 @@
 package com.example.spring05.controller;
 
+import java.io.File;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -91,31 +95,53 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/view", method=RequestMethod.GET)
-	public String boatrdView(@RequestParam("bno") int bno, @ModelAttribute("schVO") SearchVO schVO, Model model) throws Exception {
+	public void boatrdView(@RequestParam("bno") int bno, @ModelAttribute("schVO") SearchVO schVO, Model model) throws Exception {
 		logger.info("get board view");
 		
 		model.addAttribute("boardView", boardService.boardView(bno));
 		model.addAttribute("schVO", schVO);
 		
 		List<Map<String, Object>> fileList = boardService.fileList(bno);
-		System.out.println(fileList);
 		model.addAttribute("fileList", fileList);
-		return "board/view";
+	}
+	
+	@RequestMapping(value="/fileDownload", method=RequestMethod.POST)
+	public void fileDownload(@RequestParam("fno") int fno, HttpServletResponse res) throws Exception {
+		logger.info("post file download");
+		
+		Map<String, Object> resultMap = boardService.fileDownload(fno);
+		String sername = (String)resultMap.get("SERNAME");
+		String oriname = (String)resultMap.get("ORINAME");
+
+		byte fileByte[] = FileUtils.readFileToByteArray(new File("F:\\JavA\\fileTest\\"+sername));
+		 
+		res.setContentType("application/octet-stream");
+		res.setContentLength(fileByte.length);
+		res.setHeader("Content-Disposition", "attachment; fileName=\""+URLEncoder.encode(oriname, "UTF-8") + "\";");
+		res.getOutputStream().write(fileByte);
+		res.getOutputStream().flush();
+		res.getOutputStream().close();
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public void boardModify(@RequestParam("bno") int bno, @ModelAttribute("schVO") SearchVO schVO, Model model) throws Exception {
+	public String boardModify(@RequestParam("bno") int bno, @ModelAttribute("schVO") SearchVO schVO, Model model) throws Exception {
 		logger.info("get board modify");
 		
 		model.addAttribute("boardModify", boardService.boardView(bno));
 		model.addAttribute("schVO", schVO);
+		
+		List<Map<String, Object>> fileList = boardService.fileList(bno);
+		model.addAttribute("fileList", fileList);
+		return "redirect:board/modify";
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String boardModify(BoardVO modVO, @ModelAttribute("schVO") SearchVO schVO, RedirectAttributes rttr) throws Exception {
+	public String boardModify(BoardVO modVO, @ModelAttribute("schVO") SearchVO schVO, RedirectAttributes rttr,
+													@RequestParam(value="fileNoDel[]") String[] files, @RequestParam(value="fileNameDel") String[] fileNames,
+													MultipartHttpServletRequest mpRequest) throws Exception {
 		logger.info("post board modify");
 		
-		boardService.boardModify(modVO);
+		boardService.boardModify(modVO, files, fileNames, mpRequest);
 		rttr.addAttribute("bno", modVO.getBno());
 		rttr.addAttribute("atPage", schVO.getAtPage());
 		rttr.addAttribute("perPagePost", schVO.getPerPagePost());

@@ -16,9 +16,10 @@ import com.example.spring05.model.BoardVO;
 
 @Component("fileUtils")
 public class FileUtils {
-private static final String filePath = "F:\\JavA\\fileTest\\"; // 파일이 저장될 위치
 	
-	public List<Map<String, Object>> parseInsertFileInfo(BoardVO boardVO, MultipartHttpServletRequest mpRequest) throws Exception{
+	private static final String filePath = "F:\\JavA\\fileTest\\"; // 파일이 저장될 위치
+	
+	public List<Map<String, Object>> parseInsertFileInfo(BoardVO fileUploadVO, MultipartHttpServletRequest mpRequest) throws Exception{
 		
 		/*
 			Iterator은 데이터들의 집합체? 에서 컬렉션으로부터 정보를 얻어올 수 있는 인터페이스입니다.
@@ -36,7 +37,7 @@ private static final String filePath = "F:\\JavA\\fileTest\\"; // 파일이 저�
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> listMap = null;
 		
-		int bno = boardVO.getBno();
+		int bno = fileUploadVO.getBno();
 		
 		File file = new File(filePath);
 		if(file.exists() == false) {
@@ -57,6 +58,45 @@ private static final String filePath = "F:\\JavA\\fileTest\\"; // 파일이 저�
 				listMap.put("oriname", originalFileName);
 				listMap.put("sername", storedFileName);
 				listMap.put("fsize", multipartFile.getSize());
+				list.add(listMap);
+			}
+		}
+		return list;
+	}
+	
+	public List<Map<String, Object>> parseUpdateFileInfo(BoardVO fileUpdateVO, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception {
+		Iterator<String> iterator = mpRequest.getFileNames();
+		MultipartFile multipartFile = null;
+		String originalFileName = null;
+		String originalFileExtension = null;
+		String storedFileName = null;
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		Map<String, Object> listMap = null;
+		
+		int bno = fileUpdateVO.getBno();
+		
+		while (iterator.hasNext()) {
+			multipartFile = mpRequest.getFile(iterator.next());
+			if (multipartFile.isEmpty() == false) {
+				originalFileName = multipartFile.getOriginalFilename();
+				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+				storedFileName = getRandomString() + originalFileExtension;
+				multipartFile.transferTo(new File(filePath + storedFileName));
+				listMap = new HashMap<String, Object>();
+				listMap.put("is_new", "Y");
+				listMap.put("bno", bno);
+				listMap.put("oriname", originalFileName);
+				listMap.put("sername", storedFileName);
+				listMap.put("fsize", multipartFile.getSize());
+				list.add(listMap);
+			}
+		}
+		if (files != null && fileNames != null) {
+			for (int i = 0; i < fileNames.length; i++) {
+				listMap = new HashMap<String, Object>();
+				listMap.put("is_new", "N");
+				listMap.put("fno", files[i]);
 				list.add(listMap);
 			}
 		}

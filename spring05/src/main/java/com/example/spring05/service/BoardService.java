@@ -17,8 +17,9 @@ public interface BoardService {
 	public List<BoardVO> boardListPage(PaginationVO pageVO) throws Exception;
 	public List<BoardVO> boardListPageSch(SearchVO schVO) throws Exception;
 	public BoardVO boardView(int bno) throws Exception;
-	public void boardWrite(BoardVO wrtVO, MultipartHttpServletRequest mpREquest) throws Exception;
+	public void boardWrite(BoardVO wrtVO, MultipartHttpServletRequest mpRequest) throws Exception;
 	public List<Map<String, Object>> fileList(int bno) throws Exception;
-	public void boardModify(BoardVO modVO) throws Exception;
+	public Map<String, Object> fileDownload(int fno) throws Exception;
+	public void boardModify(BoardVO modVO, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception;
 	public int boardDelete(int bno) throws Exception;
 }

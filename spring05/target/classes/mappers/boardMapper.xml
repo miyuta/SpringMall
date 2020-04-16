@@ -56,8 +56,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 </insert>
 
 <select id="fileList" parameterType="int" resultType="hashMap">
-	select fno, oriname, fsize from spfile where bno = #{bno} and delflg = 'N'
+	select fno, oriname, fsize from spfile where bno = #{bno} and delflg = 'N' order by fno asc
 </select>
+
+<select id="fileDownload" parameterType="int" resultType="hashMap">
+	select sername, oriname from spfile where fno = #{fno}
+</select>
+
+<update id="fileUpdate" parameterType="int">
+	update spfile set delflg = 'Y' where fno =#{fno}
+</update>
 
 <update id="boardModify" parameterType="com.example.spring05.model.BoardVO">
 	update blog_board set cate_cd = #{cate_cd}, title = #{title}, content = #{content}, tag = #{tag}, edit_dt = sysdate where bno = #{bno}

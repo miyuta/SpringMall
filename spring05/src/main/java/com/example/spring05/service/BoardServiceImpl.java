@@ -71,7 +71,7 @@ public class BoardServiceImpl implements BoardService {
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(wrtVO, mpRequest);
 		int size = list.size();
 		for (int i = 0; i < size; i++) {
-			boardDao.uploadFile(list.get(i));
+			boardDao.fileUpload(list.get(i));
 		}
 	}
 	
@@ -94,11 +94,28 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return fileList;
 	}
+	
+	@Override
+	public Map<String, Object> fileDownload(int fno) throws Exception {
+		return boardDao.fileDownload(fno);
+	}
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public void boardModify(BoardVO modVO) throws Exception {
+	public void boardModify(BoardVO modVO, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception {
 		boardDao.boardModify(modVO);
+		
+		List<Map<String, Object>> fileList = fileUtils.parseUpdateFileInfo(modVO, files, fileNames, mpRequest);
+		Map<String, Object> tempMap = null;
+		int size = fileList.size();
+		for (int i = 0; i < size; i++) {
+			tempMap = fileList.get(i);
+			if (tempMap.get("IS_NEW").equals("Y")) {
+				boardDao.fileUpload(tempMap);
+			} else {
+				boardDao.fileUpdate(tempMap);
+			}
+		}
 	}
 
 	@Override

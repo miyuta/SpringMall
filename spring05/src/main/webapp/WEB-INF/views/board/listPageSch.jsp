@@ -11,6 +11,7 @@
 </head>
 <script>
 	$(document).ready(function(){
+		
 		$("#btnSearch").on("click", function(){
 			self.location="${pageContext.request.contextPath}/board/listPageSch"
 									+"${pageMaker.makeQuery(1)}"
