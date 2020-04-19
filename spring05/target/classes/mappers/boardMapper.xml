@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	values(#{bno}, #{cate_cd}, #{title}, #{content}, #{tag}, #{reg_id}, #{passwd})
 </insert>
 
-<insert id="uploadFile" parameterType="hashMap">
+<insert id="fileUpload" parameterType="hashMap">
 	insert into spfile (fno, bno, oriname, sername, fsize) values (seq_spfile_no.nextval, #{bno}, #{oriname}, #{sername}, #{fsize})
 </insert>
 
@@ -63,8 +63,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	select sername, oriname from spfile where fno = #{fno}
 </select>
 
-<update id="fileUpdate" parameterType="int">
-	update spfile set delflg = 'Y' where fno =#{fno}
+<update id="fileDelete" parameterType="hashMap">
+	update spfile set delflg = 'Y'  where fno = #{fno}
 </update>
 
 <update id="boardModify" parameterType="com.example.spring05.model.BoardVO">

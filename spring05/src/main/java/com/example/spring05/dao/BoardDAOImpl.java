@@ -65,7 +65,7 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	@Override
 	public void fileUpload(Map<String, Object> map) throws Exception {
-		sqlSession.insert("board.uploadFile", map);
+		sqlSession.insert("board.fileUpload", map);
 	}
 	
 	@Override
@@ -79,8 +79,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	@Override
-	public void fileUpdate(Map<String, Object> tempMap) throws Exception {
-		sqlSession.update("board.fileUpdate", tempMap);
+	public void fileDelete(Map<String, Object> tempMap) throws Exception {
+		sqlSession.update("board.fileDelete", tempMap);
 	}
 
 	@Override

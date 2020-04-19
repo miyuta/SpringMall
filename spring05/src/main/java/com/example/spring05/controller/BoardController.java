@@ -124,7 +124,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public String boardModify(@RequestParam("bno") int bno, @ModelAttribute("schVO") SearchVO schVO, Model model) throws Exception {
+	public void boardModify(@RequestParam("bno") int bno, @ModelAttribute("schVO") SearchVO schVO, Model model) throws Exception {
 		logger.info("get board modify");
 		
 		model.addAttribute("boardModify", boardService.boardView(bno));
@@ -132,16 +132,14 @@ public class BoardController {
 		
 		List<Map<String, Object>> fileList = boardService.fileList(bno);
 		model.addAttribute("fileList", fileList);
-		return "redirect:board/modify";
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String boardModify(BoardVO modVO, @ModelAttribute("schVO") SearchVO schVO, RedirectAttributes rttr,
-													@RequestParam(value="fileNoDel[]") String[] files, @RequestParam(value="fileNameDel") String[] fileNames,
-													MultipartHttpServletRequest mpRequest) throws Exception {
+													@RequestParam(value="fileNoDel[]") String[] files, MultipartHttpServletRequest mpRequest) throws Exception {
 		logger.info("post board modify");
 		
-		boardService.boardModify(modVO, files, fileNames, mpRequest);
+		boardService.boardModify(modVO, files, mpRequest);
 		rttr.addAttribute("bno", modVO.getBno());
 		rttr.addAttribute("atPage", schVO.getAtPage());
 		rttr.addAttribute("perPagePost", schVO.getPerPagePost());

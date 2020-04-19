@@ -64,7 +64,7 @@ public class FileUtils {
 		return list;
 	}
 	
-	public List<Map<String, Object>> parseUpdateFileInfo(BoardVO fileUpdateVO, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception {
+	public List<Map<String, Object>> parseUpdateFileInfo(BoardVO fileUpdateVO, String[] files, MultipartHttpServletRequest mpRequest) throws Exception {
 		Iterator<String> iterator = mpRequest.getFileNames();
 		MultipartFile multipartFile = null;
 		String originalFileName = null;
@@ -92,8 +92,8 @@ public class FileUtils {
 				list.add(listMap);
 			}
 		}
-		if (files != null && fileNames != null) {
-			for (int i = 0; i < fileNames.length; i++) {
+		if (files != null) {
+			for (int i = 0; i < files.length; i++) {
 				listMap = new HashMap<String, Object>();
 				listMap.put("is_new", "N");
 				listMap.put("fno", files[i]);

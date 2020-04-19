@@ -102,18 +102,18 @@ public class BoardServiceImpl implements BoardService {
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public void boardModify(BoardVO modVO, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception {
+	public void boardModify(BoardVO modVO, String[] files, MultipartHttpServletRequest mpRequest) throws Exception {
 		boardDao.boardModify(modVO);
 		
-		List<Map<String, Object>> fileList = fileUtils.parseUpdateFileInfo(modVO, files, fileNames, mpRequest);
+		List<Map<String, Object>> fileList = fileUtils.parseUpdateFileInfo(modVO, files, mpRequest);
 		Map<String, Object> tempMap = null;
 		int size = fileList.size();
 		for (int i = 0; i < size; i++) {
 			tempMap = fileList.get(i);
-			if (tempMap.get("IS_NEW").equals("Y")) {
+			if (tempMap.get("is_new").equals("Y")) {
 				boardDao.fileUpload(tempMap);
 			} else {
-				boardDao.fileUpdate(tempMap);
+				boardDao.fileDelete(tempMap);
 			}
 		}
 	}

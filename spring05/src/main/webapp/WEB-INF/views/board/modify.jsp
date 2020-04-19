@@ -12,6 +12,7 @@
 <script>
 	$(document).ready(function(){
 		var formObj = $("form[role='modForm']");
+		var fileNum = 0;
 
 		$("#btnModify").on("click", function(){
 			if (valiChk()) {
@@ -33,6 +34,16 @@
 		$("#btnList").on("click", function(){
 			self.location="${pageContext.request.contextPath}/"
 		});
+
+		$("#btnFileAdd").on("click", function(){
+			var fileAdd = '<div><div><label class="custom-file-label" for="customFile">Choose file(복수 파일 업로드)</label>'
+								  +'<input multiple="multiple" type="file" id="customFile" class="file' + (++fileNum) + '" name="file' + (fileNum) + '"></div>'
+								  +'<button type="button" name="btnFileDel" class="btn btn-outline-danger btn-sm">파일 제거</button><hr /></div>';
+			$("#fileDiv").append(fileAdd);
+			$("button[name='btnFileDel']").on("click", function(){
+				$(this).parent().remove();
+			});
+		});
 	});
 
 	function valiChk() {
@@ -44,7 +55,14 @@
 				return true;
 			}
 		}
-	}			
+	}
+	
+	var fileNoDel = new Array();
+	function btnExistDel(fno) {
+		fileNoDel.push(fno);
+		$("#fileNoDel").attr("value", fileNoDel);
+		console.log(fileNoDel);
+	}	
 </script>
 <body>
 <div id=root>
@@ -54,12 +72,14 @@
 	<%@include file="/WEB-INF/views/include/nav.jsp" %>
 	
 	<section id="container">
-		<form role="modForm">
+		<form role="modForm" enctype="multipart/form-data">
 			<input type="hidden" name="atPage" value="${schVO.atPage}">
 		  	<input type="hidden" name="perPagePost" value="${schVO.perPagePost}">
 		  	<input type="hidden" name="option" value="${schVO.option}">
 		  	<input type="hidden" name="keyword" value="${schVO.keyword}">
 			<input type="hidden" name="bno" value="${boardModify.bno}">
+			<input type="hidden" name="fileNoDel[]" id="fileNoDel" value="">
+			<input type="hidden" name="fileNameDel[]" id="fileNameDel" value="">
 			<div class="form-group">
 		    	<label for="title">제목</label>
 		    	<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${boardModify.title}">
@@ -93,9 +113,26 @@
    			 	<label for="content">내용</label>
     			<textarea class="form-control" id="content" name="content" rows="18" placeholder="내용을 입력해주세요.">${boardModify.content}</textarea>
   			</div>
-		  <button type="button" class="btn btn-outline-primary" id="btnModify">등록</button>
-		  <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
-		  <button type="button" class="btn btn-outline-warning" id="btnList">목록</button>
+  			
+  			 <span>파일 목록</span>
+  			 <c:if test="${fileList != null}">
+		 		<div class="form-group" style="border:1px solid #dbdbdb;">
+		 			<c:forEach var="fileList" items="${fileList}" varStatus="row">
+		 				<input type="hidden" name="fno${row.index}" value="${fileList.FNO}">
+		 				${fileList.ORINAME}
+		 				<button type="button" onclick="btnExistDel(${fileList.FNO})" class="btn btn-outline-danger btn-sm">파일 제거</button>
+		 				<br />
+		 			</c:forEach>
+		 		</div>
+	 		</c:if>
+	 		<div id="fileDiv"></div>
+	 		<input type="button" id="btnFileAdd" class="btn btn-outline-secondary btn-sm" value="파일 추가">
+	 		<hr />
+	 		
+	 		
+		  	<button type="button" class="btn btn-outline-primary" id="btnModify">등록</button>
+		  	<button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
+		  	<button type="button" class="btn btn-outline-warning" id="btnList">목록</button>
 		</form>
 	</section>
 </div>

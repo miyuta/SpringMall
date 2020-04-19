@@ -20,6 +20,6 @@ public interface BoardService {
 	public void boardWrite(BoardVO wrtVO, MultipartHttpServletRequest mpRequest) throws Exception;
 	public List<Map<String, Object>> fileList(int bno) throws Exception;
 	public Map<String, Object> fileDownload(int fno) throws Exception;
-	public void boardModify(BoardVO modVO, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception;
+	public void boardModify(BoardVO modVO, String[] files, MultipartHttpServletRequest mpRequest) throws Exception;
 	public int boardDelete(int bno) throws Exception;
 }

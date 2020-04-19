@@ -20,7 +20,7 @@ public interface BoardDAO {
 	public void fileUpload(Map<String, Object> map) throws Exception;
 	public List<Map<String, Object>> fileList(int bno) throws Exception;
 	public Map<String, Object> fileDownload(int fno) throws Exception;
-	public void fileUpdate(Map<String, Object> tempMap) throws Exception;
+	public void fileDelete(Map<String, Object> tempMap) throws Exception;
 	public void boardModify(BoardVO modVO) throws Exception;
 	public int boardDelete(int bno) throws Exception;
 }

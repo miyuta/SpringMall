@@ -167,6 +167,7 @@
 	 			<c:forEach var="fileList" items="${fileList}">
 	 				<input type="hidden" name="fno" value="${fileList.FNO}">
 	 				<button type="button" onclick="btnFileDown(${fileList.FNO})" class="btn btn-link">${fileList.ORINAME}</button>(${fileList.FSIZE} ${fileList.VOLUME})
+	 				<br />
 	 			</c:forEach>
 	 		</div>
  		</form>

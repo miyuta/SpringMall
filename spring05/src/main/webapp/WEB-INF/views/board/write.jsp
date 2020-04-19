@@ -10,6 +10,7 @@
 <script>
 	$(document).ready(function(){
 		var formObj = $("form[role='wrtForm']");
+		var fileNum = 0;
 
 		$("#btnWrite").on("click", function(){
 			if (valiChk()) {
@@ -23,6 +24,25 @@
 		$("#btnBack").on("click", function(){
 			self.location="${pageContext.request.contextPath}/";
 		});
+
+/* 		$("#btnFileAdd").on("click", function(){
+			var fileAdd = '<div><div class="custom-file"><label class="custom-file-label" for="customFile">Choose file(복수 파일 업로드)</label>'
+								  +'<input multiple="multiple" type="file" id="customFile" class="file' + (++fileNum) + '" name="file' + (fileNum) + '"></div>'
+								  +'<button type="button" name="btnFileDel" class="btn btn-outline-danger btn-sm">파일 제거</button></div>';
+			$("#fileDiv").append(fileAdd);
+			$("button[name='btnFileDel']").on("click", function(){
+				$(this).parent().remove();
+			});
+		}); */
+		$("#btnFileAdd").on("click", function(){
+			var fileAdd = '<div><div><label class="custom-file-label" for="customFile">Choose file(복수 파일 업로드)</label>'
+								  +'<input multiple="multiple" type="file" id="customFile" class="file' + (++fileNum) + '" name="file' + (fileNum) + '"></div>'
+								  +'<button type="button" name="btnFileDel" class="btn btn-outline-danger btn-sm">파일 제거</button></div><hr />';
+			$("#fileDiv").append(fileAdd);
+			$("button[name='btnFileDel']").on("click", function(){
+				$(this).parent().remove();
+			});
+		});
 	});
 
 	function valiChk() {
@@ -34,7 +54,7 @@
 				return true;
 			}
 		}
-	}			
+	}
 </script>
 <body>
 <div id=root>
@@ -79,9 +99,21 @@
     			<textarea class="form-control" id="content" name="content" rows="18" placeholder="내용을 입력해주세요."></textarea>
   			</div>
 			<div class="custom-file">
-				<label class="custom-file-label" for="customFile">Choose file</label>
+				<label class="custom-file-label" for="customFile">Choose file(단일 파일 업로드)</label>
 				<input type="file" class="custom-file-input" id="customFile" name="file">
 			</div>
+			<hr />
+			
+			<div id="fileDiv"></div>
+			<hr />
+			<input type="button" id="btnFileAdd" class="btn btn-outline-secondary btn-sm" value="파일 추가">
+			<hr />
+			
+			<!-- <div class="custom-file">
+				<label class="custom-file-label" for="customFile">Choose file(복수 파일 업로드)</label>
+				<input multiple="multiple" type="file" class="custom-file-input" id="customFile" name="file">
+			</div> -->
+			
 		    <button type="button" class="btn btn-outline-primary" id="btnWrite">등록</button>
 		    <button type="button" class="btn btn-outline-success" id="btnBack">뒤로</button>
 		</form>
